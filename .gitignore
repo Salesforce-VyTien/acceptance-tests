@@ -1,0 +1,4 @@
+.idea
+composer.lock
+selenium-server-standalone-*.jar
+vendor
