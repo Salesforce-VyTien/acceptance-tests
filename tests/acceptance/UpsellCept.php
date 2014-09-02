@@ -9,7 +9,6 @@ $I->am('admin');
 $I->wantTo('configure Upsell.');
 
 $I->login();
-
 $I->installModule('Fundraiser Sustainer Upsell');
 
 $I->amOnPage('/admin/springboard/options/fundraiser/fundraiser_upsell');
@@ -70,7 +69,7 @@ $I->fillField('#edit-from-mail', 'bob@example.com');
 $I->click('Save');
 
 $I->am('admin');
-$I->wantTo('create a new donation from and Upsell enable it.');
+$I->wantTo('create a new donation form and Upsell enable it using default values.');
 
 $I->amOnPage('/node/add/donation-form');
 $I->fillField('Title', 'My upsell form');

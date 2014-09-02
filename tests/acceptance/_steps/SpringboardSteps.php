@@ -14,7 +14,7 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I = $this;
 
         // @todo Use custom settings.
-        // @todo Add amount selection.
+        $I->selectOption(\DonationFormPage::$askAmountField, '10');
         $I->fillInMyName();
         $I->fillField(\DonationFormPage::$emailField, $settings['email']);
         $I->fillInMyAddress();

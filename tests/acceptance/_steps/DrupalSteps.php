@@ -32,7 +32,6 @@ class DrupalSteps extends \AcceptanceTester
         $I->checkOption($module);
         $I->click(\ModulesPage::$submitButton);
 
-        $I->see('The configuration options have been saved.', '.messages');
     }
     public function disableModule($module)
     {
@@ -62,5 +61,23 @@ class DrupalSteps extends \AcceptanceTester
     public function runCron()
     {
         $I = $this;
+    }
+
+    public function waitForModal($timeout = 10) {
+        $I = $this;
+
+        $I->waitForElementVisible('#modal-content', 10);
+    }
+
+    public function seeModal() {
+        $I = $this;
+
+        $I->seeElement('#modal-content');
+    }
+
+    public function dontSeeModal() {
+        $I = $this;
+
+        $I->dontSeeElement('#modal-content');
     }
 }

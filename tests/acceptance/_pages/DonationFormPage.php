@@ -10,6 +10,7 @@ class DonationFormPage
      * public static $usernameField = '#username';
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
+    public static $askAmountField = '#edit-submitted-donation-amount-1';
     public static $firstNameField = 'First Name';
     public static $lastNameField = 'Last Name';
     public static $emailField = 'E-mail address';
