@@ -14,6 +14,7 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I = $this;
 
         // @todo Use custom settings.
+        // @todo Add amount selection.
         $I->fillInMyName();
         $I->fillField(\DonationFormPage::$emailField, $settings['email']);
         $I->fillInMyAddress();
@@ -52,5 +53,13 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->selectOption(\DonationFormPage::$countryField, $country);
         $I->selectOption(\DonationFormPage::$stateField, $state);
         $I->fillField(\DonationFormPage::$zipField, $zip);
+    }
+
+    public function cloneADonationForm() {
+        $I = $this;
+
+        $I->amOnPage('/node/2/clone');
+        $I->click('Clone');
+
     }
 }
