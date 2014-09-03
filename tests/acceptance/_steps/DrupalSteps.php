@@ -55,7 +55,7 @@ class DrupalSteps extends \AcceptanceTester
         // Confirmation page.
         $I->click(\ModulesPage::$uninstallButton);
 
-        $I->see('The selected modules have been uninstalled.', '.messages');
+        $I->see('The selected modules have been uninstalled.', '.status');
 
     }
     public function runCron()

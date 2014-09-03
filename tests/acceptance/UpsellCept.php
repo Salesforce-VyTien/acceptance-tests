@@ -49,7 +49,7 @@ $I->fillField('#edit-fundraiser-upsell-rejection-lifetime', '30');
 
 $I->click('Save configuration');
 
-$I->see('The configuration options have been saved.', '.messages');
+$I->see('The configuration options have been saved.', '.status');
 
 $I->seeInField('#edit-fundraiser-upsell-brackets-low-4', '301');
 $I->seeInField('#edit-fundraiser-upsell-brackets-high-4', '400');

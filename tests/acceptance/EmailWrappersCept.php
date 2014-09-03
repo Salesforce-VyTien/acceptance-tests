@@ -80,7 +80,7 @@ $I->click('Close Window', '.modal-header');
 
 $I->click(WebformPage::$saveEmailSettingsButton);
 
-$I->see('Email settings added.', '.messages');
+$I->see('Email settings added.', '.status');
 
 $I->see($subject);
 $I->see('"' . $from_name . '" <' . $from_mail . '>');
