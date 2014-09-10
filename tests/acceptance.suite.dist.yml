@@ -12,6 +12,8 @@ modules:
         - AcceptanceHelper
     config:
         WebDriver:
+            url: 'http://localhost/'
+            browser: firefox
             host: 127.0.0.1
             port: 4444
             restart: false
