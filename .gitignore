@@ -3,3 +3,6 @@ composer.lock
 selenium-server-standalone-*.jar
 vendor
 tests/_output
+codeception.yml
+*.suite.yml
+tests/acceptance/AcceptanceTester.php
