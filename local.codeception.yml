@@ -1,0 +1,9 @@
+# Copy this file to codeception.yml and edit with your DB details.
+
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=localhost;dbname=springboard'
+            user: 'root'
+            password: ''
+            dump: tests/_data/dump.sql

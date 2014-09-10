@@ -1,0 +1,6 @@
+# Copy this file to acceptance.suite.yml and edit with your url.
+
+modules:
+    config:
+        WebDriver:
+            url: 'http://localhost/'
