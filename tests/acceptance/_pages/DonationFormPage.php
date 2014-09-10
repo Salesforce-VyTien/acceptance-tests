@@ -11,10 +11,12 @@ class DonationFormPage
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
     public static $askAmountField = '#edit-submitted-donation-amount-1';
+    public static $otherAmountField = '#edit-submitted-donation-other-amount';
     public static $firstNameField = 'First Name';
     public static $lastNameField = 'Last Name';
     public static $emailField = 'E-mail address';
     public static $addressField = 'Address';
+    public static $addressField2 = 'Address Line 2';
     public static $cityField = 'City';
     public static $stateField = 'State';
     public static $countryField = 'Country';

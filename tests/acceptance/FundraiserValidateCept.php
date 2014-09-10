@@ -1,0 +1,105 @@
+<?php
+$I = new \AcceptanceTester\SpringboardSteps($scenario);
+$I->wantTo('test fundraiser validation.');
+
+$title = 'fundraiser validation test ' . time();
+
+//Fundraiser donation page form
+$I->amOnPage(DonationFormPage::$URL);
+$I->fillField(DonationFormPage::$otherAmountField, '120');
+$I->fillField(DonationFormPage::$firstNameField, 'Miles');
+$I->fillField(DonationFormPage::$lastNameField, 'Davis');
+$I->fillField(DonationFormPage::$emailField, 'md@example.com');
+$I->fillField(DonationFormPage::$addressField, '10 Fusion Drive');
+$I->fillField(DonationFormPage::$addressField2, 'Suite Cool');
+$I->fillField(DonationFormPage::$cityField, 'Jazzville');
+$I->selectOption(DonationFormPage::$stateField, 'NY');
+$I->selectOption(DonationFormPage::$countryField, 'US');
+$I->fillField(DonationFormPage::$zipField, '12345');
+$I->fillField(DonationFormPage::$creditCardNumberField, '4111111111111111');
+$I->selectOption(DonationFormPage::$creditCardExpirationMonthField, '6');
+$I->selectOption(DonationFormPage::$creditCardExpirationYearField, '2015');
+$I->fillField(DonationFormPage::$CVVField, '123');
+$I->click('#webform-client-form-2');
+
+$I->wait(2);
+
+
+$I->seeElement('#edit-submitted-donation-other-amount.valid');
+$I->seeElement('#edit-submitted-donor-information-first-name.valid');
+$I->seeElement('#edit-submitted-donor-information-last-name.valid');
+$I->seeElement('#edit-submitted-donor-information-mail.valid');
+
+$I->seeElement('#edit-submitted-billing-information-address.valid');
+$I->seeElement('#edit-submitted-billing-information-address-line-2.valid');
+$I->seeElement('#edit-submitted-billing-information-city.valid');
+$I->seeElement('#edit-submitted-billing-information-state.valid');
+$I->seeElement('#edit-submitted-billing-information-zip.valid');
+
+$I->seeElement('#edit-submitted-payment-information-payment-fields-credit-card-number.valid');
+$I->seeElement('#edit-submitted-payment-information-payment-fields-credit-card-cvv.valid');
+
+
+$I->fillField(DonationFormPage::$otherAmountField, '0');
+$I->wait(1);
+$I->see('The amount entered is less than the minimum donation amount.');
+
+
+$I->fillField(DonationFormPage::$firstNameField, '');
+$I->click('#webform-client-form-2');
+$I->wait(1);
+$I->see('This field is required');
+
+
+$I->fillField(DonationFormPage::$lastNameField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->fillField(DonationFormPage::$emailField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->fillField(DonationFormPage::$addressField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+
+$I->fillField(DonationFormPage::$cityField, ' ');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->selectOption(DonationFormPage::$stateField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->fillField(DonationFormPage::$zipField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->fillField(DonationFormPage::$creditCardNumberField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->selectOption(DonationFormPage::$creditCardExpirationMonthField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->selectOption(DonationFormPage::$creditCardExpirationYearField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->fillField(DonationFormPage::$CVVField, '');
+$I->wait(1);
+$I->see('This field is required');
+
+$I->fillField(DonationFormPage::$emailField, 'asdsadasd');
+$I->wait(1);
+$I->see('Enter a valid email address');
+
+$I->fillField(DonationFormPage::$zipField, '123');
+$I->wait(1);
+$I->see('Enter a valid zipcode.');
+
+$I->fillField(DonationFormPage::$creditCardNumberField, '41111111');
+$I->wait(1);
+$I->see('Enter a valid credit card number.');
