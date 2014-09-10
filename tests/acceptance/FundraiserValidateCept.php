@@ -24,7 +24,6 @@ $I->click('#webform-client-form-2');
 
 $I->wait(2);
 
-
 $I->seeElement('#edit-submitted-donation-other-amount.valid');
 $I->seeElement('#edit-submitted-donor-information-first-name.valid');
 $I->seeElement('#edit-submitted-donor-information-last-name.valid');
@@ -39,15 +38,12 @@ $I->seeElement('#edit-submitted-billing-information-zip.valid');
 $I->seeElement('#edit-submitted-payment-information-payment-fields-credit-card-number.valid');
 $I->seeElement('#edit-submitted-payment-information-payment-fields-credit-card-cvv.valid');
 
-
 $I->fillField(DonationFormPage::$otherAmountField, '0');
 $I->see('The amount entered is less than the minimum donation amount.');
-
 
 $I->fillField(DonationFormPage::$firstNameField, '');
 $I->click('#webform-client-form-2');
 $I->see('This field is required');
-
 
 $I->fillField(DonationFormPage::$lastNameField, '');
 $I->see('This field is required');
@@ -57,7 +53,6 @@ $I->see('This field is required');
 
 $I->fillField(DonationFormPage::$addressField, '');
 $I->see('This field is required');
-
 
 $I->fillField(DonationFormPage::$cityField, ' ');
 $I->see('This field is required');
