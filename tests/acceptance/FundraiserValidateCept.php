@@ -41,65 +41,50 @@ $I->seeElement('#edit-submitted-payment-information-payment-fields-credit-card-c
 
 
 $I->fillField(DonationFormPage::$otherAmountField, '0');
-$I->wait(1);
 $I->see('The amount entered is less than the minimum donation amount.');
 
 
 $I->fillField(DonationFormPage::$firstNameField, '');
 $I->click('#webform-client-form-2');
-$I->wait(1);
 $I->see('This field is required');
 
 
 $I->fillField(DonationFormPage::$lastNameField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->fillField(DonationFormPage::$emailField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->fillField(DonationFormPage::$addressField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 
 $I->fillField(DonationFormPage::$cityField, ' ');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->selectOption(DonationFormPage::$stateField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->fillField(DonationFormPage::$zipField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->fillField(DonationFormPage::$creditCardNumberField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->selectOption(DonationFormPage::$creditCardExpirationMonthField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->selectOption(DonationFormPage::$creditCardExpirationYearField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->fillField(DonationFormPage::$CVVField, '');
-$I->wait(1);
 $I->see('This field is required');
 
 $I->fillField(DonationFormPage::$emailField, 'asdsadasd');
-$I->wait(1);
 $I->see('Enter a valid email address');
 
 $I->fillField(DonationFormPage::$zipField, '123');
-$I->wait(1);
 $I->see('Enter a valid zipcode.');
 
 $I->fillField(DonationFormPage::$creditCardNumberField, '41111111');
-$I->wait(1);
 $I->see('Enter a valid credit card number.');
