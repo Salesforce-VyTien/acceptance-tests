@@ -18,7 +18,13 @@ class SustainerManagementPage
   public static $countryField = 'Country';
   public static $stateField = 'State/Province';
   public static $zipField = 'ZIP/Postal Code';
+  public static $creditCardNumberField = 'Credit card number';
+  public static $expirationMonthField = '#edit-payment-fields-credit-expiration-date-card-expiration-month';
+  public static $expirationYearField = '#edit-payment-fields-credit-expiration-date-card-expiration-year';
+  public static $cvvField = 'CVV';
+  public static $billingUpdateButton = 'Save changes';
 
-
-
+  // Cancellation form elements.
+  public static $reasonField = 'Reason';
+  public static $canelButton = 'Cancel all future payments';
 }

@@ -5,3 +5,4 @@ vendor
 tests/_output
 codeception.yml
 *.suite.yml
+.DS_store

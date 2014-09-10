@@ -11,10 +11,12 @@ class DonationFormPage
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
     public static $askAmountField = '#edit-submitted-donation-amount-1';
+    public static $otherAmountField = '#edit-submitted-donation-other-amount';
     public static $firstNameField = 'First Name';
     public static $lastNameField = 'Last Name';
     public static $emailField = 'E-mail address';
     public static $addressField = 'Address';
+    public static $addressField2 = 'Address Line 2';
     public static $cityField = 'City';
     public static $stateField = 'State';
     public static $countryField = 'Country';
@@ -24,6 +26,7 @@ class DonationFormPage
     public static $creditCardExpirationYearField = '#edit-submitted-payment-information-payment-fields-credit-expiration-date-card-expiration-year';
     public static $CVVField = 'CVV';
     public static $donateButton = '#edit-submit';
+    public static $recursField = '#edit-submitted-payment-information-recurs-monthly-1';
 
     /**
      * Basic route example for your current URL
