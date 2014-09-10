@@ -3,7 +3,7 @@ namespace AcceptanceTester;
 
 class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 {
-    public function makeADonation(array $details = array())
+    public function makeADonation(array $details = array(), $recurs = FALSE)
     {
         $defaults = array(
             'email' => 'bob@example.com',
@@ -19,6 +19,10 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->fillField(\DonationFormPage::$emailField, $settings['email']);
         $I->fillInMyAddress();
         $I->fillInMyCreditCard();
+
+        if ($recurs) {
+            $I->selectOption(\DonationFormPage::$recursField, 'recurs');
+        }
 
         $I->click(\DonationFormPage::$donateButton);
     }

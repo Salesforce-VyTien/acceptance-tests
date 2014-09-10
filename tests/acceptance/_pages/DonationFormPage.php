@@ -26,6 +26,7 @@ class DonationFormPage
     public static $creditCardExpirationYearField = '#edit-submitted-payment-information-payment-fields-credit-expiration-date-card-expiration-year';
     public static $CVVField = 'CVV';
     public static $donateButton = '#edit-submit';
+    public static $recursField = '#edit-submitted-payment-information-recurs-monthly-1';
 
     /**
      * Basic route example for your current URL
