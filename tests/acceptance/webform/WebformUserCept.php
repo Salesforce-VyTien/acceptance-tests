@@ -31,7 +31,7 @@ $I->see('State/Province', 'td.first');
 $I->see('Postal Code', 'td.first');
 $I->see('Country', 'td.first');
 
-// CHeck that the field types are correct
+// // CHeck that the field types are correct
 $I->see('Hidden', '//td[text()="Market Source"]/following-sibling::td');
 $I->see('E-mail', '//td[text()="E-mail address"]/following-sibling::td');
 $I->see('Hidden', '//td[text()="Campaign ID"]/following-sibling::td');
@@ -122,33 +122,123 @@ if ($I->grabValueFrom('Country') == '') {
 $I->logout();
 $I->amOnPage('node/' . $node_id);
 
-if ($I->grabValueFrom('E-mail address') != '') {
+// if ($I->grabValueFrom('E-mail address') != '') {
+//   $I->fail();
+// }
+// if ($I->grabValueFrom('Address') != '') {
+//   $I->fail();
+// }
+// if ($I->grabValueFrom('First name') != '') {
+//   $I->fail();
+// }
+// if ($I->grabValueFrom('Last name') != '') {
+//   $I->fail();
+// }
+// if ($I->grabValueFrom('City') != '') {
+//   $I->fail();
+// }
+// if ($I->grabValueFrom('State/Province') != '') {
+//   $I->fail();
+// }
+// if ($I->grabValueFrom('Postal Code') != '') {
+//   $I->fail();
+// }
+// if ($I->grabValueFrom('Country') != '') {
+//   $I->fail();
+// }
+
+// new user created and profile fields set when form is submitted with a unique email address
+
+$I->amOnPage('node/' . $node_id);
+$I->fillField('E-mail address', 'newuser@example.com');
+$I->fillField('First name', 'new');
+$I->fillField('Last name', 'user');
+$I->fillField('Address', 'address');
+$I->fillField('City', 'city');
+$I->selectOption('Country', 'United States');
+$I->selectOption('State/Province ', 'New York');
+$I->fillField('Postal Code', '12205');
+$I->click('#edit-submit');
+
+$I->am('admin');
+$I->login();
+
+$I->amOnPage('admin/people');
+$I->see('newuser@example.com', 'td');
+$I->click('edit', '.odd');
+
+$address = $I->grabValueFrom('Address');
+if ($address == '') {
   $I->fail();
 }
-if ($I->grabValueFrom('Address') != '') {
+$first = $I->grabValueFrom('First name');
+if ($first == '') {
   $I->fail();
 }
-if ($I->grabValueFrom('First name') != '') {
+$last =$I->grabValueFrom('Last name');
+if ($last == '') {
   $I->fail();
 }
-if ($I->grabValueFrom('Last name') != '') {
+$city = $I->grabValueFrom('City');
+if ($city == '') {
   $I->fail();
 }
-if ($I->grabValueFrom('City') != '') {
+$state =$I->grabValueFrom('State/Province');
+if ($state == '') {
   $I->fail();
 }
-if ($I->grabValueFrom('State/Province') != '') {
+$zip  = $I->grabValueFrom('Postal Code');
+if ($zip == '') {
   $I->fail();
 }
-if ($I->grabValueFrom('Postal Code') != '') {
+$country = $I->grabValueFrom('Country');
+if ($country == '') {
   $I->fail();
 }
-if ($I->grabValueFrom('Country') != '') {
+// existing user profile fields updated when form is submitted with a matching email address
+
+$I->logout();
+
+$I->amOnPage('node/' . $node_id);
+$I->fillField('E-mail address', 'newuser@example.com');
+$I->fillField('First name', 'newfirst');
+$I->fillField('Last name', 'newlast');
+$I->fillField('Address', 'newaddress');
+$I->fillField('City', 'newcity');
+$I->selectOption('Country', 'Canada');
+$I->selectOption('State/Province ', 'Quebec');
+$I->fillField('Postal Code', '11111');
+$I->click('#edit-submit');
+
+$I->am('admin');
+$I->login();
+
+$I->amOnPage('admin/people');
+$I->see('newuser@example.com', 'td');
+$I->click('edit', '.odd');
+
+if ($I->grabValueFrom('Address') == $address) {
+  $I->fail();
+}
+if ($I->grabValueFrom('First name') == $first) {
+  $I->fail();
+}
+if ($I->grabValueFrom('Last name') == $last) {
+  $I->fail();
+}
+if ($I->grabValueFrom('City') == $city) {
+  $I->fail();
+}
+if ($I->grabValueFrom('State/Province') == $state) {
+  $I->fail();
+}
+if ($I->grabValueFrom('Postal Code') == $zip) {
+  $I->fail();
+}
+if ($I->grabValueFrom('Country') == $country) {
   $I->fail();
 }
 
-// new user created and profile fields set when form is submitted with a unique email address
-// existing user profile fields updated when form is submitted with a matching email address
 // new account email sent when option enabled
 
 // Alter webform components permission grants access to add//edit/clone/delete webform components
