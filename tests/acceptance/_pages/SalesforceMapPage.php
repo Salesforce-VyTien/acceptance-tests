@@ -27,8 +27,6 @@ class SalesforcePage
   public static $nodeProp = 'Node property';
   public static $objTypeLabel = 'Object Record Type';
 
-
-
   //urls
   public static $queuePage = 'springboard/reports/integration-reports/queue';
   public static $cronPage = 'admin/reports/status/run-cron';
