@@ -87,7 +87,7 @@ $I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
 $I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
 $I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
 $I->click('#edit-submit');
-$I->seeOptionIsSelected('select#salesforce-map-ms', 'Market Source');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
 $I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
 $I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
 $I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
