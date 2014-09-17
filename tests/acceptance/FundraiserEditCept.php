@@ -1,6 +1,6 @@
 <?php
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('test fundraiser edit page payment options.');
+$I->wantTo('Test fundraiser edit page payment options.');
 
 $title = 'fundraiser node edit test ' . time();
 
@@ -8,42 +8,45 @@ $title = 'fundraiser node edit test ' . time();
 $I->am('admin');
 $I->login();
 
+//check server-side validation of payment method selection
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('#edit-gateways-credit-status');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->see('At least one payment method must be enabled.');
+// select credit card method
 $I->checkOption('#edit-gateways-credit-status');
-$I->click(DonationFormPage::$donateButton);
+//save and view webform
+$I->click('#edit-submit');
 $I->see('Credit card number');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('Ask for quantity');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->dontSeeElement('#edit-submitted-donation-quantity');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->checkOption('Ask for quantity');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->seeElement('#edit-submitted-donation-quantity');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('Show other amount option');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->dontSeeElement('#edit-submitted-donation-other-amount');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->checkOption('Show other amount option');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->seeElement('#edit-submitted-donation-other-amount');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->fillField('Minimum donation amount', '');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->see('Minimum payment');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('Show other amount option');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->dontSee('Minimum payment');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
@@ -52,12 +55,12 @@ $I->click('#edit-amount-wrapper-donation-amounts-4-label');
 $I->seeInField('#edit-amount-wrapper-donation-amounts-4-label','$133');
 
 $I->checkOption('#edit-default-amount--5');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->seeCheckboxIsChecked('#edit-submitted-donation-amount-5');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->selectOption('#edit-recurring-setting', 'never');
-$I->click(DonationFormPage::$donateButton);
+$I->click('#edit-submit');
 $I->dontSee('Recurring Payment');
 
 
