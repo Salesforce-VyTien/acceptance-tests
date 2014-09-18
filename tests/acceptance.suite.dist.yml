@@ -19,3 +19,11 @@ modules:
             restart: false
             window_size: 1024x768
             clear_cookies: true
+        Db:
+            dsn: ''
+            user: ''
+            password: ''
+            dump: 'tests/_data/dump.sql'
+            populate: true
+            cleanup: false
+            
