@@ -31,7 +31,7 @@ $I->see('State/Province', 'td.first');
 $I->see('Postal Code', 'td.first');
 $I->see('Country', 'td.first');
 
-// // CHeck that the field types are correct
+// Check that the field types are correct
 $I->see('Hidden', '//td[text()="Market Source"]/following-sibling::td');
 $I->see('E-mail', '//td[text()="E-mail address"]/following-sibling::td');
 $I->see('Hidden', '//td[text()="Campaign ID"]/following-sibling::td');
@@ -122,30 +122,30 @@ if ($I->grabValueFrom('Country') == '') {
 $I->logout();
 $I->amOnPage('node/' . $node_id);
 
-// if ($I->grabValueFrom('E-mail address') != '') {
-//   $I->fail();
-// }
-// if ($I->grabValueFrom('Address') != '') {
-//   $I->fail();
-// }
-// if ($I->grabValueFrom('First name') != '') {
-//   $I->fail();
-// }
-// if ($I->grabValueFrom('Last name') != '') {
-//   $I->fail();
-// }
-// if ($I->grabValueFrom('City') != '') {
-//   $I->fail();
-// }
-// if ($I->grabValueFrom('State/Province') != '') {
-//   $I->fail();
-// }
-// if ($I->grabValueFrom('Postal Code') != '') {
-//   $I->fail();
-// }
-// if ($I->grabValueFrom('Country') != '') {
-//   $I->fail();
-// }
+if ($I->grabValueFrom('E-mail address') != '') {
+  $I->fail();
+}
+if ($I->grabValueFrom('Address') != '') {
+  $I->fail();
+}
+if ($I->grabValueFrom('First name') != '') {
+  $I->fail();
+}
+if ($I->grabValueFrom('Last name') != '') {
+  $I->fail();
+}
+if ($I->grabValueFrom('City') != '') {
+  $I->fail();
+}
+if ($I->grabValueFrom('State/Province') != '') {
+  $I->fail();
+}
+if ($I->grabValueFrom('Postal Code') != '') {
+  $I->fail();
+}
+if ($I->grabValueFrom('Country') != '') {
+  $I->fail();
+}
 
 // new user created and profile fields set when form is submitted with a unique email address
 
@@ -166,6 +166,7 @@ $I->login();
 $I->amOnPage('admin/people');
 $I->see('newuser@example.com', 'td');
 $I->click('edit', '.odd');
+$user_id = $I->grabFromCurrentUrl('~.*/springboard/user/(\d+)/.*~');
 
 $address = $I->grabValueFrom('Address');
 if ($address == '') {
@@ -239,10 +240,56 @@ if ($I->grabValueFrom('Country') == $country) {
   $I->fail();
 }
 
-// new account email sent when option enabled
+
+// @TODO new account email sent when option enabled
+
 
 // Alter webform components permission grants access to add//edit/clone/delete webform components
 // Administer user map permission grants access to user map
 // Configure webform settings permission grants access to the "form settings" tab.
 // Configure webform emails permission grants access to the "emails" tab and add/edit/delete paths for webform emails.
+
+$I->amOnPage('springboard/user/' . $user_id . '/edit');
+$I->checkOption('//label[normalize-space(text())="Springboard administrator"]/preceding-sibling::input');
+
+$rid = $I->grabValueFrom('//label[normalize-space(text())="Springboard administrator"]/preceding-sibling::input');
+
+$I->fillField('Password', 'password');
+$I->fillField('Confirm password', 'password');
+$I->click('#edit-submit');
+
+$I->amOnPage('admin/people/permissions/' . $rid);
+$I->checkOption('#edit-' . $rid . '-alter-webform-components', 'td#module-webform_user');
+$I->checkOption('#edit-' . $rid . '-administer-user-map', 'td#module-webform_user');
+$I->checkOption('#edit-' . $rid . '-configure-webform-settings', 'td#module-webform_user');
+$I->checkOption('#edit-' . $rid . '-configure-webform-emails', 'td#module-webform_user');
+$I->logout();
+
+$I->am('newuser@example.com');
+$I->login('newuser@example.com', 'password');
+
+$I->amOnPage('node/' . $node_id . '/webform/user_mapping');
+$I->see('Address Line 2');
+
+$I->amOnPage('node/' . $node_id . '/form-components/confirmation-emails');
+$I->checkOption('#edit-email-option-component');
+$I->click('#edit-add-button');
+$I->click('#edit-actions-submit');
+
+$I->amOnPage('node/' . $node_id . '/form-components/confirmation-emails/1');
+$I->see('Template', 'label');
+
+$I->amOnPage('springboard/node/' . $node_id . '/form-components/confirmation-page-settings');
+$I->see('Submission settings', 'legend');
+
+$I->amOnPage('node/' . $node_id . '/form-components');
+$I->click('Edit', '//table[@id="webform-components"]/tbody/tr[1]');
+$I->see('Field Key', 'label');
+$I->amOnPage('node/' . $node_id . '/form-components');
+$I->click('Clone', '//table[@id="webform-components"]/tbody/tr[1]');
+$I->see('Field Key', 'label');
+$I->amOnPage('node/' . $node_id . '/form-components');
+$I->click('Delete', '//table[@id="webform-components"]/tbody/tr[1]');
+$I->see('This will immediately delete the', 'form');
+
 
