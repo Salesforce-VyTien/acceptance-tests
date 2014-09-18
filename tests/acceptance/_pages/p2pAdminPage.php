@@ -36,7 +36,6 @@ class P2pAdminPage
       $I->enableModule('Features');
       $I->amOnPage('admin/structure/features');
       $I->click("Springboard P2P",'.vertical-tabs');
-
       $I->checkOption('#edit-status-springboard-p2p');
       $I->click('#edit-submit');
     }
