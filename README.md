@@ -14,7 +14,7 @@ Clone this repo.  Run `composer install` to download the dependencies into the v
 
 Get the Selenium server jar from here http://docs.seleniumhq.org/download/.  Save anywhere you want, but I put mine in the current directory.  Start Selenium server with `java -jar selenium-server-standalone-x.x.x.jar`.
 
-Edit tests/acceptance.suite.yml.  Replace the url value with the site you want to test.
+Copy `codeception.yml.local` to `codeception.yml` and modify it to suite your environment. Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
 
 The `codecept` binary is located in `vendor/codeception/codeception/codecept`.  You're going to want to either alias this or fiddle with your paths.
 
@@ -34,7 +34,11 @@ Add the `--html` switch to get a pretty report file.  Output ends up in `tests/_
 codecept generate:cept acceptance testName
 ````
 
-And you'll end up with a test file in `tests/acceptance/testNameCept.php`.
+And you'll end up with a test file in `tests/acceptance/testNameCept.php`. You should change the AcceptanceTester class to one of the _steps classes we have created depending on waht features you need.
+
+## Basic acceptance testing
+
+http://codeception.com/docs/04-AcceptanceTests
 
 ## Webdriver documentation
 
