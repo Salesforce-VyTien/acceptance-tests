@@ -87,7 +87,7 @@ $I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
 // logout and submit form
 $I->logout();
 $I->amOnPage('node/' . $node_id);
-$I->fillField('E-mail address', 'p@p.ppp');
+$I->fillField('E-mail address', 'mail@example.com');
 $I->fillField('First name', 'first');
 $I->fillField('Last name', 'last');
 $I->fillField('Address', 'address');
@@ -117,7 +117,7 @@ $I->amOnPage('node/' . $node_id . '/salesforce');
 $I->checkOption(SalesforceMapPage::$syncOptionsCheckbox);
 $I->amOnPage('springboard/node/90/results');
 $I->click(['link' => 'Edit'], '.sticky-table');
-$I->fillField('E-mail address', 'p@p.ddd');
+$I->fillField('E-mail address', 'anothermail@example.com');
 $I->click('#edit-submit');
 $I->amOnPage(SalesforceMapPage::$queuePage);
 $I->seeElement('tr.views-row-first');
