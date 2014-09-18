@@ -165,7 +165,7 @@ $I->login();
 
 $I->amOnPage('admin/people');
 $I->see('newuser@example.com', 'td');
-$I->click('edit', '.odd');
+$I->click('edit','//tr[td//text()[contains(., "newuser@example.com")]]');
 $user_id = $I->grabFromCurrentUrl('~.*/springboard/user/(\d+)/.*~');
 
 $address = $I->grabValueFrom('Address');
@@ -216,7 +216,7 @@ $I->login();
 
 $I->amOnPage('admin/people');
 $I->see('newuser@example.com', 'td');
-$I->click('edit', '.odd');
+$I->click('edit','//tr[td//text()[contains(., "newuser@example.com")]]');
 
 if ($I->grabValueFrom('Address') == $address) {
   $I->fail();
