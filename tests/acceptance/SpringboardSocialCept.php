@@ -58,6 +58,8 @@ $I->amOnPage('/node/2/share_settings');
 
 $I->click('#edit-submit');
 
+// TODO: clone donation form & capture node id.
+
 // confirm share display in block
 $I->amOnPage('/node/2');
 $I->see('Share on Facebook!');
@@ -67,10 +69,38 @@ $I->see('Share on Twitter!');
 // Configure confirmation message
 $I->amOnPage('node/2/form-components/confirmation-page-settings');
 // TODO: add all Social Share tokens.
-$I->fillField('#edit-confirmation-value', 'Thank you for your donation. Share links: [sb_social:share_links]');
+$confirmation_message = $I->grabTextFrom('#edit-confirmation-value');
+$I->fillField('#edit-confirmation-value', $confirmation_message . 'Share links: [sb_social:share_links]');
 $I->click('#edit-submit');
 
-// Submit donation form,
+// Submit donation form
+$I->amOnPage('node/2');
+$I->makeADonation();
+$I->see('Share on Facebook!');
+$I->see('Share with Email!');
+$I->see('Share on Twitter!');
+
+// twitter message + share URL
+$I->click('Share on Twitter!');
+// Switch to Twitter popup window.
+$I->executeInSelenium(function (\Webdriver $webdriver) {
+     $handles=$webdriver->getWindowHandles();
+     $last_window = end($handles);
+     $webdriver->switchTo()->window($last_window);
+});
+$I->see('Global default Twitter message.');
+$twitter_share = $I->grabTextFrom('span.field textarea#status');
+// TODO: get share URL
+preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $string, $match);
+print_r($match);
+
+// TODO: close popup
+// Switch back to main window
+$I->switchToWindow();
+
+// email subject, message, & share url
+$I->click('Share with Email!');
+
 // confirm share tokens replace in confirmation message
 // confirm share urls generated correctly
 
