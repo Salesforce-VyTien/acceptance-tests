@@ -74,14 +74,6 @@ $I->cantSee(SalesforceMapPage::$syncOptions,'label');
 // remap the actions object in preparation for webform submission by anonymous visitor
 $I->selectOption(SalesforceMapPage::$objectType, 'Actions');
 $I->wait(3);
-$I->see(SalesforceMapPage::$objTypeLabel, 'label');
-$I->selectOption(SalesforceMapPage::$recordType, 'Petition Submission');
-$I->see(SalesforceMapPage::$fieldMap,'span');
-$I->see(SalesforceMapPage::$component,'th');
-$I->see(SalesforceMapPage::$nodeProp,'th');
-$I->see(SalesforceMapPage::$subProp,'th');
-$I->see(SalesforceMapPage::$syncOptions,'label');
-$I->see('Contact Field','label');
 $I->selectOption(SalesforceMapPage::$mapMs, 'Market_Source__c');
 $I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
 $I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
