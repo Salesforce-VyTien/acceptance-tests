@@ -11,7 +11,7 @@ $admin->enableFeature();
 
 // User has the ability to set the peer to peer login message
 $I->amOnPage('springboard/p2p/settings');
-$I->wait(10);
+$I->wait(1);
 $I->see('P2P Login message', 'label');
 $I->fillField('#edit-login-message-area-value', 'My Custom Login Message');
 $I->see('P2P Help message', 'label');
@@ -106,23 +106,83 @@ $I->see('Personal campaigns', 'H2');
 
 // Peer to Peer Category Creation
 // Only a permissioned user can create campaign categories
-// User must provide a name, description and image when creating a new category
+$I->amOnPage('admin/people/create');
+$rid = $I->grabValueFrom('//label[normalize-space(text())="Springboard administrator"]/preceding-sibling::input');
+
+$I->amOnPage('admin/people/permissions/' . $rid);
+$I->checkOption('#edit-' . $rid . '-create-p2p-category-content');
+$I->checkOption('#edit-' . $rid . '-create-p2p-campaign-content');
+$I->checkOption('#edit-' . $rid . '-create-p2p-campaign-landing-content');
+$I->checkOption('#edit-' . $rid . '-create-p2p-personal-campaign-content');
+$I->checkOption('#edit-' . $rid . '-edit-any-p2p-category-content');
+$I->checkOption('#edit-' . $rid . '-edit-any-p2p-campaign-content');
+$I->checkOption('#edit-' . $rid . '-edit-any-p2p-campaign-landing-content');
+$I->checkOption('#edit-' . $rid . '-edit-any-p2p-personal-campaign-content');
+$I->click('#edit-submit');  
+//$I->createUser('testp2p', 'testp2p@example.com', $rid);
+$I->logout();
+$I->wait(4);
+$I->login('testp2p', 'testp2p');
+
+//User must provide a name, description and image when creating a new category
+$I->amOnPage('springboard/add/p2p-category');
+$I->seeElement('.form-item-title');
+$I->seeElement('.form-item-body-und-0-value .required');
+
+$I->fillField('#edit-title', 'My Category Title');
+$I->fillField('#edit-body-und-0-value', 'This is a category description');
 // User can upload a donation form banner
+$I->click('Donation form');
+$I->attachFile('#edit-field-p2p-campaign-banner-und-0-upload', '1170x240.png');
+$I->click('Upload');
+
 // User can provide default content that can be used in campaigns and personal campaigns
 // User can set an organization introduction
-// User can set a personal campaign introduction
-// User can specify if the personal campaigner can override the personal campaign introduction
-// User can upload personal campaign images
-// User can specify if the personal campaigner can override the images
-// User can set a video embed url
-// User can specify if the personal campaigner can override the video embed
+$I->click("Advanced");
+$I->see('Organization introduction', 'Label');
+$I->fillField('#edit-field-p2p-org-intro-und-0-value', 'My organization introduction');
 
+// User can set a personal campaign introduction
+$I->click("Personal campaign introduction");
+$I->see("Personal campaign introduction", 'label');
+$I->fillField('#edit-field-p2p-personal-intro-und-0-value', 'My personal introduction');
+
+// User can specify if the personal campaigner can override the personal campaign introduction
+$I->checkOption('#edit-field-p2p-personal-intro-edit-und');
+// User can upload personal campaign images
+$I->click("Media");
+//category
+$I->attachFile('#edit-field-p2p-category-image-und-0-upload', '400x240.png');
+//thumbnail;
+$I->attachFile('#edit-field-p2p-images-und-0-upload', '400x240.png');
+// User can specify if the personal campaigner can override the images
+$I->checkOption('#edit-field-p2p-images-edit-und');
+// User can set a video embed url
+$I->fillField('#edit-field-p2p-video-embed-und-0-video-url', 'http://www.youtube.com/watch?v=6MMMN0VZmYw');
+// User can specify if the personal campaigner can override the video embed
+$I->checkOption('#edit-field-p2p-video-embed-edit-und');
+$I->click("#edit-submit");
 
 // Peer to Peer Campaign Creation
+$I->amOnPage('springboard/add/p2p-campaign');
+$I->click('#edit-submit');
 // User must select a campaign category
 // User must provide a name, description, thumbnail and slider image when creating a new campaign
 // User must configure exactly 1 form to use with the campaign and configure an associated goal
+$I->see('Name field is required.', '.error li');
+$I->see('Description field is required.', '.error li');
+$I->see('Campaign banner field is required.', '.error li');
+$I->see('Landing page slider field is required.', '.error li');
+$I->see('Campaign thumbnail field is required.', '.error li');
+$I->see('Category field is required', '.error li');
+$I->see('Category field is required', '.error li');
+$I->see('Personal Campaign Expiration Message field is required', '.error li');
+$I->see('Select a goal type.', '.error li');
+
+// What?
 // Goal types match the selected form type (amount raised for fundraiser enabled forms, submissions for all others)
+
+
 // If the selected category has a donation form banner it is pre-populated in the campaign banner field
 // If the selected category has an organization introduction it is pre-populated
 // If the selected category has a personal campaign introduction it is pre-populated
@@ -131,3 +191,16 @@ $I->see('Personal campaigns', 'H2');
 // The personal campaign images' overridable setting is inherited from the selected category
 // If the selected category has a video embed it is pre-populated
 // The video embed's overridable setting is inherited from the selected category
+$I->selectOption('//select[@name="field_p2p_category[und]"]', "My Category Title");
+$I->wait('5');
+$I->click('Personal campaign defaults');
+$I->seeElement('//textarea[normalize-space(text())="My organization introduction"]');
+$I->click('Personal campaign introduction');
+$I->seeElement('//textarea[normalize-space(text())="My personal introduction"]');
+$I->seeCheckboxIsChecked('//input[@name="field_p2p_personal_intro_edit[und]"]');
+$I->click('Media');
+$I->seeCheckboxIsChecked('//input[@name="field_p2p_images_edit[und]"]');
+$I->seeElement('.draggable .image-preview img');
+$I->seeElement('div.field-name-field-p2p-campaign-banner img');
+$I->see('This is a Youtube or Vimeo video URL');
+

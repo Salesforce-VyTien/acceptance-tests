@@ -80,4 +80,21 @@ class DrupalSteps extends \AcceptanceTester
 
         $I->dontSeeElement('#modal-content');
     }
+
+     public function createUser($name = 'testuser', $email = 'testeruser@example.com', $rid = '2')
+    {
+        $I = $this;
+        $I->amOnPage('admin/people/create');
+        $I->fillField('Username', $name);
+        $I->fillField('E-mail address', $email);
+        $I->fillField('Password', $name);
+        $I->fillField('Confirm password', $name);
+
+        if($rid != 2 || $rid != NULL) {
+          $I->checkOption('edit-roles-' . $rid);
+        }
+
+        $I->click('#edit-submit');
+    }
+    
 }
