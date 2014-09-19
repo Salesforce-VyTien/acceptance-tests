@@ -6,12 +6,12 @@ $I->wantTo('Configure and test p2p settings.');
 $I->am('admin');
 $I->login();
 
-// $admin = new P2pAdminPage($I);
-// $admin->enableFeature();
+$admin = new P2pAdminPage($I);
+$admin->enableFeature();
 
 // User has the ability to set the peer to peer login message
 $I->amOnPage('springboard/p2p/settings');
-
+$I->wait(10);
 $I->see('P2P Login message', 'label');
 $I->fillField('#edit-login-message-area-value', 'My Custom Login Message');
 $I->see('P2P Help message', 'label');
@@ -73,17 +73,37 @@ $I->see('rules_p2p_user_email_registration', '.rules-element-content .descriptio
 $I->see('rules_p2p_user_email_registration_private_campaign', '.rules-element-content .description');
 $I->see('rules_p2p_user_email_registration_public_campaign', '.rules-element-content .description');
 
+$I->click('Send user email after creating a personal campaign');
+$I->seeElement('#edit-settings');
+
 // Dashboard
 // User sees a list of configured peer to peer campaigns
+
+$I->amOnPage('springboard/p2p');
+$I->see('Cross River Gorilla');
 // User has the ability to create a new peer to peer campaign
+$I->click('Create a new campaign');
+$I->see('Create Peer to Peer Campaign', 'H1');
 // User sees a list of configured peer to peer categories
+$I->amOnPage('springboard/p2p');
+$I->see('Runs and Walks');
 // User has the ability to create a new peer to peer category
+$I->click('Create a new category');
+$I->see('Create Peer to Peer Category', 'H1');
+
 // User sees a list of personal campaigners that require approval
+$I->amOnPage('springboard/p2p');
+$I->see('Users awaiting approval', 'H2');
 // User has the ability to approve or reject a campaigner from the dashboard
+
 // User sees a list of personal campaigns
+$I->amOnPage('springboard/p2p');
+$I->see('Personal campaigns', 'H2');
+
 // Approval Queue
 // Approval email is sent to personal campaigner when approved
 // Rejection email is sent to personal campaigner when rejected
+
 // Peer to Peer Category Creation
 // Only a permissioned user can create campaign categories
 // User must provide a name, description and image when creating a new category
@@ -96,6 +116,8 @@ $I->see('rules_p2p_user_email_registration_public_campaign', '.rules-element-con
 // User can specify if the personal campaigner can override the images
 // User can set a video embed url
 // User can specify if the personal campaigner can override the video embed
+
+
 // Peer to Peer Campaign Creation
 // User must select a campaign category
 // User must provide a name, description, thumbnail and slider image when creating a new campaign
