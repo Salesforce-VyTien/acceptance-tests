@@ -89,12 +89,18 @@ class DrupalSteps extends \AcceptanceTester
         $I->fillField('E-mail address', $email);
         $I->fillField('Password', $name);
         $I->fillField('Confirm password', $name);
-
         if($rid != 2 || $rid != NULL) {
-          $I->checkOption('edit-roles-' . $rid);
+          $I->checkOption('//input[@name="roles[' . $rid .']"]');
         }
 
         $I->click('#edit-submit');
+    }
+
+    public function getRid($label) {
+      $I = $this;
+      $I->amOnPage('admin/people/create');
+      $rid = $I->grabValueFrom('//label[normalize-space(text())="' . $label . '"]/preceding-sibling::input');
+      return $rid;
     }
     
 }
