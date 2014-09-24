@@ -130,11 +130,11 @@ $I->see('Name field is required');
 $I->see('Description field is required');
 $I->see('Category image field is required');
 
-$I->fillField($admin->catTitle, 'My Category Title');
-$I->fillField($admin->catDesc, 'This is a category description');
+$I->fillField($admin->title, 'My Category Title');
+$I->fillField($admin->body, 'This is a category description');
 // User can upload a donation form banner
 $I->click('Donation form');
-$I->attachFile($admin->catBanner, '1170x240.png');
+$I->attachFile($admin->banner, '1170x240.png');
 $I->click('Upload');
 
 // User can provide default content that can be used in campaigns and personal campaigns
@@ -160,9 +160,9 @@ $I->attachFile($admin->catImageThumb, '400x240.png');
 // User can specify if the personal campaigner can override the images
 $I->checkOption($admin->catImageEdit);
 // User can set a video embed url
-$I->fillField($admin->catVid, 'http://www.youtube.com/watch?v=');
+$I->fillField($admin->video, 'http://www.youtube.com/watch?v=');
 // User can specify if the personal campaigner can override the video embed
-$I->checkOption($admin->catVidEdit);
+$I->checkOption($admin->videoEdit);
 $I->click("#edit-submit");
 
 // Peer to Peer Campaign Creation
