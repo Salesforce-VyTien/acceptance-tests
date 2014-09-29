@@ -43,9 +43,8 @@ $I->see('Email Wrapper ' . $title . ' has been created.');
 $I->cloneADonationForm();
 $I->click('Save');
 
-// These are the admin UI names for Webform, E-mails.
-$I->click('Form components', 'ul.primary');
-$I->click('Confirmation emails', 'ul.secondary');
+$I->click('Webform', 'ul.primary');
+$I->click('E-mails', 'ul.secondary');
 
 $I->click(WebformPage::$addEmailButton);
 
