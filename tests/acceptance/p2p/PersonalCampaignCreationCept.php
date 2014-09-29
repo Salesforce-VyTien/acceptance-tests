@@ -7,10 +7,10 @@ $I->wantTo('Configure and test p2p personal campaigns.');
 $I->am('admin');
 $I->login();
 
-$admin = new P2pAdminPage($I);
-$admin->enableFeature();
+ $admin = new P2pAdminPage($I);
+ $admin->enableFeature();
 
-//generate dummy content
+// generate dummy content
 $I->amOnPage($admin->starterUrl);
 $I->click('Create content');
 $I->wait(15);
@@ -30,7 +30,7 @@ $campaign_intro = $I->grabValueFrom($admin->persIntro);
 $I->checkOption($admin->persIntroEdit);
 $I->click('#edit-submit');
 
-// //add permssions for campaigner and create campaign user
+// add permssions for campaigner and create campaign user
 $rid = $I->getRid('Springboard P2P campaigner');
 $I->amOnPage('admin/people/permissions/' . $rid);
 $I->checkOption('#edit-' . $rid . '-create-p2p-personal-campaign-content');
@@ -42,9 +42,9 @@ $I->logout();
 $I->wait(4);
 $I->login('Campaigner', 'Campaigner');
 
-// // Create personal campaign "standard case"
-// // view node/add/p2p-personal-campaign?p2p_cid=<campaign_node_id>
-// // confirm Campaign Name is prefilled with node title from parent campaign
+// Create personal campaign "standard case"
+// view node/add/p2p-personal-campaign?p2p_cid=<campaign_node_id>
+// confirm Campaign Name is prefilled with node title from parent campaign
 // confirm campaign select box is hidden
 $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
 $I->seeElement('//input[@value="Cross River Gorilla"]');
@@ -53,7 +53,7 @@ $I->cantSeeElement('//select');
 // add & remove images
 
 
-// confirm campaign select box does not appear after ajax event. ???????????
+//  confirm campaign select box does not appear after ajax event. ???????????
 // confirm campaign url is empty ?????????????
 
 
@@ -81,6 +81,7 @@ $I->seeElement('iframe');
 // Edit new personal campaign node, confirm all settings saved.
 // Resave, confirm no errors, if possible confirm no duplicate entry in {url_alias}
 $I->click('Edit');
+$I->wait(4);
 $I->seeElement('//input[@value="' . $string . '"]');
 $I->seeElement('//input[@value="123.00"]');
 $I->click('#edit-submit');
@@ -151,7 +152,6 @@ $I->seeOptionIsSelected('//select', '- Select a value -');
 $I->logout();
 $I->wait(4);
 $I->login();
-
 $I->amOnPage($admin->addCampUrl);
 $I->fillField($admin->title, 'Private Campaign');
 $I->selectOption($admin->catSelect, "Animal Rights");
@@ -164,16 +164,36 @@ $I->checkOption($admin->campApproval);
 $I->fillField($admin->orgIntro, 'A private campaign organization intro');
 $I->fillField($admin->campExpire, 'A private campaign expiration message');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_images"]');
-$I->attachFile($admin->slider, '1170x240.png');
-$I->attachFile($admin->banner, '800x240.png');
-$I->attachFile($admin->campThumb, '800x240.png');
-$I->click('#edit-submit');
+$I->attachFile($admin->slider, '1170x360.png');
+$I->attachFile($admin->banner, '1170x360.png');
+$I->attachFile($admin->campThumb, '400x240.png');
+$I->click('//input[@value="Save"]');
+$I->click('Edit');
+$node_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
+$I->logout();
+$I->wait(4);
+$I->login('Campaigner', 'Campaigner');
+$I->amOnPage('node/' . $node_id);
+$I->click('Get Started');
+$I->logout();
+$I->wait(4);
+$I->login();
+$I->amOnPage('springboard/p2p');
+$I->click('//input[@value="Approve"]','//tr[//td//a//text()[contains(., "campaigner@example.com")]]');
+$I->logout();
+$I->wait(4);
 
 // Log in as a user authorized for this campaign
-// view node/add/p2p-personal-campaign?campaign=<node id> with the node id of the campaign
+// view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
 // confirm node add form is populated with defaults from the campaign.
 // save personal campaign
 // confirm settings saved with no errors.
+$I->login('Campaigner', 'Campaigner');
+$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
+$I->seeInCurrentURl('p2p_cid');
+$I->seeElement('//input[@value="Private Campaign"]');
+
+
 // Create personal campaign "campaign is private, user is not authorized"
 // Log in as a user that is not authorized for the campaign created in the previous segment.
 // view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
