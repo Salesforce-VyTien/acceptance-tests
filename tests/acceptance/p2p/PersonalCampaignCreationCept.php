@@ -4,11 +4,12 @@
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Configure and test p2p personal campaigns.');
 
-// $I->am('admin');
-// $I->login();
+$I->am('admin');
+
+$I->login();
 
  $admin = new P2pAdminPage($I);
- $admin->enableFeature();
+$admin->enableFeature();
 
 // generate dummy content
 $I->amOnPage($admin->starterUrl);
@@ -16,7 +17,7 @@ $I->click('Create content');
 $I->wait(15);
 $I->amOnPage('springboard/p2p');
 $I->click('edit','//tr[td//text()[contains(., "Cross River Gorilla")]]');
-$node_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
+$editable_camp_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 $campaign_description = $I->grabValueFrom($admin->body);
 
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_images"]');
@@ -30,7 +31,7 @@ $campaign_intro = $I->grabValueFrom($admin->persIntro);
 $I->checkOption($admin->persIntroEdit);
 $I->click('#edit-submit');
 
-// add permssions for campaigner and create campaign user
+// // add permssions for campaigner and create campaign user
 $rid = $I->getRid('Springboard P2P campaigner');
 $I->amOnPage('admin/people/permissions/' . $rid);
 $I->checkOption('#edit-' . $rid . '-create-p2p-personal-campaign-content');
@@ -46,7 +47,7 @@ $I->login('Campaigner', 'Campaigner');
 // view node/add/p2p-personal-campaign?p2p_cid=<campaign_node_id>
 // confirm Campaign Name is prefilled with node title from parent campaign
 // confirm campaign select box is hidden
-$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
+$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $editable_camp_id);
 $I->seeElement('//input[@value="Cross River Gorilla"]');
 $I->cantSeeElement('//select');
 
@@ -81,6 +82,7 @@ $I->seeElement('iframe');
 // Edit new personal campaign node, confirm all settings saved.
 // Resave, confirm no errors, if possible confirm no duplicate entry in {url_alias}
 $I->click('Edit');
+$editable_pers_camp_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 $I->wait(4);
 $I->seeElement('//input[@value="' . $string . '"]');
 $I->seeElement('//input[@value="123.00"]');
@@ -88,8 +90,21 @@ $I->click('#edit-submit');
 $I->see('has been updated');
 
 
+
+
+
+
+
+
+
+
+
 // Create personal campaign "missing campaign id"
 // visit node/add/p2p-personal-campaign (no campaign id in url)
+$I->logout();
+$I->wait(4);
+$I->login('Campaigner', 'Campaigner');
+
 $I->amOnPage('node/add/p2p-personal-campaign');
 // confirm no error messages
 $I->cantSeeElement('.error');
@@ -147,8 +162,8 @@ $I->see('Fundraising Goal field is required.', '.error');
 $I->see('Campaign URL field is required.', '.error');
 $I->seeOptionIsSelected('//select', '- Select a value -');
 
-// Create personal campaign "campaign is private, user authorized"
-// Create campaign, check "Personal campaigns require approval"
+// // Create personal campaign "campaign is private, user authorized"
+// // Create campaign, check "Personal campaigns require approval"
 $I->logout();
 $I->wait(4);
 $I->login();
@@ -169,45 +184,45 @@ $I->attachFile($admin->banner, '1170x360.png');
 $I->attachFile($admin->campThumb, '400x240.png');
 $I->click('//input[@value="Save"]');
 $I->click('Edit');
-$node_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
+$camp_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
 $I->logout();
 $I->wait(4);
 $I->login('Campaigner', 'Campaigner');
-$I->amOnPage('node/' . $node_id);
+$I->amOnPage('node/' . $camp_id);
 $I->click('Get Started');
 $I->logout();
 $I->wait(4);
 $I->login();
 $I->amOnPage('springboard/p2p');
 $I->click('//input[@value="Approve"]','//tr[//td//a//text()[contains(., "campaigner@example.com")]]');
-$I->logout();
-$I->wait(4);
+// $I->logout();
+// $I->wait(4);
 
-// Log in as a user authorized for this campaign
-// view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
-// confirm node add form is populated with defaults from the campaign.
-// save personal campaign
-// confirm settings saved with no errors.
-$I->login('Campaigner', 'Campaigner');
-$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
-$I->seeInCurrentURl('p2p_cid');
-$I->seeElement('//input[@value="Private Campaign"]');
+// // // Log in as a user authorized for this campaign
+// // // view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
+// // // confirm node add form is populated with defaults from the campaign.
+// // // save personal campaign
+// // // confirm settings saved with no errors.
+// $I->login('Campaigner', 'Campaigner');
+// $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
+// $I->seeInCurrentURl('p2p_cid');
+// $I->seeElement('//input[@value="Private Campaign"]');
 
 
-// Create personal campaign "campaign is private, user is not authorized"
-// Log in as a user that is not authorized for the campaign created in the previous segment.
-$I->logout();
-$I->wait(4);
-$I->login();
-$rid = $I->getRid('Springboard P2P campaigner');
-$I->createUser('invalid campaigner', 'invalidcampaigner@example.com', $rid);
-$I->logout();
-$I->wait(4);
-$I->login('invalid campaigner', 'invalid campaigner');
-// view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
-$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
+// // // Create personal campaign "campaign is private, user is not authorized"
+// // // Log in as a user that is not authorized for the campaign created in the previous segment.
+// $I->logout();
+// $I->wait(4);
+// $I->login();
+// $rid = $I->getRid('Springboard P2P campaigner');
+// $I->createUser('invalid campaigner', 'invalidcampaigner@example.com', $rid);
+// $I->logout();
+// $I->wait(4);
+// $I->login('invalid campaigner', 'invalid campaigner');
+// // // view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
+// $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
+
 // confirm node add form is replaced with a message explaining the campaign is private.
-
 //Bug in p2p
 // confirm link is available to request authorization.
 //$I->see('a meesage that is not there');
@@ -221,11 +236,77 @@ $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
 $I->logout();
 $I->wait(4);
 $I->login('Campaigner', 'Campaigner');
-$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
+$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
 $I->cantSeeElement('//textarea[@name="body[und][0][value]"]');
 $I->cantSeeElement('//input[@name="field_p2p_video_embed[und][0][video_url]"]');
 $I->cantSee('Upload a Campaign Image');
 $I->cantSee('Suggested Donation Amount');
+$string = time();
+$I->fillField('//input[@name="field_p2p_personal_campaign_url[und][0][value]"]', $string);
+$I->wait(4);
+$I->fillField('//input[@name="field_p2p_personal_campaign_goal[und][0][value]"]', '123');
+$I->click('body');
+$I->wait(2);
+$I->click('#edit-submit');
+$I->wait(4);
+$I->click('Edit');
+
+$uneditable_pers_camp_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
+
+
+// Edit existing campaign with uneditable defaults
+// On a campaign with personal campaigns associated,
+// Edit the default personal campaign intro, image settings & embedded video settings
+// Save.
+// View one or more personal campaigns associated with this campaign
+// In each case confirm existing settings were overwritten by changes to the parent campaign
+
+$I->logout();
+$I->wait(4);
+$I->login();
+$I->amOnPage('node/' . $camp_id . '/edit');
+$I->click('//a[@href="#node_p2p_campaign_form_group_p2p_personal_intro"]');
+$I->fillField('//textarea[@name="field_p2p_personal_intro[und][0][value]"]', 'kaboooooom!');
+$I->click('//a[@href="#node_p2p_campaign_form_group_p2p_images"]');
+$I->click('//input[@name="field_p2p_images_und_0_remove_button"]');
+$I->wait(5);
+$I->fillField('//input[@name="field_p2p_video_embed[und][0][video_url]"]', '');
+$I->click('#edit-submit');
+$I->amOnPage('node/' . $uneditable_pers_camp_id);
+$I->see('kaboooooom!');
+$I->cantSeeElement('//iframe');
+
+
+
+
+
+// Edit existing campaign with editable defaults
+// Find a campaign with personal campaigns associated
+// Edit the default personal campaign intro, image settings & embedded video settings
+// Save.
+// View one or more personal campaigns associated with this campaign
+// In each case confirm existing settings were not overwritten by changes to the parent campaign
+$I->logout();
+$I->wait(4);
+$I->login();
+$I->amOnPage('node/' . $editable_camp_id . '/edit');
+$I->click('//a[@href="#node_p2p_campaign_form_group_p2p_personal_intro"]');
+$I->fillField('//textarea[@name="field_p2p_personal_intro[und][0][value]"]', 'kaboom!');
+$I->click('//a[@href="#node_p2p_campaign_form_group_p2p_images"]');
+$I->click('//input[@name="field_p2p_images_und_0_remove_button"]');
+$I->wait(4);
+
+$I->fillField('//input[@name="field_p2p_video_embed[und][0][video_url]"]', '');
+$I->click('#edit-submit');
+$I->amOnPage('node/' . $editable_pers_camp_id);
+$I->cantSee('kaboom!');
+$I->seeElement('//iframe');
+//it seems that the thumbnail does not have any specific selectors
+
+
+
+
+
 
 
 // Edit personal campaign "editable defaults"
@@ -237,7 +318,7 @@ $I->cantSee('Suggested Donation Amount');
 $I->logout();
 $I->wait(4);
 $I->login();
-$I->amOnPage('node/' . $node_id . '/edit/');
+$I->amOnPage('node/' . $camp_id . '/edit/');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
 $I->checkOption('//input[@name="field_p2p_ask_amount_edit[und]"]');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_personal_intro"]');
@@ -249,12 +330,16 @@ $I->click('#edit-submit');
 $I->logout();
 $I->wait(4);
 $I->login('Campaigner', 'Campaigner');
-$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
+$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
 $I->see('Upload a Campaign Image');
 $I->seeElement('//input[@name="field_p2p_video_embed[und][0][video_url]"]');
 $I->see('Suggested Donation Amount');
 $I->click('#edit-submit');
+$i->wait(5);
 $I->cantSeeElement('.error');
+$I->click('edit');
+$p_camp_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
+
 
 
 // Missing campaign defaults
@@ -285,6 +370,7 @@ $I->fillField($admin->campExpire, 'A private campaign expiration message');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_personal_intro"]');
 $I->checkOption('//input[@name="field_p2p_personal_intro_edit[und]"]');
 $I->click('//input[@value="Save"]');
+$I->wait(5);
 $I->click('Edit');
 $node_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
 $I->logout();
@@ -300,15 +386,4 @@ $I->cantSee('Suggested Donation Amount');
 
 
 
-// Edit existing campaign with editable defaults
-// Find a campaign with personal campaigns associated
-// Edit the default personal campaign intro, image settings & embedded video settings
-// Save.
-// View one or more personal campaigns associated with this campaign
-// In each case confirm existing settings were not overwritten by changes to the parent campaign
-// Edit existing campaign with uneditable defaults
-// On a campaign with personal campaigns associated,
-// Edit the default personal campaign intro, image settings & embedded video settings
-// Save.
-// View one or more personal campaigns associated with this campaign
-// In each case confirm existing settings were overwritten by changes to the parent campaign
+
