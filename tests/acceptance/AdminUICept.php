@@ -8,7 +8,8 @@ $I->wantTo('use the Springboard Admin UI to manage my settings and content');
 $I->am('admin');
 $I->wantTo('login and create a user with the Springboard Administrator role.');
 $I->login();
-$I->createUser('john', 'john@example.com', '4');
+$rid = $I->getRid('Springboard administrator');
+$I->createUser('john', 'john@example.com', $rid);
 $I->logout();
 
 $I->am('user with the Springboard Administrator role');
@@ -37,3 +38,22 @@ $I->see('Sync Status', 'h2');
 $I->see('Springboard Version:', '.sb-version-info');
 
 $I->see('Springboard Notes', 'h2');
+
+// Problems start here.
+$I->click('Donation Forms');
+$I->seeInCurrentUrl('/springboard/donation-forms/all');
+$I->see('Donation Forms', '.page-title');
+
+/*
+$I->click('Donation Forms');
+$I->seeInCurrentUrl('/springboard/donation-forms/all');
+
+
+//$I->cantSeeElement('.error');
+//$I->see('Donation Forms', '.page-title');
+//$I->see('Donation Form', 'h2');
+$I->see('Create Donation Form', '.add-button');
+$I->see('View All Donation Forms', '.more-button');
+$I->see('Options', '.button');
+$I->see('Internal Name', 'th');
+*/
