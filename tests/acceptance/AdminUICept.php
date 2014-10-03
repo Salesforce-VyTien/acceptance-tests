@@ -123,11 +123,17 @@ $I->see('View', 'td a');
 $I->see('Edit', 'td a');
 $I->see('Clone', 'td a');
 $I->see('Delete', 'td a');
+$I->click('Create email wrapper');
+$I->seeInCurrentUrl('/springboard/add/email-wrapper');
+$I->see('Create Email Wrapper', '.page-title');
 
 $I->moveMouseOver('li.assetlibrary');
 $I->click('Page Wrappers');
 $I->seeInCurrentUrl('/springboard/asset-library/page_wrapper');
 $I->see('Page Wrappers', '.page-title');
+$I->click('Create page wrapper');
+$I->seeInCurrentUrl('/springboard/add/page-wrapper');
+$I->see('Create Page Wrapper', '.page-title');
 
 $I->click('Marketing & Analytics');
 $I->seeInCurrentUrl('/springboard/marketing-analytics');
@@ -135,5 +141,25 @@ $I->see('Marketing & Analytics', '.page-title');
 $I->see('Source Codes', 'a');
 $I->see('Multivariate Testing', 'a');
 
-$I->moveMouseOver('li.reports');
+$I->click('Reports');
+$I->seeInCurrentUrl('/springboard/reports');
+$I->see('Reports', '.page-title');
+$I->see('Donations', 'a');
+$I->see('Contacts', 'a');
+$I->see('Integration Reports', 'a');
+$I->click('Donations');
+$I->seeInCurrentUrl('/springboard/reports/donations');
 
+$I->click('Reports');
+$I->click('Contacts');
+$I->seeInCurrentUrl('/springboard/reports/contacts');
+$I->see('Springboard Contacts', '.page-title');
+$I->seeElement('#edit-submit-sbv-contacts');
+
+$I->click('Reports');
+$I->click('Integration Reports');
+$I->seeInCurrentUrl('/springboard/reports/integration-reports');
+$I->see('Integration Reports', '.page-title');
+$I->see('Batch Log', 'a');
+$I->see('Item Log', 'a');
+$I->see('Queue', 'a');
