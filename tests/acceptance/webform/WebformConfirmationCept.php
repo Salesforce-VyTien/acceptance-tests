@@ -1,0 +1,88 @@
+<?php
+
+// Acceptance tests for webform confirmations.
+$I = new \AcceptanceTester\SpringboardSteps($scenario);
+$I->wantTo('test webform confirmation pages.');
+
+$I->am('admin');
+$I->login();
+$I->nid = $I->cloneADonationForm();
+$confirmationMessage = <<<MESSAGE
+<p id="donation-address">[donation:address]</p>
+<p id="donation-address_line_2">[donation:address_line_2]</p>
+<p id="donation-amount">[donation:amount]</p>
+<p id="donation-card_expiration_month">[donation:card_expiration_month]</p>
+<p id="donation-card_expiration_year">[donation:card_expiration_year]</p>
+<p id="donation-card_type">[donation:card_type]</p>
+<p id="donation-city">[donation:city]</p>
+<p id="donation-country">[donation:country]</p>
+<p id="donation-did">[donation:did]</p>
+<p id="donation-payment-transaction">[donation:payment-transaction]</p>
+<p id="donation-mail">[donation:mail]</p>
+<p id="donation-first_name">[donation:first_name]</p>
+<p id="donation-card_number">[donation:card_number]</p>
+<p id="donation-last_name">[donation:last_name]</p>
+<p id="donation-payment_method">[donation:payment_method]</p>
+<p id="donation-quantity">[donation:quantity]</p>
+<p id="donation-recurs_monthly">[donation:recurs_monthly]</p>
+<p id="donation-state">[donation:state]</p>
+<p id="donation-zip">[donation:zip]</p>
+<p id="user-sbp_address_line_2">[donation:user:sbp_address_line_2]</p>
+<p id="user-sbp_city">[donation:user:sbp_city]</p>
+<p id="user-sbp_country">[donation:user:sbp_country]</p>
+<p id="user-created">[donation:user:created]</p>
+<p id="user-mail">[donation:user:mail]</p>
+<p id="user-sbp_first_name">[donation:user:sbp_first_name]</p>
+<p id="user-sbp_last_name">[donation:user:sbp_last_name]</p>
+<p id="user-sbp_name">[donation:user:name]</p>
+<p id="user-sbp_zip">[donation:user:sbp_zip]</p>
+<p id="user-sbp_state">[donation:user:sbp_state]</p>
+<p id="user-uid">[donation:user:uid]</p>
+MESSAGE;
+$I->configureConfirmationPage($I->nid, 'Hello, World!', $confirmationMessage);
+$I->logout();
+
+$I->amOnPage('node/' . $I->nid);
+$I->makeADonation();
+$I->see('Hello, World!', 'h1.page-title');
+$I->see('10', '#donation-amount');
+$I->see('John', '#donation-first_name');
+$I->see('John', '#user-sbp_first_name');
+$I->see('Tester', '#donation-last_name');
+$I->see('Tester', '#user-sbp_last_name');
+$I->see('1111', '#donation-card_number');
+$I->see('bob@example.com', '#donation-mail');
+$I->see('bob@example.com', '#user-mail');
+// TODO: Add more token checks.
+
+$I->sid = $I->grabFromCurrentUrl('~/done\?sid=(\d+)~');
+//codecept_debug($sid);
+
+$hacker = $I->haveFriend('hacker');
+$hacker->does(function(AcceptanceTester $I) {
+  $I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
+  $I->see('Access denied', 'h1.page-title');
+  $I->see('You are not authorized to access this page.');
+  $I->dontSee('Hello, World!', 'h1.page-title');
+  $I->dontSee('10', '#donation-amount');
+  $I->dontSee('John', '#donation-first_name');
+  $I->dontSee('John', '#user-sbp_first_name');
+  $I->dontSee('Tester', '#donation-last_name');
+  $I->dontSee('Tester', '#user-sbp_last_name');
+  $I->dontSee('1111', '#donation-card_number');
+  $I->dontSee('bob@example.com', '#donation-mail');
+  $I->dontSee('bob@example.com', '#user-mail');
+});
+
+$I->am('admin');
+$I->login();
+$I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
+$I->see('Hello, World!', 'h1.page-title');
+$I->see('10', '#donation-amount');
+$I->see('John', '#donation-first_name');
+$I->see('John', '#user-sbp_first_name');
+$I->see('Tester', '#donation-last_name');
+$I->see('Tester', '#user-sbp_last_name');
+$I->see('1111', '#donation-card_number');
+$I->see('bob@example.com', '#donation-mail');
+$I->see('bob@example.com', '#user-mail');
