@@ -40,6 +40,20 @@ $confirmationMessage = <<<MESSAGE
 <p id="user-uid">[donation:user:uid]</p>
 MESSAGE;
 $I->configureConfirmationPage($I->nid, 'Hello, World!', $confirmationMessage);
+
+// Ensure our 2 built in roles have the correct permissions.
+$editorRid = $I->getRid('Springboard editor');
+$adminRid = $I->getRid('Springboard administrator');
+
+$I->amOnPage('/admin/people/permissions');
+$I->seeCheckboxIsChecked('#edit-' . $adminRid . '-access-all-webform-results');
+$I->seeCheckboxIsChecked('#edit-' . $editorRid . '-access-all-webform-results');
+
+// Create users to test their access to webform results.
+$I->createUser('sb-admin', 'sb-admin@example.com', $adminRid);
+$I->createUser('sb-editor', 'sb-editor@example.com', $editorRid);
+$I->createUser('auth', 'auth@example.com');
+
 $I->logout();
 
 $I->amOnPage('node/' . $I->nid);
@@ -86,3 +100,51 @@ $I->see('Tester', '#user-sbp_last_name');
 $I->see('1111', '#donation-card_number');
 $I->see('bob@example.com', '#donation-mail');
 $I->see('bob@example.com', '#user-mail');
+$I->logout();
+$I->wait(3);
+
+$I->am('Springboard administrator');
+$I->login('sb-admin', 'sb-admin');
+$I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
+$I->see('Hello, World!', 'h1.page-title');
+$I->see('10', '#donation-amount');
+$I->see('John', '#donation-first_name');
+$I->see('John', '#user-sbp_first_name');
+$I->see('Tester', '#donation-last_name');
+$I->see('Tester', '#user-sbp_last_name');
+$I->see('1111', '#donation-card_number');
+$I->see('bob@example.com', '#donation-mail');
+$I->see('bob@example.com', '#user-mail');
+$I->logout();
+$I->wait(3);
+
+$I->am('Springboard editor');
+$I->login('sb-editor', 'sb-editor');
+$I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
+$I->see('Hello, World!', 'h1.page-title');
+$I->see('10', '#donation-amount');
+$I->see('John', '#donation-first_name');
+$I->see('John', '#user-sbp_first_name');
+$I->see('Tester', '#donation-last_name');
+$I->see('Tester', '#user-sbp_last_name');
+$I->see('1111', '#donation-card_number');
+$I->see('bob@example.com', '#donation-mail');
+$I->see('bob@example.com', '#user-mail');
+$I->logout();
+
+// Regular authenticated user with no permissions.
+$I->am('authenticated user');
+$I->login('auth', 'auth');
+$I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
+$I->see('Access denied', 'h1.page-title');
+$I->see('You are not authorized to access this page.');
+$I->dontSee('Hello, World!', 'h1.page-title');
+$I->dontSee('10', '#donation-amount');
+$I->dontSee('John', '#donation-first_name');
+$I->dontSee('John', '#user-sbp_first_name');
+$I->dontSee('Tester', '#donation-last_name');
+$I->dontSee('Tester', '#user-sbp_last_name');
+$I->dontSee('1111', '#donation-card_number');
+$I->dontSee('bob@example.com', '#donation-mail');
+$I->dontSee('bob@example.com', '#user-mail');
+$I->logout();
