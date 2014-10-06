@@ -59,11 +59,46 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->fillField(\DonationFormPage::$zipField, $zip);
     }
 
-    public function cloneADonationForm() {
+    /**
+     * Clones a donation form.
+     *
+     * @param $nid
+     *   The node id of the form to clone. Defaults to the build in
+     *   donation form nid.
+     *
+     * @return $nid of newly created form.
+     */
+    public function cloneADonationForm($nid = 2) {
         $I = $this;
 
-        $I->amOnPage('/node/2/clone');
+        $I->amOnPage('/node/' . $nid . '/clone');
         $I->click('Clone');
+        $cloneNid = $I->grabFromCurrentUrl('~/springboard/node/(\d+)/edit~');
+        codecept_debug($cloneNid);
+        return $cloneNid;
+    }
 
+    /**
+     * Configures a confirmation page title and message.
+     *
+     * @param $nid
+     *   The id of the form to configue.
+     *
+     * @param $pageTitle
+     *   The title to user for the confirmation page.
+     *
+     * @param $pageContent
+     *   The content to use for the confirmation page.
+     */
+    public function configureConfirmationPage($nid, $pageTitle, $pageContent) {
+        $I = $this;
+
+        $I->amOnPage('/node/' . $nid . '/edit');
+        $I->click('Webform');
+        $I->click('Form settings');
+        $I->fillField('#edit-confirmation-confirmation-page-title', $pageTitle);
+        $I->fillField('#edit-confirmation-value', $pageContent);
+        $I->selectOption('confirmation[format]', 'full_html');
+        $I->click('Save configuration');
     }
 }
