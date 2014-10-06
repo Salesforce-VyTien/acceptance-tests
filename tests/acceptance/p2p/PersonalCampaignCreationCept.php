@@ -335,7 +335,7 @@ $I->see('Upload a Campaign Image');
 $I->seeElement('//input[@name="field_p2p_video_embed[und][0][video_url]"]');
 $I->see('Suggested Donation Amount');
 $I->click('#edit-submit');
-$i->wait(5);
+$I->wait(5);
 $I->cantSeeElement('.error');
 $I->click('edit');
 $p_camp_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
