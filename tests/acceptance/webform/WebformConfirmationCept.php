@@ -71,6 +71,7 @@ $I->see('bob@example.com', '#user-mail');
 
 $I->sid = $I->grabFromCurrentUrl('~/done\?sid=(\d+)~');
 //codecept_debug($sid);
+$I->seeInDatabase('webform_confirmations_submissions', array('sid' => $I->sid));
 
 $hacker = $I->haveFriend('hacker');
 $hacker->does(function(AcceptanceTester $I) {
