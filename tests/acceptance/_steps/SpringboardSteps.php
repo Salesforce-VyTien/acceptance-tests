@@ -94,8 +94,8 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I = $this;
 
         $I->amOnPage('/node/' . $nid . '/edit');
-        $I->click('Webform');
-        $I->click('Form settings');
+        $I->click('Form components');
+        $I->click('Confirmation page & settings');
         $I->fillField('#edit-confirmation-confirmation-page-title', $pageTitle);
         $I->fillField('#edit-confirmation-value', $pageContent);
         $I->selectOption('confirmation[format]', 'full_html');
