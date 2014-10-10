@@ -90,15 +90,6 @@ $I->click('#edit-submit');
 $I->see('has been updated');
 
 
-
-
-
-
-
-
-
-
-
 // Create personal campaign "missing campaign id"
 // visit node/add/p2p-personal-campaign (no campaign id in url)
 $I->logout();
@@ -131,6 +122,7 @@ $I->seeElement('//input[@value="Cross River Gorilla"]');
 $I->seeElement('//input[@value="' . $campaign_video .'"]');
 $I->seeElement('//textarea[text()="' . $campaign_intro .'"]');
 $I->seeElement('//table[@id="edit-field-p2p-campaign-images-und-table"]//img[contains(@src, ".png")]');
+
 
 // Create personal campaign "campaign id invalid"
 // visit node/add/p2p-personal-campaign?campaign=<invalid node id> with invalid (numeric) node id
@@ -184,7 +176,7 @@ $I->attachFile($admin->banner, '1170x360.png');
 $I->attachFile($admin->campThumb, '400x240.png');
 $I->click('//input[@value="Save"]');
 $I->click('Edit');
-$camp_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
+$camp_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 $I->logout();
 $I->wait(4);
 $I->login('Campaigner', 'Campaigner');
@@ -195,32 +187,32 @@ $I->wait(4);
 $I->login();
 $I->amOnPage('springboard/p2p');
 $I->click('//input[@value="Approve"]','//tr[//td//a//text()[contains(., "campaigner@example.com")]]');
-// $I->logout();
-// $I->wait(4);
+$I->logout();
+$I->wait(4);
 
 // // // Log in as a user authorized for this campaign
 // // // view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
 // // // confirm node add form is populated with defaults from the campaign.
 // // // save personal campaign
 // // // confirm settings saved with no errors.
-// $I->login('Campaigner', 'Campaigner');
-// $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
-// $I->seeInCurrentURl('p2p_cid');
-// $I->seeElement('//input[@value="Private Campaign"]');
+$I->login('Campaigner', 'Campaigner');
+$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
+$I->seeInCurrentURl('p2p_cid');
+$I->seeElement('//input[@value="Private Campaign"]');
 
 
 // // // Create personal campaign "campaign is private, user is not authorized"
 // // // Log in as a user that is not authorized for the campaign created in the previous segment.
-// $I->logout();
-// $I->wait(4);
-// $I->login();
-// $rid = $I->getRid('Springboard P2P campaigner');
-// $I->createUser('invalid campaigner', 'invalidcampaigner@example.com', $rid);
-// $I->logout();
-// $I->wait(4);
-// $I->login('invalid campaigner', 'invalid campaigner');
-// // // view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
-// $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
+$I->logout();
+$I->wait(4);
+$I->login();
+$rid = $I->getRid('Springboard P2P campaigner');
+$I->createUser('invalid campaigner', 'invalidcampaigner@example.com', $rid);
+$I->logout();
+$I->wait(4);
+$I->login('invalid campaigner', 'invalid campaigner');
+// // view node/add/p2p-personal-campaign?p2p_cid=<node id> with the node id of the campaign
+$I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
 
 // confirm node add form is replaced with a message explaining the campaign is private.
 //Bug in p2p
@@ -278,8 +270,6 @@ $I->cantSeeElement('//iframe');
 
 
 
-
-
 // Edit existing campaign with editable defaults
 // Find a campaign with personal campaigns associated
 // Edit the default personal campaign intro, image settings & embedded video settings
@@ -302,11 +292,6 @@ $I->amOnPage('node/' . $editable_pers_camp_id);
 $I->cantSee('kaboom!');
 $I->seeElement('//iframe');
 //it seems that the thumbnail does not have any specific selectors
-
-
-
-
-
 
 
 // Edit personal campaign "editable defaults"
