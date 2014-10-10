@@ -334,11 +334,13 @@ $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $camp_id);
 $I->see('Upload a Campaign Image');
 $I->seeElement('//input[@name="field_p2p_video_embed[und][0][video_url]"]');
 $I->see('Suggested Donation Amount');
+$I->fillField('//input[@name="field_p2p_personal_campaign_goal[und][0][value]"]', '123');
+$I->click('body');
+$I->wait(2);
 $I->click('#edit-submit');
-$I->wait(5);
 $I->cantSeeElement('.error');
-$I->click('edit');
-$p_camp_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
+$I->click('Edit');
+$p_camp_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 
 
 
