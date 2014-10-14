@@ -147,17 +147,17 @@ $I->see('Reports', '.page-title');
 $I->see('Donations', 'a');
 $I->see('Contacts', 'a');
 $I->see('Integration Reports', 'a');
-$I->click('Donations');
+$I->click('Donations', '.aggregate-links');
 $I->seeInCurrentUrl('/springboard/reports/donations');
 
 $I->click('Reports');
-$I->click('Contacts');
+$I->click('Contacts', '.aggregate-links');
 $I->seeInCurrentUrl('/springboard/reports/contacts');
 $I->see('Springboard Contacts', '.page-title');
 $I->seeElement('#edit-submit-sbv-contacts');
 
 $I->click('Reports');
-$I->click('Integration Reports');
+$I->click('Integration Reports', '.aggregate-links');
 $I->seeInCurrentUrl('/springboard/reports/integration-reports');
 $I->see('Integration Reports', '.page-title');
 $I->see('Batch Log', 'a');
