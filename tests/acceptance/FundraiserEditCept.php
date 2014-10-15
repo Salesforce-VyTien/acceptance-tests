@@ -4,7 +4,6 @@ $I->wantTo('Test fundraiser edit page payment options.');
 
 $title = 'fundraiser node edit test ' . time();
 
-
 $I->am('admin');
 $I->login();
 
@@ -27,7 +26,7 @@ $I->dontSeeElement('#edit-submitted-donation-quantity');
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->checkOption('Ask for quantity');
 $I->click('#edit-submit');
-$I->seeElement('#edit-submitted-donation-quantity');
+$I->see('Quantity', 'label');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('Show other amount option');
@@ -51,12 +50,16 @@ $I->dontSee('Minimum payment');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->fillField('#edit-amount-wrapper-donation-amounts-4-amount', '133');
-$I->click('#edit-amount-wrapper-donation-amounts-4-label');
-$I->seeInField('#edit-amount-wrapper-donation-amounts-4-label','$133');
 
+$I->click('#edit-amount-wrapper-donation-amounts-4-label');
+
+$I->seeInField('#edit-amount-wrapper-donation-amounts-4-label','$133');
+$I->uncheckOption('//input[@name="default_amount"]');
 $I->checkOption('#edit-default-amount--5');
+$I->click('body');
+
 $I->click('#edit-submit');
-$I->seeCheckboxIsChecked('#edit-submitted-donation-amount-5');
+$I->seeCheckboxIsChecked('//input[@value="133"]');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->selectOption('#edit-recurring-setting', 'never');
