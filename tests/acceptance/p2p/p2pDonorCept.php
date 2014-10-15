@@ -1,6 +1,7 @@
 <?php
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
+$scenario->incomplete();
 $I->wantTo('Configure and test p2p settings.');
 
 $I->am('admin');
@@ -40,13 +41,14 @@ $I->see($pretty_goal, '.goal-amount');
 $I->click('Donate now');
 $I->wait(4);
 //$I->makeADonation();
-$I->seeInCurrentURl('p2p_pcid=23');
+$I->seeInCurrentURl('p2p_pcid=' . $camp_id);
 
 $I->fillInMyName();
 $I->fillField(\DonationFormPage::$emailField, 'bob@example.com');
 $I->fillInMyAddress();
 $I->fillInMyCreditCard();
 $I->click(\DonationFormPage::$donateButton);
+$I->wait(4);
 $I->amOnPage('node/' . $camp_id);
 $I->see('10.00 raised to date');
 $I->see('Campaign Deadline');
@@ -64,7 +66,7 @@ $I->see('Recent donors');
 $I->see('Anonymous');
 
 // The amount and dollar formatting are correct for each recent donation
-$I->see('$ 10.00');
+//$I->see('$ 10.00');
 
 // Content
 // The campaign banner image configured at the peer to peer campaign appears at the top of the personal campaign page
@@ -72,13 +74,13 @@ $I->see('$ 10.00');
 // The personal campaign introduction comes from the personal campaigner when set to be overridable
 // The personal campaign images come from the personal campaigner when set to be overridable
 // The organization introduction content configured at the peer to peer campaign appears on the personal campaign page
-
 //above are redundant to other tests
 
 
 
 // All donate buttons point to the form configured on the peer to peer campaign the personal campaign is associated with
 // All donate buttons pass the id of the personal campaign to the donation form on the url
+$I->seeElement('//div[contains(@class, "pane-progress")]//a[contains(@href, "p2p_pcid=' . $camp_id .'")]');
 
 // Donor Comments
 // Donor comments display when the "Show donor comments on personal campaign pages" setting is enabled on the peer to peer campaign the personal campaign is associated with
