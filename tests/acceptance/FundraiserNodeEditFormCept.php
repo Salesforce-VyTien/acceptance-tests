@@ -35,10 +35,9 @@ EOT;
 }
 
 // Make sure the paypal method is enabled.
-$I->amOnPage('/admin/commerce/config/payment-methods/manage/3');
-$I->click('a.fieldset-title');
-$I->checkOption('#edit-settings-active');
-$I->click('Save changes');
+$I->amOnPage('/admin/commerce/config/payment-methods');
+$I->click("//a[contains(@href, 'admin/commerce/config/payment-methods/manage/3/enable')]");
+$I->click('Confirm');
 
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
