@@ -1,4 +1,5 @@
 <?php
+$scenario->skip();
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Configure and test p2p settings.');
@@ -117,7 +118,7 @@ $I->checkOption('#edit-' . $rid . '-edit-any-p2p-category-content');
 $I->checkOption('#edit-' . $rid . '-edit-any-p2p-campaign-content');
 $I->checkOption('#edit-' . $rid . '-edit-any-p2p-campaign-landing-content');
 $I->checkOption('#edit-' . $rid . '-edit-any-p2p-personal-campaign-content');
-$I->click('#edit-submit');  
+$I->click('#edit-submit');
 $I->createUser('testp2p', 'testp2p@example.com', $rid);
 $I->logout();
 $I->wait(4);

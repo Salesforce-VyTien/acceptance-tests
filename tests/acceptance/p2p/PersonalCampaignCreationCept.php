@@ -1,4 +1,6 @@
 <?php
+$scenario->skip();
+
 // Personal Campaign Creation
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
