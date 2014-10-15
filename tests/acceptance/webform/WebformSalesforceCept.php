@@ -1,4 +1,5 @@
 <?php
+$scenario->skip();
 
 // Acceptance tests for webform saleforce integration.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
