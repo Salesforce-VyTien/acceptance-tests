@@ -1,6 +1,7 @@
 .idea
 composer.lock
 selenium-server-standalone-*.jar
+phantomjs-*
 vendor
 tests/_output
 codeception.yml
