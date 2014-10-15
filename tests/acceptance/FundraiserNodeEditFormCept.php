@@ -34,20 +34,41 @@ EOT;
   $I->click('Import');
 }
 
+// Make sure the paypal method is enabled.
+$I->amOnPage('/admin/commerce/config/payment-methods/manage/3');
+$I->click('a.fieldset-title');
+$I->checkOption('#edit-settings-active');
+$I->click('Save changes');
+
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
+
+// Enable the paypal gateway.
+$I->checkOption('#edit-gateways-paypal-status');
+
+// Fill out the paypal label.
+$I->fillField('gateways[paypal][label]', 'Paypal label change 1');
 
 // Set the payment gateway to test 1.
 $I->selectOption('gateways[credit][id]', 'commerce_payment_example|commerce_payment_commerce_payment_example_test_1');
 
-// Change the label on the credit option.
+// Fill out the label on the credit option.
 $I->fillField('gateways[credit][label]', 'Credit card label change 1');
+
+// Select credit as the default gateway.
+$I->selectOption('input[name=gateways\[_default\]]', 'credit');
 
 // Save the form.
 $I->click('Save');
 
 // Confirm the label on the credit option.
 $I->see('Credit card label change 1', '#webform-component-payment-information');
+
+// Confirm the label on the paypal option.
+$I->see('Paypal label change 1', '#webform-component-payment-information');
+
+// Confirm the default payment method is credit.
+$I->seeOptionIsSelected('input[name=submitted\[payment_information\]\[payment_method\]]', 'credit');
 
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
@@ -94,7 +115,13 @@ $I->seeInField('gateways[credit][id]', 'commerce_payment_example|commerce_paymen
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
 
-// Fill the exisitng amount fields.
+// Change the label the paypal label.
+$I->fillField('gateways[paypal][label]', 'Paypal label change 2');
+
+// Select paypal as the default gateway.
+$I->selectOption('input[name=gateways\[_default\]]', 'paypal');
+
+// Fill the existing amount fields.
 $I->fillField('amount_wrapper[donation_amounts][0][amount]', 25);
 $I->fillField('amount_wrapper[donation_amounts][0][label]', '$25');
 $I->fillField('amount_wrapper[donation_amounts][1][amount]', 35);
@@ -119,6 +146,11 @@ $I->selectOption('input[name=default_amount]', 35);
 // Save.
 $I->click('Save');
 
-// Confirm the payment gateway is set to test 2.
+// Confirm the correct amount field is selected.
 $I->seeCheckboxIsChecked('#edit-submitted-donation-amount-2');
 
+// Confirm the label on the paypal option.
+$I->see('Paypal label change 2', '#webform-component-payment-information');
+
+// Confirm the default payment method is paypal.
+$I->seeOptionIsSelected('input[name=submitted\[payment_information\]\[payment_method\]]', 'paypal');
