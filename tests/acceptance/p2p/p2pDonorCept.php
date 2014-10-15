@@ -32,7 +32,11 @@ $I->wait(4);
 // Deadline date renders when a deadline configured on the personal campaign
 // Link to donation form is rendered and passes the correct personal campaign id to the donation form
 $I->amOnPage('node/' . $camp_id);
-$I->see($goal, '.goal-amount');
+
+// $ 1,000.00
+$pretty_goal = '$ ' . number_format($goal, 2);
+
+$I->see($pretty_goal, '.goal-amount');
 $I->click('Donate now');
 $I->wait(4);
 //$I->makeADonation();
@@ -60,7 +64,7 @@ $I->see('Recent donors');
 $I->see('Anonymous');
 
 // The amount and dollar formatting are correct for each recent donation
-$I->see('$10.00');
+$I->see('$ 10.00');
 
 // Content
 // The campaign banner image configured at the peer to peer campaign appears at the top of the personal campaign page
