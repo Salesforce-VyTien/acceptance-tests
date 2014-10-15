@@ -34,10 +34,30 @@ EOT;
   $I->click('Import');
 }
 
-// Make sure the paypal method is enabled.
-$I->amOnPage('/admin/commerce/config/payment-methods');
-$I->click("//a[contains(@href, 'admin/commerce/config/payment-methods/manage/3/enable')]");
-$I->click('Confirm');
+// Also import a paypal configuration with ACTIVE set to true.
+$I->amOnPage('/admin/config/workflow/rules/reaction/import');
+$import = <<<EOT
+{ "commerce_payment_paypal_wps" : {
+    "LABEL" : "PayPal WPS",
+    "PLUGIN" : "reaction rule",
+    "ACTIVE" : true,
+    "TAGS" : [ "Commerce Payment" ],
+    "REQUIRES" : [ "commerce_payment" ],
+    "ON" : [ "commerce_payment_methods" ],
+    "DO" : [
+      { "commerce_payment_enable_paypal_wps" : {
+          "commerce_order" : [ "commerce-order" ],
+          "payment_method" : "paypal_wps"
+        }
+      }
+    ]
+  }
+}
+EOT;
+
+$I->fillField('import', $import);
+$I->checkOption('#edit-overwrite');
+$I->click('Import');
 
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
