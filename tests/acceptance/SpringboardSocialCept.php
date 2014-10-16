@@ -88,6 +88,7 @@ $I->see('Share on Twitter!');
 
 // twitter message + share URL
 $I->click('Share on Twitter!');
+$I->wait(3);
 // Switch to Twitter popup window.
 $I->executeInSelenium(function (\Webdriver $webdriver) {
      $handles=$webdriver->getWindowHandles();
