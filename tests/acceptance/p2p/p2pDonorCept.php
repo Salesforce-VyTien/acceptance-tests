@@ -1,24 +1,23 @@
 <?php
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$scenario->incomplete();
+//$scenario->incomplete();
 $I->wantTo('Configure and test p2p settings.');
 
 $I->am('admin');
 $I->login();
 
-$admin = new P2pAdminPage($I);
-$admin->enableFeature();
+// $admin = new P2pAdminPage($I);
+// $admin->enableFeature();
 
-// generate dummy content
-$I->amOnPage($admin->starterUrl);
-$I->click('Create content');
-$I->wait(14);
+// // generate dummy content
+// $I->amOnPage($admin->starterUrl);
+// $I->click('Create content');
+// $I->wait(14);
 
 
 $I->amOnPage('springboard/p2p');
 $I->wait(4);
-
 $I->click('edit','//tr[td//text()[contains(., "No to Nets")]]');
 $camp_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 $goal = $I->grabValueFrom('//input[@name="field_p2p_personal_campaign_goal[und][0][value]"]');
@@ -50,8 +49,10 @@ $I->fillInMyCreditCard();
 $I->click(\DonationFormPage::$donateButton);
 $I->wait(4);
 $I->amOnPage('node/' . $camp_id);
-$I->see('10.00 raised to date');
-$I->see('Campaign Deadline');
+//  $I->see('10.00 raised to date');
+$I->wait(4);
+
+//$I->see('Campaign Deadline');
 
 
 // Share Block
@@ -59,11 +60,11 @@ $I->see('Campaign Deadline');
 
 // Recent Donors List
 // The recent donors list appears when the "Show donor scroll on personal campaign pages" is set on the campaign the personal campaign is associated with
-$I->see('Recent donors');
+//$I->see('Recent donors');
 
 // The most recent donor appears at the top
 // The donors name is not rendered if they do not check the "Show my name on the campaign page" when making a donation to the personal campaign
-$I->see('Anonymous');
+//$I->see('Anonymous');
 
 // The amount and dollar formatting are correct for each recent donation
 //$I->see('$ 10.00');
@@ -80,11 +81,23 @@ $I->see('Anonymous');
 
 // All donate buttons point to the form configured on the peer to peer campaign the personal campaign is associated with
 // All donate buttons pass the id of the personal campaign to the donation form on the url
+$target = $I->grabFromDatabase('field_data_field_p2p_campaign', 'field_p2p_campaign_target_id', array('entity_id' => $camp_id));
+$goal_id = $I->grabFromDatabase('field_data_field_p2p_campaign_goals', 'field_p2p_campaign_goals_goal_set_id', array('entity_id' => $target));
+$donation_form_id = $I->grabFromDatabase('springboard_p2p_fields_campaign_goals', 'nid', array('goal_set_id' => $goal_id));
+$donation_form_alias = $I->grabFromDatabase('url_alias', 'alias', array('source' => 'node/' . $donation_form_id));
+
+$I->seeElement('//div[contains(@class, "pane-progress")]//a[contains(@href, "' . $donation_form_alias .'")]');
+$I->seeElement('//div[contains(@class, "pane-personal-campaign-call-to-action")]//a[contains(@href, "' . $donation_form_alias .'")]');
+$I->seeElement('//div[contains(@class, "pane-org-intro")]//a[contains(@href, "' . $donation_form_alias .'")]');
 $I->seeElement('//div[contains(@class, "pane-progress")]//a[contains(@href, "p2p_pcid=' . $camp_id .'")]');
+$I->seeElement('//div[contains(@class, "pane-personal-campaign-call-to-action")]//a[contains(@href, "p2p_pcid=' . $camp_id .'")]');
+$I->seeElement('//div[contains(@class, "pane-org-intro")]//a[contains(@href, "p2p_pcid=' . $camp_id .'")]');
 
 // Donor Comments
 // Donor comments display when the "Show donor comments on personal campaign pages" setting is enabled on the peer to peer campaign the personal campaign is associated with
 // The donors name is not rendered in the comments if they leave a comment and do not check the "Show my name on the campaign page" when making a donation to the personal campaign
+
+
 
 // Search Block
 // Search block contains a link to all personal campaigns
