@@ -43,7 +43,7 @@ $I->see('Email Wrapper ' . $title . ' has been created.');
 $I->cloneADonationForm();
 $I->click('Save');
 
-$I->click('Form Components', 'ul.primary');
+$I->click('Form components', 'ul.primary');
 $I->click('Confirmation emails', 'ul.secondary');
 
 $I->click(WebformPage::$addEmailButton);
