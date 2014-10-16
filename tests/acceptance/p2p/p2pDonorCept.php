@@ -7,13 +7,13 @@ $I->wantTo('Configure and test p2p settings.');
 $I->am('admin');
 $I->login();
 
-// $admin = new P2pAdminPage($I);
-// $admin->enableFeature();
+$admin = new P2pAdminPage($I);
+$admin->enableFeature();
 
 // // generate dummy content
-// $I->amOnPage($admin->starterUrl);
-// $I->click('Create content');
-// $I->wait(14);
+$I->amOnPage($admin->starterUrl);
+$I->click('Create content');
+$I->wait(14);
 
 
 $I->amOnPage('springboard/p2p');
@@ -49,10 +49,8 @@ $I->fillInMyCreditCard();
 $I->click(\DonationFormPage::$donateButton);
 $I->wait(4);
 $I->amOnPage('node/' . $camp_id);
-//  $I->see('10.00 raised to date');
-$I->wait(4);
-
-//$I->see('Campaign Deadline');
+$I->see('10.00 raised to date');
+$I->see('Campaign Deadline');
 
 
 // Share Block
@@ -60,14 +58,14 @@ $I->wait(4);
 
 // Recent Donors List
 // The recent donors list appears when the "Show donor scroll on personal campaign pages" is set on the campaign the personal campaign is associated with
-//$I->see('Recent donors');
+$I->see('Recent donors');
 
 // The most recent donor appears at the top
 // The donors name is not rendered if they do not check the "Show my name on the campaign page" when making a donation to the personal campaign
-//$I->see('Anonymous');
+$I->see('Anonymous');
 
 // The amount and dollar formatting are correct for each recent donation
-//$I->see('$ 10.00');
+$I->see('$ 10.00');
 
 // Content
 // The campaign banner image configured at the peer to peer campaign appears at the top of the personal campaign page
@@ -81,9 +79,9 @@ $I->wait(4);
 
 // All donate buttons point to the form configured on the peer to peer campaign the personal campaign is associated with
 // All donate buttons pass the id of the personal campaign to the donation form on the url
-$target = $I->grabFromDatabase('field_data_field_p2p_campaign', 'field_p2p_campaign_target_id', array('entity_id' => $camp_id));
-$goal_id = $I->grabFromDatabase('field_data_field_p2p_campaign_goals', 'field_p2p_campaign_goals_goal_set_id', array('entity_id' => $target));
-$donation_form_id = $I->grabFromDatabase('springboard_p2p_fields_campaign_goals', 'nid', array('goal_set_id' => $goal_id));
+$parent_campaign_id = $I->grabFromDatabase('field_data_field_p2p_campaign', 'field_p2p_campaign_target_id', array('entity_id' => $camp_id));
+$parent_goal_id = $I->grabFromDatabase('field_data_field_p2p_campaign_goals', 'field_p2p_campaign_goals_goal_set_id', array('entity_id' => $parent_campaign_id));
+$donation_form_id = $I->grabFromDatabase('springboard_p2p_fields_campaign_goals', 'nid', array('goal_set_id' => $parent_goal_id));
 $donation_form_alias = $I->grabFromDatabase('url_alias', 'alias', array('source' => 'node/' . $donation_form_id));
 
 $I->seeElement('//div[contains(@class, "pane-progress")]//a[contains(@href, "' . $donation_form_alias .'")]');
@@ -96,21 +94,75 @@ $I->seeElement('//div[contains(@class, "pane-org-intro")]//a[contains(@href, "p2
 // Donor Comments
 // Donor comments display when the "Show donor comments on personal campaign pages" setting is enabled on the peer to peer campaign the personal campaign is associated with
 // The donors name is not rendered in the comments if they leave a comment and do not check the "Show my name on the campaign page" when making a donation to the personal campaign
+$I->amOnPage('node/' . $camp_id);
+$I->click('Donate now');
+$I->wait(3);
 
-
+$I->fillInMyName();
+$I->fillField(\DonationFormPage::$emailField, 'bob@example.com');
+$I->fillInMyAddress();
+$I->fillInMyCreditCard();
+$I->fillField('//textarea[@name="springboard_p2p_personal_campaign_action[comment]"]', 'xxx');
+$I->click(\DonationFormPage::$donateButton);
+$I->amOnPage('node/' . $camp_id);
+$I->dontSee('John Tester', '.pane-recent-donors');
+$I->click('Donate now');
+$I->fillInMyName();
+$I->fillField(\DonationFormPage::$emailField, 'bob@example.com');
+$I->fillInMyAddress();
+$I->fillInMyCreditCard();
+$I->wait(5);
+$I->executeJS('return jQuery("input[type=checkbox]").css("display", "block")');
+$I->checkOption('#edit-springboard-p2p-personal-campaign-action-show-name');
+$I->fillField('//textarea[@name="springboard_p2p_personal_campaign_action[comment]"]', 'xxx');
+$I->click(\DonationFormPage::$donateButton);
 
 // Search Block
 // Search block contains a link to all personal campaigns
 // User can search for personal campaigns by personal campaign title or campaigner name
+$I->login();
+$I->wait(8);
+$I->amOnPage('springboard/user/1/edit');
+$I->fillField('//input[@name="sbp_first_name[und][0][value]"]', 'admin');
+$I->click('#edit-submit');
+$I->logout();
+$I->wait(3);
+$I->amOnPage('node/' . $parent_campaign_id);
+$I->seeElement('.search-wrapper');
+$I->fillField('//input[@name="combine"]', 'no to nets');
+$I->click('//input[@value="Search"]');
+$I->wait(3);
+$I->see('No to Nets', '.view-p2p-search-for-a-campaign');
+$I->fillField('//input[@name="combine"]', 'admin');
+$I->click('//input[@value="Search"]');
+$I->wait(3);
+$I->seeElement('.view-p2p-search-for-a-campaign tr.even');
 
 // Donate
 // Donation form displays the same banner image as the personal campaign
 // Donation form displays the title of the personal campaign
-// Donation form displays the name of the personal campaigner
 // Donation form displays the personal campaign goal
 // Donation form displays the personal campaign's goal progress
-// Comment text box appears on donation form when the allow donor comments setting is enabled on the peer to peer campaign that the personal campaign is associated with
+$I->amOnPage('node/' . $camp_id);
+$banner = $I->grabAttributeFrom('.pane-campaign-header img', 'src');
+$I->click('Donate now');
+$I->wait(3);
+$pos = strpos($banner, '?');
+if($pos !== FALSE) {
+  $banner = substr($banner, 0, $pos);
+}
+$I->seeElement('//img[contains(@src, "' . $banner .'")]');
+$I->see('Personal Fundraising Goal');
+$I->see('Personal campaign progress');
+$I->see('raised to date');
+$I->seeElement('.progress-bar');
+
+// Donation form displays the name of the personal campaigner
+// eh?
+
 // Goal progress is updated correctly after a successful donation to the personal campaign is made
+//no way to test that?
+
 // The donation confirmation page and email can utilize personal campaign specific tokens
 // Personal campaigner user first name
 // Personal campaigner user last name
