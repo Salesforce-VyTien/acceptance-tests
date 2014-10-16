@@ -36,7 +36,7 @@ $I->selectOption(\SustainerManagementPage::$expirationYearField, '2016');
 $I->fillField(\SustainerManagementPage::$cvvField, '123');
 $I->click(\SustainerManagementPage::$billingUpdateButton);
 $I->see('Billing information successfully updated', 'div');
-//$I->see('01/15/16', 'td'); //@todo: bug, see ticket 1122.
+$I->see('01/15/16', 'td'); //@todo: bug, see ticket 1122.
 
 // Cancel all remaining donations.
 $I->fillField(\SustainerManagementPage::$reasonField, 'I no longer support your mission.');

@@ -102,5 +102,28 @@ class DrupalSteps extends \AcceptanceTester
       $rid = $I->grabValueFrom('//label[normalize-space(text())="' . $label . '"]/preceding-sibling::input');
       return $rid;
     }
-    
+
+    public function createWebform(array $details = array()) {
+
+      $defaults = array(
+        'title' => 'Webform title',
+        'body' => 'Webform body.',
+      );
+
+      $settings = array_merge($defaults, $details);
+
+      $I = $this;
+      $I->amOnPage('springboard/add/webform');
+      $I->fillField('title', $settings['title']);
+      $I->fillField('body[und][0][value]', $settings['body']);
+      $I->click('#edit-submit');
+      $nid = $I->grabFromCurrentUrl('~/springboard/node/(\d+)/form-components/components~');
+      codecept_debug($nid);
+      $I->fillField('add[name]', 'Component 1');
+      $I->click('#edit-add-add');
+      $I->click('#edit-actions-submit');
+
+      return $nid;
+    }
+
 }
