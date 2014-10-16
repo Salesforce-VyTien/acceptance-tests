@@ -73,21 +73,19 @@ $I->sid = $I->grabFromCurrentUrl('~/done\?sid=(\d+)~');
 //codecept_debug($sid);
 $I->seeInDatabase('webform_confirmations_submissions', array('sid' => $I->sid));
 
-$hacker = $I->haveFriend('hacker');
-$hacker->does(function(AcceptanceTester $I) {
-  $I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
-  $I->see('Access denied', 'h1.page-title');
-  $I->see('You are not authorized to access this page.');
-  $I->dontSee('Hello, World!', 'h1.page-title');
-  $I->dontSee('10', '#donation-amount');
-  $I->dontSee('John', '#donation-first_name');
-  $I->dontSee('John', '#user-sbp_first_name');
-  $I->dontSee('Tester', '#donation-last_name');
-  $I->dontSee('Tester', '#user-sbp_last_name');
-  $I->dontSee('1111', '#donation-card_number');
-  $I->dontSee('bob@example.com', '#donation-mail');
-  $I->dontSee('bob@example.com', '#user-mail');
-});
+// Browse away and make sure user can access their own page when they return.
+$I->amOnPage('node/' . $I->nid);
+$I->wait(3);
+$I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
+$I->see('Hello, World!', 'h1.page-title');
+$I->see('10', '#donation-amount');
+$I->see('John', '#donation-first_name');
+$I->see('John', '#user-sbp_first_name');
+$I->see('Tester', '#donation-last_name');
+$I->see('Tester', '#user-sbp_last_name');
+$I->see('1111', '#donation-card_number');
+$I->see('bob@example.com', '#donation-mail');
+$I->see('bob@example.com', '#user-mail');
 
 $I->am('admin');
 $I->login();
@@ -149,3 +147,19 @@ $I->dontSee('1111', '#donation-card_number');
 $I->dontSee('bob@example.com', '#donation-mail');
 $I->dontSee('bob@example.com', '#user-mail');
 $I->logout();
+
+// Anonymous user, can't access another user's confirmation page.
+$I->wait(3);
+$I->am('anonymous user');
+$I->amOnPage('/node/' . $I->nid . '/done?sid=' . $I->sid);
+$I->see('Access denied', 'h1.page-title');
+$I->see('You are not authorized to access this page.');
+$I->dontSee('Hello, World!', 'h1.page-title');
+$I->dontSee('10', '#donation-amount');
+$I->dontSee('John', '#donation-first_name');
+$I->dontSee('John', '#user-sbp_first_name');
+$I->dontSee('Tester', '#donation-last_name');
+$I->dontSee('Tester', '#user-sbp_last_name');
+$I->dontSee('1111', '#donation-card_number');
+$I->dontSee('bob@example.com', '#donation-mail');
+$I->dontSee('bob@example.com', '#user-mail');
