@@ -54,6 +54,8 @@ $I->createUser('sb-admin', 'sb-admin@example.com', $adminRid);
 $I->createUser('sb-editor', 'sb-editor@example.com', $editorRid);
 $I->createUser('auth', 'auth@example.com');
 
+$webformId = $I->createWebform();
+
 $I->logout();
 
 $I->amOnPage('node/' . $I->nid);
@@ -163,3 +165,15 @@ $I->dontSee('Tester', '#user-sbp_last_name');
 $I->dontSee('1111', '#donation-card_number');
 $I->dontSee('bob@example.com', '#donation-mail');
 $I->dontSee('bob@example.com', '#user-mail');
+
+$I->amOnPage('/node/' . $webformId);
+$I->fillField('submitted[component_1]', 'Value');
+$I->click('#edit-submit');
+$I->canSee('Webform title', 'h1.page-title');
+$webformSid = $I->grabFromCurrentUrl('~/done\?sid=(\d+)~');
+
+$I->am('authenticated user');
+$I->login('auth', 'auth');
+$I->amOnPage('/node/' . $webformId . '/done?sid=' . $webformSid);
+$I->see('Access denied', 'h1.page-title');
+$I->see('You are not authorized to access this page.');

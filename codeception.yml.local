@@ -4,6 +4,6 @@ modules:
     config:
         Db:
             dsn: 'mysql:host=localhost;dbname=springboard'
-            user: 'root'
-            password: ''
-            dump: tests/_data/dump.sql
+            user: 'drupal'
+            password: 'drupal'
+            dump: tests/_data/sb-4.5.sql
