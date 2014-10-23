@@ -117,7 +117,7 @@ $I->canSeeInField('.views-row-first .views-field-failures', 0);
 // edit the submission and check to see that it is requeued.
 $I->amOnPage('node/' . $node_id . '/salesforce');
 $I->checkOption(SalesforceMapPage::$syncOptionsCheckbox);
-$I->amOnPage('node/90/results');
+$I->amOnPage('node/' . $node_id .'/results');
 $I->click(['link' => 'Edit'], '.sticky-table');
 $I->fillField('E-mail address', 'anothermail@example.com');
 $I->click('#edit-submit');
