@@ -18,7 +18,6 @@ class No_populateGroup extends \Codeception\Platform\Group
 
     public function _before(TestEvent $e)
     {
-      exit();
       $test = $e->getTest();
       // get the Db module
       $db = $this->getModule('Db');
