@@ -32,5 +32,35 @@ class SalesforceMapPage
   public static $cronPage = 'admin/reports/status/run-cron';
   public static $batchPage = 'springboard/reports/integration-reports/batch';
   public static $syncOptionsCheckbox = '#edit-map-config-sync-options-update';
+
+
+   /**
+     * @var AcceptanceTester;
+     */
+    protected $acceptanceTester;
+
+    public function __construct(AcceptanceTester $I)
+    {
+      $this->acceptanceTester = $I;
+
+    }
+
+    /**
+     * @return a thing.
+     */
+    public static function of(AcceptanceTester $I)
+    {
+        return new static($I);
+    }
+
+    function configureSalesforce() {
+      $config = \Codeception\Configuration::config();
+      $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+      $I = $this->acceptanceTester;
+
+      foreach ($settings['Salesforce'] as $key => $value) {
+        $I->haveInDatabase('variable', array('name' => $key, 'value' => $value));
+      }
+    }
 }
 
