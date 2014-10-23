@@ -1,5 +1,6 @@
 <?php
 $scenario->skip();
+$scenario->group('no_populate');
 
 // Acceptance tests for webform saleforce integration.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
@@ -22,7 +23,7 @@ $I->fillField(\NodeAddPage::$internalTitle, "Test Webform");
 $I->click(\NodeAddPage::$save);
 
 // get the new node's id
-$node_id = $I->grabFromCurrentUrl('~.*/springboard/node/(\d+)/.*~');
+$node_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 
 // check for the salesforce mapping function
 $I->amOnPage('node/' . $node_id . '/salesforce');
@@ -55,7 +56,7 @@ $I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
 $I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
 
 // save mapping
-$I->click('#edit-submit--2');
+$I->click('//input[@value="Save"]');
 
 // check if fields are still selected after page reload
 $I->seeOptionIsSelected(SalesforceMapPage::$recordType, 'Petition Submission');
@@ -116,7 +117,7 @@ $I->canSeeInField('.views-row-first .views-field-failures', 0);
 // edit the submission and check to see that it is requeued.
 $I->amOnPage('node/' . $node_id . '/salesforce');
 $I->checkOption(SalesforceMapPage::$syncOptionsCheckbox);
-$I->amOnPage('springboard/node/90/results');
+$I->amOnPage('node/90/results');
 $I->click(['link' => 'Edit'], '.sticky-table');
 $I->fillField('E-mail address', 'anothermail@example.com');
 $I->click('#edit-submit');

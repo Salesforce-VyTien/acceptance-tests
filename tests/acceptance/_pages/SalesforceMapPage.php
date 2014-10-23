@@ -21,7 +21,7 @@ class SalesforceMapPage
 
    //labels
   public static $syncOptions = 'Salesforce Sync Options';
-  public static $fieldMap = 'Field Mappings';
+  public static $fieldMap = 'Field Mapping';
   public static $component = 'Webform Componant';
   public static $subProp = 'Submission Property';
   public static $nodeProp = 'Node property';

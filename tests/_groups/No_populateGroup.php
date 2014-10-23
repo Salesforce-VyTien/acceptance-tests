@@ -21,6 +21,11 @@ class No_populateGroup extends \Codeception\Platform\Group
       $test = $e->getTest();
       // get the Db module
       $db = $this->getModule('Db');
+
+      //we do actually wipe the db, then initialize a second time with new config
+      $db->_initialize();
+      $db->_before($test);
+
       $db->_reconfigure(array('populate' => FALSE));
       $db->_initialize();
       $db->_before($test);

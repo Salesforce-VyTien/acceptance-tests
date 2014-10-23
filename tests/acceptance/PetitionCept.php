@@ -116,64 +116,64 @@ if ($I->grabValueFrom('Last name') != '') {
 
 
 // // check for the salesforce mapping function
-// $I->amOnPage('node/' . $node_id . '/salesforce');
-// $I->see('Salesforce Object Mapping', 'span');
+$I->login();
+$I->amOnPage('node/' . $node_id . '/salesforce');
+$I->see('Salesforce Object Mapping', 'span');
 
-// // check opportunity object and donation record type
-// $I->selectOption(SalesforceMapPage::$objectType, 'Opportunity');
-// $I->wait(3);
-// $I->see(SalesforceMapPage::$objTypeLabel, 'label');
-// $I->selectOption(SalesforceMapPage::$recordType, 'Donation');
+// check opportunity object and donation record type
+$I->selectOption(SalesforceMapPage::$objectType, 'Opportunity');
+$I->wait(3);
+$I->see(SalesforceMapPage::$objTypeLabel, 'label');
+$I->selectOption(SalesforceMapPage::$recordType, 'Donation');
 
-// // check actions object and petition record type
-// $I->selectOption(SalesforceMapPage::$objectType, 'Actions');
-// $I->wait(3);
-// $I->see(SalesforceMapPage::$objTypeLabel, 'label');
-// $I->selectOption(SalesforceMapPage::$recordType, 'Petition Submission');
+// check actions object and petition record type
+$I->selectOption(SalesforceMapPage::$objectType, 'Actions');
+$I->wait(3);
+$I->see(SalesforceMapPage::$objTypeLabel, 'label');
+$I->selectOption(SalesforceMapPage::$recordType, 'Petition Submission');
+// check to see if all the config sections are visible
+$I->see(SalesforceMapPage::$fieldMap,'span');
+$I->see(SalesforceMapPage::$component,'th');
+$I->see(SalesforceMapPage::$nodeProp,'th');
+$I->see(SalesforceMapPage::$subProp,'th');
+$I->see(SalesforceMapPage::$syncOptions,'label');
+$I->see('Contact Field','label');
 
-// // check to see if all the config sections are visible
-// $I->see(SalesforceMapPage::$fieldMap,'span');
-// $I->see(SalesforceMapPage::$component,'th');
-// $I->see(SalesforceMapPage::$nodeProp,'th');
-// $I->see(SalesforceMapPage::$subProp,'th');
-// $I->see(SalesforceMapPage::$syncOptions,'label');
-// $I->see('Contact Field','label');
-
-// // map a few fields
-// $I->selectOption(SalesforceMapPage::$mapMs, 'Market_Source__c');
-// $I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
-// $I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
-// $I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
+// map a few fields
+$I->selectOption(SalesforceMapPage::$mapMs, 'Market_Source__c');
+$I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
+$I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
+$I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
 
 // // save mapping
-// $I->click('#edit-submit--2');
+$I->click('//input[@value="Save"]');
 
-// // check if fields are still selected after page reload
-// $I->seeOptionIsSelected(SalesforceMapPage::$recordType, 'Petition Submission');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
+// check if fields are still selected after page reload
+$I->seeOptionIsSelected(SalesforceMapPage::$recordType, 'Petition Submission');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
 
-// // unmap the node and check to see if fields are no longer selected
-// $I->click(SalesforceMapPage::$unmap);
-// $I->cantSee(SalesforceMapPage::$fieldMap,'span');
-// $I->cantSee(SalesforceMapPage::$component,'th');
-// $I->cantSee(SalesforceMapPage::$nodeProp,'th');
-// $I->cantSee(SalesforceMapPage::$subProp,'th');
-// $I->cantSee(SalesforceMapPage::$syncOptions,'label');
+// unmap the node and check to see if fields are no longer selected
+$I->click(SalesforceMapPage::$unmap);
+$I->cantSee(SalesforceMapPage::$fieldMap,'span');
+$I->cantSee(SalesforceMapPage::$component,'th');
+$I->cantSee(SalesforceMapPage::$nodeProp,'th');
+$I->cantSee(SalesforceMapPage::$subProp,'th');
+$I->cantSee(SalesforceMapPage::$syncOptions,'label');
 
-// // remap the actions object in preparation for webform submission by anonymous visitor
-// $I->selectOption(SalesforceMapPage::$objectType, 'Actions');
-// $I->wait(3);
-// $I->selectOption(SalesforceMapPage::$mapMs, 'Market_Source__c');
-// $I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
-// $I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
-// $I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
-// $I->click('#edit-submit');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
-// $I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
+// remap the actions object in preparation for webform submission by anonymous visitor
+$I->selectOption(SalesforceMapPage::$objectType, 'Actions');
+$I->wait(3);
+$I->selectOption(SalesforceMapPage::$mapMs, 'Market_Source__c');
+$I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
+$I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
+$I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
+$I->click('#edit-submit');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
+$I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
 
 
