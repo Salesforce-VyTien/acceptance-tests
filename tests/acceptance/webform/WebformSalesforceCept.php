@@ -1,10 +1,14 @@
 <?php
-$scenario->skip();
+//$scenario->skip();
+
 $scenario->group('no_populate');
 
 // Acceptance tests for webform saleforce integration.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Create a generic webform and test salesforce integration.');
+
+$salesforce = new SalesforceMapPage($I);
+$salesforce->configureSalesforce();
 
 $I->am('admin');
 $I->login();
@@ -27,6 +31,7 @@ $node_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 
 // check for the salesforce mapping function
 $I->amOnPage('node/' . $node_id . '/salesforce');
+$I->wait(5);
 $I->see('Salesforce Object Mapping', 'span');
 
 // check opportunity object and donation record type
