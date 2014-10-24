@@ -46,5 +46,5 @@ modules:
 #       $I->haveInDatabase('variable', array('name' => $key, 'value' => $value));
 #     }
 
-# to use saleforce config in a test, the test must be tagged:
+# to use the method "haveInDatabase" in a test, the test must be tagged:
 # $scenario->group('no_populate');
