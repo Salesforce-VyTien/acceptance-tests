@@ -16,5 +16,5 @@ modules:
             password: ''
             dump: tests/_data/dump.sql
 extensions:
-    enabled: 
-        - no_populateGroup
+    enabled:
+        - No_populateGroup
