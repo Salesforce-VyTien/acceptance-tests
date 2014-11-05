@@ -10,7 +10,7 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
             'first' => 'John',
             'last' => 'Tester',
             'email' => 'bob@example.com',
-            'address' => '',
+            'address' => '1234 Main St.',
             'address2' => '',
             'city' => 'Washington',
             'state' => 'DC',
