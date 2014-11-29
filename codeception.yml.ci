@@ -1,0 +1,7 @@
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=localhost;dbname=springboard'
+            user: 'root'
+            password: ''
+            dump: ../dump.sql
