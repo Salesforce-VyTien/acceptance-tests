@@ -126,4 +126,9 @@ class DrupalSteps extends \AcceptanceTester
       return $nid;
     }
 
+    public function seeInMessages($message) {
+        $I = $this;
+        $I->see($message, '.status');
+    }
+
 }
