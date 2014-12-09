@@ -1,4 +1,5 @@
 <?php
+$scenario->skip();
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 //$scenario->incomplete();

@@ -1,4 +1,5 @@
 <?php
+$scenario->skip();
 
 // Acceptance tests for sustainer management features.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);

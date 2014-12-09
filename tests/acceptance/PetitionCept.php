@@ -1,4 +1,5 @@
 <?php
+$scenario->skip();
 
 $scenario->group('no_populate');
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
@@ -9,7 +10,7 @@ $salesforce->configureSalesforce();
 
 // We need a unique title so we can pick it from the template list.
 $title = 'Petition test ' . time();
-// 
+//
 
 $I->am('admin');
 $I->login();

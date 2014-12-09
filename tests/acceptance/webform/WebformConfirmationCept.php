@@ -1,4 +1,5 @@
 <?php
+$scenario->skip();
 
 // Acceptance tests for webform confirmations.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
