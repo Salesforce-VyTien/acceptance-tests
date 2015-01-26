@@ -80,7 +80,7 @@ $I->click(DonationFormPage::$donateButton);
 $I->see('Gary Nobody');
 $I->see('overwritegary@example.com');
 $I->see('123 Main St');
-$I->see('Washingont');
+$I->see('Washington');
 $I->see('US');
 $I->see('DC');
 $I->see('11111');
