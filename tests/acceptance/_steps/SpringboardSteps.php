@@ -159,4 +159,14 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
             $I->makeADonation($defaults, $recurring);
         }
     }
+
+    public function configureSecurePrepopulate($key, $iv) {
+        $I = $this;
+
+        $I->amOnPage('admin/config/system/secure-prepopulate');
+        $I->fillField('#edit-secure-prepopulate-key', $key);
+        $I->fillField('#edit-secure-prepopulate-iv', $iv);
+        $I->click('#edit-submit');
+        $I->seeInMessages('The configuration options have been saved.');
+    }
 }
