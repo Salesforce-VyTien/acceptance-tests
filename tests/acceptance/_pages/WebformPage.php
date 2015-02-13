@@ -24,7 +24,7 @@ class WebformPage
     public static $emailWrappersHTMLMessage = '#edit-email-wrappers-html-message';
     public static $emailWrappersTextMessage = '#edit-email-wrappers-text-message';
 
-    public static $saveEmailSettingsButton = '#edit-actions-submit--2';
+    public static $saveEmailSettingsButton = '#edit-actions-submit';
 
     /**
      * Basic route example for your current URL
