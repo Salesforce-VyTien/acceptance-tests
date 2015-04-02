@@ -47,7 +47,7 @@ $I->createUser('sb_editor', 'sb_editor@example.com', $rid);
 $I->logout();
 $I->am('Springboard administrator');
 $I->login('sb_admin', 'sb_admin');
-$I->expect('all advocacy menu items to be available.');
+$I->expect('appropriate advocacy menu items to be available.');
 $I->see('Advocacy', 'a.dropdown-toggle');
 $I->moveMouseOver('li.advocacy');
 $I->click('View All Actions');
@@ -56,17 +56,14 @@ $I->see('Advocacy: Actions', '.page-title');
 $I->see('Create a new message action');
 $I->see('Manage Custom Targets');
 
-
-/*
-$I->wantTo('verify advocacy permissions are properly set for the Springboard administrator role');
-// Create a user with the Springboard Administrator role.
-$rid = $I->getRid('Springboard administrator');
-$I->createUser('john', 'john@example.com', $rid);
 $I->logout();
-
-$I->am('user with the Springboard Administrator role');
-$I->login('john', 'john');
-
-
-$I->wantTo('verify advocacy permissions are properly set for the Springboard editor role');
-*/
+$I->am('Springboard editor');
+$I->login('sb_editor', 'sb_editor');
+$I->expect('appropriate advocacy menu items to be available.');
+$I->see('Advocacy', 'a.dropdown-toggle');
+$I->moveMouseOver('li.advocacy');
+$I->click('View All Actions');
+$I->seeInCurrentUrl('/springboard/advocacy/actions');
+$I->see('Advocacy: Actions', '.page-title');
+$I->see('Create a new message action');
+$I->cantSee('Manage Custom Targets');
