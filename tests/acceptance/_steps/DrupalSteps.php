@@ -32,6 +32,13 @@ class DrupalSteps extends \AcceptanceTester
         $I->checkOption($module);
         $I->click(\ModulesPage::$submitButton);
 
+        $url = $I->grabFromCurrentUrl();
+
+        // Check for dependencies.
+        if ($url == '/admin/modules/list/confirm') {
+          $I->click('Continue');
+        }
+
     }
     public function disableModule($module)
     {
