@@ -50,6 +50,10 @@ $I->login('sb_admin', 'sb_admin');
 $I->expect('appropriate advocacy menu items to be available.');
 $I->see('Advocacy', 'a.dropdown-toggle');
 $I->moveMouseOver('li.advocacy');
+$I->see('View All Actions');
+$I->see('Create a Message Action');
+$I->see('Custom Targets');
+
 $I->click('View All Actions');
 $I->seeInCurrentUrl('/springboard/advocacy/actions');
 $I->see('Advocacy: Actions', '.page-title');
@@ -62,6 +66,10 @@ $I->login('sb_editor', 'sb_editor');
 $I->expect('appropriate advocacy menu items to be available.');
 $I->see('Advocacy', 'a.dropdown-toggle');
 $I->moveMouseOver('li.advocacy');
+$I->see('View All Actions');
+$I->see('Create a Message Action');
+$I->cantSee('Custom Targets');
+
 $I->click('View All Actions');
 $I->seeInCurrentUrl('/springboard/advocacy/actions');
 $I->see('Advocacy: Actions', '.page-title');
