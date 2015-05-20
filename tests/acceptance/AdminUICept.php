@@ -1,5 +1,5 @@
 <?php
-$scenario->skip();
+//$scenario->skip();
 
 // Acceptance tests for admin UI and menus.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
@@ -55,7 +55,7 @@ $I->see('Internal Name', 'th');
 $I->see('Form Name', 'th');
 $I->see('Form ID', 'th');
 $I->see('Status', 'th');
-$I->see('Date Created', 'th');
+$I->see('Last Updated', 'th');
 $I->see('Action', 'th');
 $I->see('Clone', 'td');
 $I->see('Edit', 'td');
@@ -68,7 +68,7 @@ $I->see('Internal Name', 'th');
 $I->see('Form Name', 'th');
 $I->see('Form ID', 'th');
 $I->see('Status', 'th');
-$I->see('Date Created', 'th');
+$I->see('Last Updated', 'th');
 $I->see('Action', 'th');
 $I->see('Clone', 'td');
 $I->see('Edit', 'td');
