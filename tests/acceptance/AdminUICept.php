@@ -38,8 +38,6 @@ $I->see('View All Forms', '.more-button');
 $I->see('Sync Status', 'h2');
 $I->see('Springboard Version:', '.sb-version-info');
 
-$I->see('Springboard Notes', 'h2');
-
 $I->click('Donation Forms');
 $I->seeInCurrentUrl('/springboard/donation-forms/all');
 $I->see('Donation Forms', '.page-title');
