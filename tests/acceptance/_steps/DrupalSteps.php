@@ -127,8 +127,18 @@ class DrupalSteps extends \AcceptanceTester
     }
 
     public function seeInMessages($message) {
-        $I = $this;
-        $I->see($message, '.status');
+      $I = $this;
+      $I->see($message, '.status');
+    }
+
+    public function runModuleUpdates() {
+      $I = $this;
+      $I->amOnPage('update.php');
+      $I->click('Continue');
+      $up = $I->canSee('Apply pending updates');
+      if ($up) {
+        $I->click('Apply pending updates');
+      }
     }
 
 }

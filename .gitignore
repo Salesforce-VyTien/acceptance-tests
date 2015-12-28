@@ -7,3 +7,4 @@ tests/_output
 codeception.yml
 acceptance.suite.yml
 .DS_store
+/tests/acceptance/AcceptanceTester.php
