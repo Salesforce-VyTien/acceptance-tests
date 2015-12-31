@@ -1,6 +1,6 @@
 <?php
 $scenario->skip();
-å
+
 $scenario->group('no_populate');
 // Acceptance tests for admin UI and menus.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
