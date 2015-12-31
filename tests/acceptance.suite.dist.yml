@@ -35,6 +35,16 @@ modules:
 #   salesforce_refresh_token:
 #   salesforce_sandbox_account: 
 
+#Advocacy:
+#  springboard_advocacy_client_id:
+#  springboard_advocacy_client_secret:
+#  springboard_advocacy_smarty_authid:
+#  springboard_advocacy_smarty_authtoken:
+#  social_action_twitter_consumer_key:
+#  social_action_twitter_consumer_secret:
+#  springboard_advocacy_server_url
+#  springboard_advocacy_test_email
+
 # These values can be accessed during a test:
 
 # $config = \Codeception\Configuration::config();
