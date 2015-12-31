@@ -27,11 +27,13 @@ class DrupalSteps extends \AcceptanceTester
     public function enableModule($module)
     {
         $I = $this;
-
         $I->amOnPage(\ModulesPage::$URL);
         $I->checkOption($module);
         $I->click(\ModulesPage::$submitButton);
-
+        $heading = $I->grabTextFrom('h1');
+        if($heading == 'Some required modules must be enabled') {
+          $I->click('#edit-submit');
+        }
     }
     public function disableModule($module)
     {
