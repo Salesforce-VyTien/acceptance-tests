@@ -8,9 +8,9 @@ $I->wantTo('configure Email wrappers and add a template.');
 $title = 'email wrappers test ' . time();
 $subject = 'this is my subject';
 $html_template = 'this is my html template. here comes the html message token: %html_message did you see it?';
-$html_message = 'this is the default html message.';
+$html_message = 'this is the default html message';
 $text_template = 'this is my text template. here comes the text message token: %text_message did you see it?';
-$text_message = 'this is the default text message.';
+$text_message = 'this is the default text message';
 $from_name = 'this is my from name';
 $from_mail = 'from@example.com';
 
@@ -51,8 +51,9 @@ $I->click(WebformPage::$addEmailButton);
 $I->selectOption('Template', $title);
 
 $I->waitForJS('return jQuery.active == 0;', 10);
-$I->wait(45);
+
 $I->seeCheckboxIsChecked(WebformPage::$emailSubjectField, 'Custom');
+
 $I->seeInField(WebformPage::$emailSubjectCustomField, $subject);
 
 $I->seeCheckboxIsChecked(WebformPage::$emailFromAddressField, 'custom');
@@ -60,7 +61,6 @@ $I->seeInField(WebformPage::$emailFromAddressCustomField, $from_mail);
 
 $I->seeCheckboxIsChecked(WebformPage::$emailFromNameField, 'custom');
 $I->seeInField(WebformPage::$emailFromNameCustomField, $from_name);
-
 $I->seeInField(WebformPage::$emailWrappersHTMLMessage, $html_message);
 $I->seeInField(WebformPage::$emailWrappersTextMessage, $text_message);
 

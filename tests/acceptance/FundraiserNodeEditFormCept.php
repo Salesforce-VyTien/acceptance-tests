@@ -75,11 +75,12 @@ $I->selectOption('gateways[credit][id]', 'commerce_payment_example|commerce_paym
 $I->fillField('gateways[credit][label]', 'Credit card label change 1');
 
 // Select credit as the default gateway.
-$I->selectOption('input[name=gateways\[_default\]]', 'credit');
+$I->click('form');  //selectOption will not work without this
+$I->selectOption("//input[@value='credit']", 'credit');
 
 // Save the form.
 $I->click('Save');
-
+$I->waitForElement('#webform-component-payment-information', 10);
 // Confirm the label on the credit option.
 $I->see('Credit card label change 1', '#webform-component-payment-information');
 
@@ -160,13 +161,13 @@ $I->fillField('amount_wrapper[donation_amounts][2][amount]', 55);
 $I->fillField('amount_wrapper[donation_amounts][2][label]', '$55');
 
 // Set the default amount.
-$I->selectOption('input[name=default_amount]', 35);
+$I->click('body');
+$I->selectOption('//input[@value="35"]', '35');
 
 // Save.
 $I->click('Save');
-
 // Confirm the correct amount field is selected.
-$I->seeCheckboxIsChecked('#edit-submitted-donation-amount-2');
+$I->seeOptionIsSelected('//input[@value="35"]', '35');
 
 // Confirm the label on the paypal option.
 $I->see('Paypal label change 2', '#webform-component-payment-information');

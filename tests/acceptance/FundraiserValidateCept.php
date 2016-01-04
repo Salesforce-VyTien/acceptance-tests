@@ -18,7 +18,7 @@ $I->selectOption(DonationFormPage::$countryField, 'US');
 $I->fillField(DonationFormPage::$zipField, '12345');
 $I->fillField(DonationFormPage::$creditCardNumberField, '4111111111111111');
 $I->selectOption(DonationFormPage::$creditCardExpirationMonthField, '6');
-$I->selectOption(DonationFormPage::$creditCardExpirationYearField, '2015');
+$I->selectOption(DonationFormPage::$creditCardExpirationYearField, '2016');
 $I->fillField(DonationFormPage::$CVVField, '123');
 
 //click on neutral space to remove focus from the last filled element

@@ -12,14 +12,14 @@ class WebformPage
      */
     public static $addEmailButton = '#edit-add-button';
 
-    public static $emailSubjectField = '#edit-subject-option-custom--2';
-    public static $emailSubjectCustomField = '#edit-subject-custom--2';
+    public static $emailSubjectField = '#edit-subject-option-custom';
+    public static $emailSubjectCustomField = '#edit-subject-custom';
 
-    public static $emailFromAddressField = '#edit-from-address-option-custom--2';
-    public static $emailFromAddressCustomField = '#edit-from-address-custom--2';
+    public static $emailFromAddressField = '#edit-from-address-option-custom';
+    public static $emailFromAddressCustomField = '#edit-from-address-custom';
 
-    public static $emailFromNameField = '#edit-from-name-option-custom--2';
-    public static $emailFromNameCustomField = '#edit-from-name-custom--2';
+    public static $emailFromNameField = '#edit-from-name-option-custom';
+    public static $emailFromNameCustomField = '#edit-from-name-custom';
 
     public static $emailWrappersHTMLMessage = '#edit-email-wrappers-html-message';
     public static $emailWrappersTextMessage = '#edit-email-wrappers-text-message';
