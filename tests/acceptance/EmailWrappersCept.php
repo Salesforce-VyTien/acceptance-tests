@@ -51,7 +51,7 @@ $I->click(WebformPage::$addEmailButton);
 $I->selectOption('Template', $title);
 
 $I->waitForJS('return jQuery.active == 0;', 10);
-
+$I->wait(45);
 $I->seeCheckboxIsChecked(WebformPage::$emailSubjectField, 'Custom');
 $I->seeInField(WebformPage::$emailSubjectCustomField, $subject);
 
