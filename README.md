@@ -25,6 +25,7 @@ alias codecept=vendor/codeception/codeception/codecept
 ## Running tests
 
 You should be able to run the tests with `codecept run`.
+You should be able to run an individual test with `codecept run tests/acceptance/path_to_test/testName.php`.
 
 Add the `--html` switch to get a pretty report file.  Output ends up in `tests/_output`, which would include screenshots if a test fails.
 
