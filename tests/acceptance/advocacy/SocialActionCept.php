@@ -60,7 +60,7 @@ $I->waitForElement("#edit-twitter-sign-in", 10);
 $I->click('#edit-twitter-sign-in');
 $I->see("Kirsten Gillibrand");
 
-$I->executeInSelenium(function (\RemoteWebDriver $webdriver) {
+$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
   $handles=$webdriver->getWindowHandles();
   $last_window = end($handles);
   $webdriver->switchTo()->window($last_window);

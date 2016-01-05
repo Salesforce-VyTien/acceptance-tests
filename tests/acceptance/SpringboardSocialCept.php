@@ -90,7 +90,7 @@ $I->see('Share on Twitter!');
 $I->click('Share on Twitter!');
 $I->wait(3);
 // Switch to Twitter popup window.
-$I->executeInSelenium(function (\Webdriver $webdriver) {
+$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
      $handles=$webdriver->getWindowHandles();
      $last_window = end($handles);
      $webdriver->switchTo()->window($last_window);
