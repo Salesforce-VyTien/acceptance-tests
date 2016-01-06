@@ -1,5 +1,5 @@
 <?php
-$scenario->skip();
+//$scenario->skip();
 
 // Acceptance tests for admin UI and menus.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
@@ -38,8 +38,6 @@ $I->see('View All Forms', '.more-button');
 $I->see('Sync Status', 'h2');
 $I->see('Springboard Version:', '.sb-version-info');
 
-$I->see('Springboard Notes', 'h2');
-
 $I->click('Donation Forms');
 $I->seeInCurrentUrl('/springboard/donation-forms/all');
 $I->see('Donation Forms', '.page-title');
@@ -55,7 +53,7 @@ $I->see('Internal Name', 'th');
 $I->see('Form Name', 'th');
 $I->see('Form ID', 'th');
 $I->see('Status', 'th');
-$I->see('Date Created', 'th');
+$I->see('Last Updated', 'th');
 $I->see('Action', 'th');
 $I->see('Clone', 'td');
 $I->see('Edit', 'td');
@@ -68,7 +66,7 @@ $I->see('Internal Name', 'th');
 $I->see('Form Name', 'th');
 $I->see('Form ID', 'th');
 $I->see('Status', 'th');
-$I->see('Date Created', 'th');
+$I->see('Last Updated', 'th');
 $I->see('Action', 'th');
 $I->see('Clone', 'td');
 $I->see('Edit', 'td');
