@@ -1,7 +1,11 @@
 <?php
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('test fundraiser validation.');
-
+$I->login();
+$I->amOnPage('admin/config/system/encrypt');
+$I->fillField('Secure Key Path', '/tmp');
+$I->click("Save configuration");
+$I->logout();
 $title = 'fundraiser validation test ' . time();
 
 // Fill out fundraiser donation page form
@@ -18,7 +22,7 @@ $I->selectOption(DonationFormPage::$countryField, 'US');
 $I->fillField(DonationFormPage::$zipField, '12345');
 $I->fillField(DonationFormPage::$creditCardNumberField, '4111111111111111');
 $I->selectOption(DonationFormPage::$creditCardExpirationMonthField, '6');
-$I->selectOption(DonationFormPage::$creditCardExpirationYearField, '2016');
+$I->selectOption(DonationFormPage::$creditCardExpirationYearField, '2017');
 $I->fillField(DonationFormPage::$CVVField, '123');
 
 //click on neutral space to remove focus from the last filled element

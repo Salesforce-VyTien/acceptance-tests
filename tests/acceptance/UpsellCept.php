@@ -1,15 +1,16 @@
 <?php
-$scenario->skip();
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 
 $I->wantTo('configure upsell and complete an upsell.');
 
-
 $I->am('admin');
 $I->wantTo('configure Upsell.');
 
 $I->login();
+$I->amOnPage('admin/config/system/encrypt');
+$I->fillField('Secure Key Path', '/tmp');
+$I->click("Save configuration");
 $I->installModule('Fundraiser Sustainer Upsell');
 
 $I->amOnPage('/admin/springboard/options/fundraiser/fundraiser_upsell');
@@ -96,12 +97,15 @@ $I->am('donor');
 $I->wantTo('complete an upsell.');
 
 $I->amOnPage($url);
+
 $I->makeADonation();
 
+//won't work without encrypt being configured.
+
 $I->expectTo('see an upsell modal.');
-
+//
 $I->waitForText('Monthly donation', 10);
-
+//
 $I->see('Monthly donation', '#modalContent');
 $I->see('Get an upsell joker', '#modalContent');
 $I->seeElement('#modalContent input[type=submit]');

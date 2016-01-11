@@ -18,6 +18,9 @@ $email_message = 'Acceptance testing email message.';
 // Log in an admin account.
 $I->am('admin');
 $I->login();
+$I->amOnPage('admin/config/system/encrypt');
+$I->fillField('Secure Key Path', '/tmp');
+$I->click("Save configuration");
 $admin = new SpringboardSocialAdminPage($I);
 $shorten = new ShortenURLsAdminPage($I);
 $marketsource = new MarketSourceAdminPage($I);

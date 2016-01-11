@@ -60,7 +60,7 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->fillField(\DonationFormPage::$CVVField, $cvv);
     }
 
-    public function fillInMyAddress($address = '1234 Main St', $address2 = '', $city = 'Washington', $state = 'District Of Columbia', $zip = '00000', $country = 'United States') {
+    public function fillInMyAddress($address = '1234 Main St', $address2 = '', $city = 'Washington', $state = 'Maryland', $zip = '00000', $country = 'United States') {
         $I = $this;
 
         $I->fillField(\DonationFormPage::$addressField, $address);

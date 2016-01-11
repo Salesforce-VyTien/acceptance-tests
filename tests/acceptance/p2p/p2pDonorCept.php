@@ -1,5 +1,5 @@
 <?php
-$scenario->skip();
+//$scenario->skip();
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 //$scenario->incomplete();
@@ -7,14 +7,16 @@ $I->wantTo('Configure and test p2p settings.');
 
 $I->am('admin');
 $I->login();
-
+$I->amOnPage('admin/config/system/encrypt');
+$I->fillField('Secure Key Path', '/tmp');
+$I->click("Save configuration");
 $admin = new P2pAdminPage($I);
 $admin->enableFeature();
 
 // // generate dummy content
 $I->amOnPage($admin->starterUrl);
 $I->click('Create content');
-$I->wait(14);
+$I->waitForElement('.campaign-landing-grid', 30);
 
 
 $I->amOnPage('springboard/p2p');

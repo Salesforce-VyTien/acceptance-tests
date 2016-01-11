@@ -41,6 +41,18 @@ And you'll end up with a test file in `tests/acceptance/testNameCept.php`. You s
 
 http://codeception.com/docs/04-AcceptanceTests
 
+## Springboard Test tips.
+Clicking on a vertical or horizontal tab, or non-submit form item may require two clicks to register.
+
+The default database should not have the  Drupal toolbar enabled.
+
+The Springboard shortcut floating menu may need to be disabled temporarily in some tests,  as it interferes with element selection on some pages, using: $I->executeJS('jQuery("#springboard-admin-home-link").remove()');
+
+If your test is failing, and the previous step to the fail was a form submission, the failure may be resulting from a form validation error preventing the submission from completing, which causes the next step to fail.
+
+
+
+
 ## Webdriver documentation
 
 https://github.com/Codeception/Codeception/blob/master/docs/modules/WebDriver.md

@@ -4,7 +4,7 @@ class SustainerManagementPage
 {
   // Donation amount update form elements.
   public static $donationAmountField = 'Donation Amount';
-  public static $donationAmountUpdateButton = 'Update donation amount';
+  public static $donationAmountUpdateButton = '//input[@value="Update donation amount"]';
 
   // Change charge date form elements.
   public static $chargeDateField = 'Select the day of the month for your recurring donation to charge';
@@ -22,7 +22,7 @@ class SustainerManagementPage
   public static $expirationMonthField = '#edit-payment-fields-credit-expiration-date-card-expiration-month';
   public static $expirationYearField = '#edit-payment-fields-credit-expiration-date-card-expiration-year';
   public static $cvvField = 'CVV';
-  public static $billingUpdateButton = 'Save changes';
+  public static $billingUpdateButton = '//input[@value="Save changes"]';
 
   // Cancellation form elements.
   public static $reasonField = 'Reason';

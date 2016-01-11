@@ -1,5 +1,5 @@
 <?php
-$scenario->skip();
+//$scenario->skip();
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test fundraiser edit page payment options.');
@@ -8,7 +8,6 @@ $title = 'fundraiser node edit test ' . time();
 
 $I->am('admin');
 $I->login();
-
 //check server-side validation of payment method selection
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('#edit-gateways-credit-status');
@@ -52,15 +51,17 @@ $I->dontSee('Minimum payment');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->fillField('#edit-amount-wrapper-donation-amounts-4-amount', '133');
+$I->click('form');
 
 $I->click('#edit-amount-wrapper-donation-amounts-4-label');
-
+$I->wait(3);
 $I->seeInField('#edit-amount-wrapper-donation-amounts-4-label','$133');
 $I->uncheckOption('//input[@name="default_amount"]');
 $I->checkOption('#edit-default-amount--5');
 $I->click('body');
 
 $I->click('#edit-submit');
+
 $I->seeCheckboxIsChecked('//input[@value="133"]');
 
 $I->amOnPage(DonationFormPage::route('/edit'));

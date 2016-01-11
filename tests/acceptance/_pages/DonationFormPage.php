@@ -18,7 +18,7 @@ class DonationFormPage
     public static $addressField = 'Address';
     public static $addressField2 = 'Address Line 2';
     public static $cityField = 'City';
-    public static $stateField = 'State';
+    public static $stateField = '#edit-submitted-billing-information-state';
     public static $countryField = 'Country';
     public static $zipField = 'ZIP/Postal Code';
     public static $creditCardNumberField = 'Credit card number';
