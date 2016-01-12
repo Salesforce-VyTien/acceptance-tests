@@ -37,9 +37,18 @@ class AdvocacyPage
       $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
       $I = $this->acceptanceTester;
 
-      foreach ($settings['Advocacy'] as $key => $value) {
-        $I->haveInDatabase('variable', array('name' => $key, 'value' => $value));
-      }
+    foreach ($settings['Advocacy'] as $key => $value) {
+      $I->haveInDatabase('variable', array('name' => $key, 'value' => $value));
     }
+  }
+
+  function twitterLogin() {
+    $config = \Codeception\Configuration::config();
+    $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+    $I = $this->acceptanceTester;
+    $I->fillField('#username_or_email', $settings['Twitter']['name']);
+    $I->fillField('#password', $settings['Twitter']['pass']);
+    $I->click('#allow');
+  }
 }
 
