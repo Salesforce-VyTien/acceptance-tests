@@ -70,6 +70,7 @@ $I->wait(5);
 $I->see('This message currently has 1 eligible targets. The allowed maximum is 5.');
 $I->click('#edit-submit');
 $I->wait(3);
+$node_id = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
 
 // Fill out and submit the form.
 $I->click('View');
@@ -120,3 +121,27 @@ $I->see('What’s happening?');
 $I->switchToWindow();
 $I->click("I am finished");
 $I->see('Thank you for participating in the messaging campaign');
+
+// Non-auth version
+$I->amOnPage('node/' . $node_id . '/edit');
+$I->uncheckOption('#edit-field-sba-social-require-auth-und-1');
+$I->click(\NodeAddPage::$save);
+$I->wait(3);
+$I->click('#edit-submit');
+$I->dontSeeElement("#edit-twitter-sign-in");
+$I->see('Step two intro');
+$I->see('Test Tweet Two');
+$I->see('If you prefer, please contact');
+$I->seeNumberOfElements('.message-preview-message-container', 3);
+$I->seeNumberOfElements('.uneditable-message-preview', 3);
+$I->seeElement('.twitter-asset');
+// Open the web intents popup.
+$I->click('Customize and send this tweet');
+$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
+  $handles=$webdriver->getWindowHandles();
+  $last_window = end($handles);
+  $webdriver->switchTo()->window($last_window);
+});
+$I->see('What’s happening?');
+
+
