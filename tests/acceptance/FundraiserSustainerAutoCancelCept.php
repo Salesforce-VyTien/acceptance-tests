@@ -15,7 +15,7 @@ $I->amOnPage('admin/config/system/encrypt');
 $I->fillField('#edit-encrypt-secure-key-path', 'sites/default/secure');
 $I->click('#edit-submit');
 
-// Ensure Fundraiser Sustainers module is enabled, as it implement the auto-cancellation feature:
+// Ensure Fundraiser Sustainers module is enabled, as it implements the auto-cancellation feature:
 $I->enableModule('Fundraiser Sustainers');
 
 // Ensure Auto-cancel is enabled:
