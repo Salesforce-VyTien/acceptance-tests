@@ -93,11 +93,9 @@ $I->click('#edit-submitted-payment-information-recurs-monthly-1');
 // Submit the donation and ensure it submits successfully:
 $I->click('#edit-submit');
 
-// Confirm the form submitted correctly:
+// Confirm the initial payment was created:
 $I->seeInMessages('Donation was successfully processed.');
 $I->seeInDatabase('commerce_order', array('order_id' => $master_did, 'status' => 'payment_received'));
-
-// Open the "Recurring Donation Set -> Edit donation set" tab
 
 // Trigger cancellation:
 $current_did = $master_did + 1;
@@ -112,8 +110,6 @@ for ($i = 0; $i < $auto_cancel_failure_limit; $i++) {
   // Confirm a failed state was achieved:
   $I->seeInMessages('Donation transaction failed.');
   $I->seeInDatabase('commerce_order', array('order_id' => $current_did, 'status' => 'failed'));
-
-  // Confirm the associated Salesforce sync update is inserted into the salesforce_sync table:
 
   $current_did++;
 } 
