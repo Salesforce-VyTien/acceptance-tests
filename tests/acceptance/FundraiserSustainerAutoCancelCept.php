@@ -2,7 +2,7 @@
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test auto-cancel of remaining, recurring payments when X number of failed payments is reached.');
 
-$master_did = 1; // We know the master_did will be 1 based on contents of the DB dump:
+$master_did = 1; // We know the master_did will be 1 based on contents of the DB dump.
 
 $title = 'fundraiser recurring payments auto-cancel test ' . time();
 
