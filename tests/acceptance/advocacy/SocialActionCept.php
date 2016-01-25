@@ -9,7 +9,7 @@ $I->wantTo('Configure Social Actions');
 $I->am('admin');
 $I->login();
 $I->enableModule('Springboard Advocacy');
-$advocacy = new advocacyPage($I);
+$advocacy = new AdvocacyPage($I);
 $advocacy->configureAdvocacy();
 $I->enableModule('form#system-modules input#edit-modules-springboard-advocacy-sba-social-action-enable');
 $I->amOnPage(\AdvocacyPage::$settingsPage);

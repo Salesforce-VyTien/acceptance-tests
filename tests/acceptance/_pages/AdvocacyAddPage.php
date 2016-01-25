@@ -39,7 +39,7 @@ class AdvocacyAddPage
     public static $submitButtonTextSocial = '#edit-social-submit-button-text';
     public static $stepTwoIntroTextSocial = '#edit-field-sba-social-step-two-header-und-0-value';
     public static $StepTwoSubmitButtonTextSocial = '#edit-field-sba-social-step-two-submit-und-0-value';
-    public static $requireTwitterAuth = '3edit-field-sba-social-require-auth-und-1';
+    public static $requireTwitterAuth = '#edit-field-sba-social-require-auth-und-1';
 
 
 
