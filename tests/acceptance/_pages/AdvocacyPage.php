@@ -33,21 +33,22 @@ class AdvocacyPage
   }
 
   function configureAdvocacy() {
-    if (empty($_ENV['springboard_advocacy_server_url'])) {
+    $settings = array();
+    if (empty(getenv('springboard_advocacy_server_url'))) {
       $config = \Codeception\Configuration::config();
       $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
     }
     else {
       // Scrutinizer env vars.
       $settings['Advocacy'] = array(
-        'springboard_advocacy_server_url' => serialize($_ENV['springboard_advocacy_server_url']),
-        'springboard_advocacy_client_id' => serialize($_ENV['springboard_advocacy_client_id']),
-        'springboard_advocacy_client_secret' => serialize($_ENV['springboard_advocacy_client_secret']),
-        'springboard_advocacy_smarty_authid' => serialize($_ENV['springboard_advocacy_smarty_authid']),
-        'springboard_advocacy_smarty_authtoken' => serialize($_ENV['springboard_advocacy_smarty_authtoken']),
-        'social_action_twitter_consumer_key' => serialize($_ENV['social_action_twitter_consumer_key']),
-        'social_action_twitter_consumer_secret' => serialize($_ENV['social_action_twitter_consumer_secret']),
-        'springboard_advocacy_test_email' => serialize($_ENV['springboard_advocacy_test_email']),
+        'springboard_advocacy_server_url' => serialize(getenv('springboard_advocacy_server_url')),
+        'springboard_advocacy_client_id' => serialize(getenv('springboard_advocacy_client_id')),
+        'springboard_advocacy_client_secret' => serialize(getenv('springboard_advocacy_client_secret')),
+        'springboard_advocacy_smarty_authid' => serialize(getenv('springboard_advocacy_smarty_authid')),
+        'springboard_advocacy_smarty_authtoken' => serialize(getenv('springboard_advocacy_smarty_authtoken')),
+        'social_action_twitter_consumer_key' => serialize(getenv('social_action_twitter_consumer_key')),
+        'social_action_twitter_consumer_secret' => serialize(getenv('social_action_twitter_consumer_secret')),
+        'springboard_advocacy_test_email' => serialize(getenv('springboard_advocacy_test_email')),
       );
     }
     $I = $this->acceptanceTester;
@@ -64,7 +65,7 @@ class AdvocacyPage
     }
     else {
       // Scrutinizer env vars.
-      $settings['Twitter'] = array('name' => $_ENV['twitter_name'], 'pass' => $_ENV['twitter_pass']);
+      $settings['Twitter'] = array('name' => getenv('twitter_name'), 'pass' => getenv('twitter_pass'));
     }
 
     $I = $this->acceptanceTester;
@@ -73,4 +74,3 @@ class AdvocacyPage
     $I->click('#allow');
   }
 }
-
