@@ -1,5 +1,4 @@
 <?php
-///$scenario->skip();
 
 $scenario->group('no_populate');
 // Acceptance tests for admin UI and menus.

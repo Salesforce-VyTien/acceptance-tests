@@ -1,5 +1,5 @@
 <?php
-//$scenario->skip();
+
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test fundraiser edit page payment options.');

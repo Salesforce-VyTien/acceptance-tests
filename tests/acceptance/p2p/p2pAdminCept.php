@@ -1,5 +1,5 @@
 <?php
-//$scenario->skip();
+
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Configure and test p2p settings.');

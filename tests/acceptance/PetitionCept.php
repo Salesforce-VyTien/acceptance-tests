@@ -1,5 +1,5 @@
 <?php
-//$scenario->skip();
+
 
 $scenario->group('no_populate');
 $I = new \AcceptanceTester\SpringboardSteps($scenario);

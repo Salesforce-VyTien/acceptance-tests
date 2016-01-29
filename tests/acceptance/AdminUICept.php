@@ -1,5 +1,5 @@
 <?php
-//$scenario->skip();
+
 
 // Acceptance tests for admin UI and menus.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
