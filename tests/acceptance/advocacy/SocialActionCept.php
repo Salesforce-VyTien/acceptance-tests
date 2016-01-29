@@ -143,5 +143,6 @@ $I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webd
   $webdriver->switchTo()->window($last_window);
 });
 $I->see('What’s happening?');
+$I->switchToWindow();
 
 
