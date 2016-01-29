@@ -41,20 +41,20 @@ class AdvocacyPage
     else {
       // Scrutinizer env vars.
       $settings['Advocacy'] = array(
-        'springboard_advocacy_server_url' => serialize(getenv('springboard_advocacy_server_url')),
-        'springboard_advocacy_client_id' => serialize(getenv('springboard_advocacy_client_id')),
-        'springboard_advocacy_client_secret' => serialize(getenv('springboard_advocacy_client_secret')),
-        'springboard_advocacy_smarty_authid' => serialize(getenv('springboard_advocacy_smarty_authid')),
-        'springboard_advocacy_smarty_authtoken' => serialize(getenv('springboard_advocacy_smarty_authtoken')),
-        'social_action_twitter_consumer_key' => serialize(getenv('social_action_twitter_consumer_key')),
-        'social_action_twitter_consumer_secret' => serialize(getenv('social_action_twitter_consumer_secret')),
-        'springboard_advocacy_test_email' => serialize(getenv('springboard_advocacy_test_email')),
+        'springboard_advocacy_server_url' => getenv('springboard_advocacy_server_url'),
+        'springboard_advocacy_client_id' => getenv('springboard_advocacy_client_id'),
+        'springboard_advocacy_client_secret' => getenv('springboard_advocacy_client_secret'),
+        'springboard_advocacy_smarty_authid' => getenv('springboard_advocacy_smarty_authid'),
+        'springboard_advocacy_smarty_authtoken' => getenv('springboard_advocacy_smarty_authtoken'),
+        'social_action_twitter_consumer_key' => getenv('social_action_twitter_consumer_key'),
+        'social_action_twitter_consumer_secret' => getenv('social_action_twitter_consumer_secret'),
+        'springboard_advocacy_test_email' => getenv('springboard_advocacy_test_email'),
       );
     }
     $I = $this->acceptanceTester;
 
     foreach ($settings['Advocacy'] as $key => $value) {
-      $I->haveInDatabase('variable', array('name' => $key, 'value' => $value));
+      $I->haveInDatabase('variable', array('name' => $key, 'value' => serialize($value)));
     }
   }
 
