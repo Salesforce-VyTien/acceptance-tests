@@ -7,9 +7,7 @@ $I->wantTo('Update the amount of a recurring donation.');
 
 $I->am('admin');
 $I->login();
-$I->amOnPage('admin/config/system/encrypt');
-$I->fillField('Secure Key Path', '/tmp');
-$I->click("Save configuration");
+$I->configureEncrypt();
 $I->logout();
 
 $I->amOnPage(DonationFormPage::$URL);

@@ -8,6 +8,7 @@ $title = 'fundraiser node edit test ' . time();
 
 $I->am('admin');
 $I->login();
+$I->configureEncrypt();
 //check server-side validation of payment method selection
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('#edit-gateways-credit-status');

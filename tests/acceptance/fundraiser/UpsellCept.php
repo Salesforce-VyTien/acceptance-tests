@@ -8,9 +8,7 @@ $I->am('admin');
 $I->wantTo('configure Upsell.');
 
 $I->login();
-$I->amOnPage('admin/config/system/encrypt');
-$I->fillField('Secure Key Path', '/tmp');
-$I->click("Save configuration");
+$I->configureEncrypt();
 $I->installModule('Fundraiser Sustainer Upsell');
 
 $I->amOnPage('/admin/springboard/options/fundraiser/fundraiser_upsell');

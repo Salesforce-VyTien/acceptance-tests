@@ -6,6 +6,7 @@ $I->wantTo('Configure and test p2p settings.');
 
 $I->am('admin');
 $I->login();
+$I->configureEncrypt();
 
 $admin = new P2pAdminPage($I);
 $admin->enableFeature();

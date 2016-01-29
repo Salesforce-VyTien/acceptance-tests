@@ -2,9 +2,7 @@
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('test fundraiser validation.');
 $I->login();
-$I->amOnPage('admin/config/system/encrypt');
-$I->fillField('Secure Key Path', '/tmp');
-$I->click("Save configuration");
+$I->configureEncrypt();
 $I->logout();
 $title = 'fundraiser validation test ' . time();
 

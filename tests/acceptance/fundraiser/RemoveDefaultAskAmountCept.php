@@ -5,6 +5,7 @@ $I->wantTo('remove the default ask amount.');
 $I->am('admin');
 
 $I->login();
+$I->configureEncrypt();
 
 $I->cloneADonationForm();
 $I->checkOption('No default ask amount');

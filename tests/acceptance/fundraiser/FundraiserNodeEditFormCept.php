@@ -6,6 +6,7 @@ $I->wantTo('Confirm the settings can be saved and changed through the node edit 
 $I->am('admin');
 
 $I->login();
+$I->configureEncrypt();
 
 // Import three new payment gateway configurations
 for ($i = 1; $i <= 3; $i++) {

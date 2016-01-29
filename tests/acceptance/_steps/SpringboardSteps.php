@@ -169,4 +169,12 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->click('#edit-submit');
         $I->seeInMessages('The configuration options have been saved.');
     }
+
+    public function configureEncrypt() {
+        $I = $this;
+        $I->amOnPage('admin/config/system/encrypt');
+        $I->fillField('Secure Key Path', '/tmp');
+        $I->click("Save configuration");
+        $I->see('Key found and in secure place.');
+    }
 }
