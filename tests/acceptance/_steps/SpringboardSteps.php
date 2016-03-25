@@ -83,7 +83,7 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
     public function cloneADonationForm($nid = 2) {
         $I = $this;
 
-        $I->amOnPage('/node/' . $nid . '/clone');
+        $I->amOnPage('/node/' . $nid . '/clone/confirm');
         $I->click('Clone');
         $cloneNid = $I->grabFromCurrentUrl('~/springboard/node/(\d+)/edit~');
         codecept_debug($cloneNid);
