@@ -1,5 +1,6 @@
 <?php
 
+$scenario->group('fundraiser');
 
 // Acceptance tests for sustainer management features.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);

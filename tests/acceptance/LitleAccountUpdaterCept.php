@@ -1,4 +1,5 @@
 <?php
+$scenario->group('misc');
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('test extending sustainers with the Litle Account Updater');

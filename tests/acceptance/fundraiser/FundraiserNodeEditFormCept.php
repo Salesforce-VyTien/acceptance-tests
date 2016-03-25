@@ -1,5 +1,7 @@
 <?php
 
+$scenario->group('fundraiser');
+
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Confirm the settings can be saved and changed through the node edit form.');
 

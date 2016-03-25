@@ -1,4 +1,5 @@
 <?php
+$scenario->group('webform');
 
 
 // Acceptance tests for webform confirmations.

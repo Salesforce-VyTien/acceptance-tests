@@ -1,4 +1,5 @@
 <?php
+$scenario->group('misc');
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Enable and test form layouts');

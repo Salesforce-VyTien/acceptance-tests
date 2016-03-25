@@ -1,5 +1,8 @@
 <?php
 
+$scenario->group('webform');
+
+
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('make sure I cannot inject html or js tags into the webform confirmation via donation tokens.');
 

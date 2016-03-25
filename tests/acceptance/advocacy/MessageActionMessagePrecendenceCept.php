@@ -2,6 +2,7 @@
 
 
 $scenario->group('no_populate');
+$scenario->group('advocacy');
 // Acceptance tests for admin UI and menus.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Configure Message Actions');

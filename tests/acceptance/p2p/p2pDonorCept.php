@@ -1,5 +1,6 @@
 <?php
 
+$scenario->group('p2p');
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 //$scenario->incomplete();

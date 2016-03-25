@@ -1,5 +1,6 @@
 <?php
 $scenario->skip();
+$scenario->group('webform');
 
 $scenario->group('no_populate');
 

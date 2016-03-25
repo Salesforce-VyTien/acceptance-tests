@@ -1,4 +1,7 @@
 <?php
+
+$scenario->group('misc');
+
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Enable Springboard Social on a donation form.');
 

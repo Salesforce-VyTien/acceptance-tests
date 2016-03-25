@@ -1,4 +1,7 @@
 <?php
+$scenario->group('fundraiser');
+
+
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('test fundraiser validation.');
 $I->login();
