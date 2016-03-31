@@ -1,7 +1,6 @@
 <?php
 $scenario->group('fundraiser');
 
-
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test fundraiser edit page payment options.');
 
@@ -12,6 +11,10 @@ $I->login();
 $I->configureEncrypt();
 //check server-side validation of payment method selection
 $I->amOnPage(DonationFormPage::route('/edit'));
+
+//Go to new Payment methods tab
+$I->click("//ul//a[contains(.,'Payment methods')]");
+
 $I->uncheckOption('#edit-gateways-credit-status');
 $I->click('#edit-submit');
 $I->see('At least one payment method must be enabled.');
@@ -21,18 +24,19 @@ $I->checkOption('#edit-gateways-credit-status');
 $I->click('#edit-submit');
 $I->see('Credit card number');
 
-$I->amOnPage(DonationFormPage::route('/edit'));
-$I->uncheckOption('Ask for quantity');
-$I->click('#edit-submit');
-$I->dontSeeElement('#edit-submitted-donation-quantity');
+// $I->amOnPage(DonationFormPage::route('/edit'));
+// $I->uncheckOption('Ask for quantity');
+// $I->click('#edit-submit');
+// $I->dontSeeElement('#edit-submitted-donation-quantity');
+//
+// $I->amOnPage(DonationFormPage::route('/edit'));
+// $I->checkOption('Ask for quantity');
+// $I->click('#edit-submit');
+// $I->see('Quantity', 'label');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
-$I->checkOption('Ask for quantity');
-$I->click('#edit-submit');
-$I->see('Quantity', 'label');
-
-$I->amOnPage(DonationFormPage::route('/edit'));
-$I->uncheckOption('Show other amount option');
+$I->click("//ul//a[contains(.,'Fundraiser settings')]");
+$I->uncheckOption('#edit-amount-wrapper-show-other-amount');
 $I->click('#edit-submit');
 $I->dontSeeElement('#edit-submitted-donation-other-amount');
 
@@ -41,23 +45,24 @@ $I->checkOption('Show other amount option');
 $I->click('#edit-submit');
 $I->seeElement('#edit-submitted-donation-other-amount');
 
-$I->amOnPage(DonationFormPage::route('/edit'));
-$I->fillField('Minimum donation amount', '');
-$I->click('#edit-submit');
-$I->see('Minimum payment');
+// Not required in 4.9.2
+// $I->amOnPage(DonationFormPage::route('/edit'));
+// $I->fillField('Minimum donation amount', '');
+// $I->click('#edit-submit');
+// $I->see('Minimum payment');
+//
+// $I->amOnPage(DonationFormPage::route('/edit'));
+// $I->uncheckOption('Show other amount option');
+// $I->click('#edit-submit');
+// $I->dontSee('Minimum payment');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
-$I->uncheckOption('Show other amount option');
-$I->click('#edit-submit');
-$I->dontSee('Minimum payment');
-
-$I->amOnPage(DonationFormPage::route('/edit'));
-$I->fillField('#edit-amount-wrapper-donation-amounts-4-amount', '133');
+$I->fillField('#edit-amount-wrapper-donation-amounts-5-amount', '133');
 $I->click('form');
 
-$I->click('#edit-amount-wrapper-donation-amounts-4-label');
+$I->click('#edit-amount-wrapper-donation-amounts-5-label');
 $I->wait(3);
-$I->seeInField('#edit-amount-wrapper-donation-amounts-4-label','$133');
+$I->seeInField('#edit-amount-wrapper-donation-amounts-5-label','$133');
 $I->uncheckOption('//input[@name="default_amount"]');
 $I->checkOption('#edit-default-amount--5');
 $I->click('body');
@@ -66,10 +71,7 @@ $I->click('#edit-submit');
 
 $I->seeCheckboxIsChecked('//input[@value="133"]');
 
-$I->amOnPage(DonationFormPage::route('/edit'));
-$I->selectOption('#edit-recurring-setting', 'never');
-$I->click('#edit-submit');
-$I->dontSee('Recurring Payment');
-
-
-
+// $I->amOnPage(DonationFormPage::route('/edit'));
+// $I->selectOption('#edit-recurring-setting', 'never');
+// $I->click('#edit-submit');
+// $I->dontSee('Recurring Payment');

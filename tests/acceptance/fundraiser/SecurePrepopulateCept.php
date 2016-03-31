@@ -9,10 +9,14 @@ $I->wantTo('test Secure Prepopulate.');
 $I->login();
 $I->configureSecurePrepopulate('7576586e4a5cb0611e3a1f080a30615a', 'cae023134cfcbf45');
 $I->configureEncrypt();
+//$afToken = $I->generateSecurePrepopulateToken();
 $I->logout();
 
 $query_string = '?af=' . urlencode('7vGjVvf/xlO/nVEq8FtS+/VAjjZGbAYBHddPjrpNCN5twzqjTrOf4W/RV5MEdvbpGAZ1c5wjBeIjljD8a9A5O2iQuxjk/lVnUWBO8Vg+WRCqH0basvWtivCxQg060w4vaDEZvoBcgzkkODZ9om4pR5psjwL1Q2wtcZQxmBoOsED8UTtjo73ufEOmXR411N93bIEMiJMJnS3Wb97F2FKCRA==');
+
+//$query_string = '?' . $afToken;
 $I->amOnPage(DonationFormPage::$URL . $query_string);
+
 $I->seeInField(DonationFormPage::$firstNameField, 'Allen');
 $I->seeInField(DonationFormPage::$lastNameField, 'Freeman');
 $I->seeInField(DonationFormPage::$emailField, 'allen.freeman@example.com');
