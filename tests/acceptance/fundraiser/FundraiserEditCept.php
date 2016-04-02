@@ -12,7 +12,8 @@ $I->configureEncrypt();
 //check server-side validation of payment method selection
 $I->amOnPage(DonationFormPage::route('/edit'));
 
-//Go to new Payment methods tab
+//Go to new Payment methods tab. Need to select twice
+$I->click("//ul//a[contains(.,'Payment methods')]");
 $I->click("//ul//a[contains(.,'Payment methods')]");
 
 $I->uncheckOption('#edit-gateways-credit-status');
@@ -24,18 +25,7 @@ $I->checkOption('#edit-gateways-credit-status');
 $I->click('#edit-submit');
 $I->see('Credit card number');
 
-// $I->amOnPage(DonationFormPage::route('/edit'));
-// $I->uncheckOption('Ask for quantity');
-// $I->click('#edit-submit');
-// $I->dontSeeElement('#edit-submitted-donation-quantity');
-//
-// $I->amOnPage(DonationFormPage::route('/edit'));
-// $I->checkOption('Ask for quantity');
-// $I->click('#edit-submit');
-// $I->see('Quantity', 'label');
-
 $I->amOnPage(DonationFormPage::route('/edit'));
-$I->click("//ul//a[contains(.,'Fundraiser settings')]");
 $I->uncheckOption('#edit-amount-wrapper-show-other-amount');
 $I->click('#edit-submit');
 $I->dontSeeElement('#edit-submitted-donation-other-amount');
@@ -45,16 +35,15 @@ $I->checkOption('Show other amount option');
 $I->click('#edit-submit');
 $I->seeElement('#edit-submitted-donation-other-amount');
 
-// Not required in 4.9.2
-// $I->amOnPage(DonationFormPage::route('/edit'));
-// $I->fillField('Minimum donation amount', '');
-// $I->click('#edit-submit');
-// $I->see('Minimum payment');
-//
-// $I->amOnPage(DonationFormPage::route('/edit'));
-// $I->uncheckOption('Show other amount option');
-// $I->click('#edit-submit');
-// $I->dontSee('Minimum payment');
+$I->amOnPage(DonationFormPage::route('/edit'));
+$I->fillField('Minimum donation amount', '1');
+$I->click('#edit-submit');
+$I->see('Minimum payment');
+
+$I->amOnPage(DonationFormPage::route('/edit'));
+$I->uncheckOption('Show other amount option');
+$I->click('#edit-submit');
+$I->dontSee('Minimum payment');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->fillField('#edit-amount-wrapper-donation-amounts-5-amount', '133');
