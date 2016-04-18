@@ -3,38 +3,39 @@ namespace AcceptanceTester;
 
 class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 {
-    public function makeADonation(array $details = array(), $recurs = FALSE)
-    {
+    public function makeADonation(array $details = array(), $recurs = FALSE) {
         $defaults = array(
-            'ask' => '10',
-            'first' => 'John',
-            'last' => 'Tester',
-            'email' => 'bob@example.com',
-            'address' => '1234 Main St.',
-            'address2' => '',
-            'city' => 'Washington',
-            'state' => 'DC',
-            'zip' => '20036',
-            'country' => 'United States',
-            'number' => '4111111111111111',
-            'year' => date('Y', strtotime('+ 1 year')),
-            'month' => 'January',
-            'cvv' => '666',
+          'ask' => '10',
+          'first' => 'John',
+          'last' => 'Tester',
+          'email' => 'bob@example.com',
+          'address' => '1234 Main St.',
+          'address2' => '',
+          'city' => 'Washington',
+          'state' => 'DC',
+          'zip' => '20036',
+          'country' => 'United States',
+          'number' => '4111111111111111',
+          'year' => date('Y', strtotime('+ 1 year')),
+          'month' => 'January',
+          'cvv' => '666',
         );
 
         $settings = array_merge($defaults, $details);
 
         $I = $this;
 
-        $I->selectOption(\DonationFormPage::$askAmountField, $settings['ask']);
+        if (!$recurs) {
+            $I->selectOption(\DonationFormPage::$askAmountField, $settings['ask']);
+        }
+        else {
+            $I->selectOption(\DonationFormPage::$recursAmountField, $settings['ask']);
+        }
         $I->fillInMyName($settings['first'], $settings['last']);
         $I->fillField(\DonationFormPage::$emailField, $settings['email']);
         $I->fillInMyAddress($settings['address'], $settings['address2'], $settings['city'], $settings['state'], $settings['zip'], $settings['country']);
         $I->fillInMyCreditCard($settings['number'], $settings['year'], $settings['month'], $settings['cvv']);
 
-        if ($recurs) {
-            $I->selectOption(\DonationFormPage::$recursField, 'recurs');
-        }
 
         $I->click(\DonationFormPage::$donateButton);
     }

@@ -22,8 +22,27 @@ $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amount
 $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][1][amount]"]', 22);
 $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][2][amount]"]', 33);
 $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][3][amount]"]', 44);
+$I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][0][label]"]', '$11');
+$I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][1][label]"]', '$22');
+$I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][2][label]"]', '$33');
+$I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][3][label]"]', '$44');
 $I->click('Save');
-$I->click('.form-item-submitted-donation-recurs-monthly');
-$I->click('.form-item-submitted-donation-recurs-monthly');
+$I->executeJS("jQuery('input[value=\"recurs\"]').siblings('label').click()");
+$I->see('$11');
+$I->makeADonation(array('ask' => '11'), TRUE);
+$I->see("Thank you John Tester for your donation of $11.00.");
+$I->amOnPage(DonationFormPage::route('/'));
+$I->executeJS("jQuery('input[value=\"onetime\"]').siblings('label').click()");
+$I->see('$10');
+$I->makeADonation(array('ask' => '10'), FALSE);
+$I->see("Thank you John Tester for your donation of $10.00.");
+$I->amOnPage(DonationFormPage::route('/edit'));
+$I->selectOption("#edit-recurring-setting", "Recurring only");
+$I->click('Save');
+$I->see('$11');
+$I->dontSee('One-time');
+$I->makeADonation(array('ask' => '11'), TRUE);
+$I->see("Thank you John Tester for your donation of $11.00.");
+$I->amOnPage(DonationFormPage::route('/edit'));
 
-$I->wait(60);
+

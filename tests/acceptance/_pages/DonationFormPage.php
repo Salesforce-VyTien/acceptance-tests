@@ -11,7 +11,10 @@ class DonationFormPage
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
     public static $askAmountField = '#edit-submitted-donation-amount-1';
+    public static $recursAmountField = '#edit-submitted-donation-recurring-amount-1';
     public static $otherAmountField = '#edit-submitted-donation-other-amount';
+    public static $recursOtherAmountField = '#edit-submitted-donation-recurring-other-amount';
+
     public static $firstNameField = 'First Name';
     public static $lastNameField = 'Last Name';
     public static $emailField = 'E-mail address';
