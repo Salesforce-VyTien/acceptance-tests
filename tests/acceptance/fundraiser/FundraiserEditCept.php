@@ -12,6 +12,7 @@ $I->login();
 $I->configureEncrypt();
 //check server-side validation of payment method selection
 $I->amOnPage(DonationFormPage::route('/edit'));
+$I->click("Payment methods");
 $I->uncheckOption('#edit-gateways-credit-status');
 $I->click('#edit-submit');
 $I->see('At least one payment method must be enabled.');
@@ -22,14 +23,6 @@ $I->click('#edit-submit');
 $I->see('Credit card number');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
-$I->uncheckOption('Ask for quantity');
-$I->click('#edit-submit');
-$I->dontSeeElement('#edit-submitted-donation-quantity');
-
-$I->amOnPage(DonationFormPage::route('/edit'));
-$I->checkOption('Ask for quantity');
-$I->click('#edit-submit');
-$I->see('Quantity', 'label');
 
 $I->amOnPage(DonationFormPage::route('/edit'));
 $I->uncheckOption('Show other amount option');
@@ -58,18 +51,14 @@ $I->click('form');
 $I->click('#edit-amount-wrapper-donation-amounts-4-label');
 $I->wait(3);
 $I->seeInField('#edit-amount-wrapper-donation-amounts-4-label','$133');
-$I->uncheckOption('//input[@name="default_amount"]');
-$I->checkOption('#edit-default-amount--5');
+
+$I->checkOption('#edit-amount-wrapper-donation-amounts-4-default-amount');
 $I->click('body');
 
 $I->click('#edit-submit');
 
 $I->seeCheckboxIsChecked('//input[@value="133"]');
 
-$I->amOnPage(DonationFormPage::route('/edit'));
-$I->selectOption('#edit-recurring-setting', 'never');
-$I->click('#edit-submit');
-$I->dontSee('Recurring Payment');
 
 
 
