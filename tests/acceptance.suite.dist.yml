@@ -9,6 +9,8 @@ modules:
     enabled:
         - WebDriver
         - Db
+        - REST:
+           depends: PhpBrowser
     config:
         WebDriver:
             url: 'http://localhost/'
