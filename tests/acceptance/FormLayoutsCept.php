@@ -36,7 +36,6 @@ $I->seeElement('div#left #edit-submitted-billing-information-zip');
 $I->seeElement('div#right #webform-component-donation');
 $I->seeElement('div#right #edit-submitted-donation-amount');
 $I->seeElement('div#right #edit-submitted-donation-other-amount');
-$I->seeElement('div#right #edit-submitted-donation-quantity');
 $I->seeElement('div#right #edit-submitted-payment-information-payment-fields-credit-card-number');
 $I->seeElement('div#right #edit-submitted-payment-information-payment-fields-credit-expiration-date-card-expiration-month');
 $I->seeElement('div#right #edit-submitted-payment-information-payment-fields-credit-expiration-date-card-expiration-year');
@@ -55,7 +54,6 @@ $I->amOnPage('node/2');
 $I->seeElement('div.row-fluid > #webform-component-donation');
 $I->seeElement('div.row-fluid  #edit-submitted-donation-amount');
 $I->seeElement('div.row-fluid  #edit-submitted-donation-other-amount');
-$I->seeElement('div.row-fluid  #edit-submitted-donation-quantity');
 
 
 $I->seeElement('div.row-fluid > div#left #webform-component-donor-information');
@@ -98,7 +96,6 @@ $I->seeElement('div#right #edit-submitted-billing-information-zip');
 $I->seeElement('div#left #webform-component-donation');
 $I->seeElement('div#left #edit-submitted-donation-amount');
 $I->seeElement('div#left #edit-submitted-donation-other-amount');
-$I->seeElement('div#left #edit-submitted-donation-quantity');
 $I->seeElement('div#left #edit-submitted-payment-information-payment-fields-credit-card-number');
 $I->seeElement('div#left #edit-submitted-payment-information-payment-fields-credit-expiration-date-card-expiration-month');
 $I->seeElement('div#left #edit-submitted-payment-information-payment-fields-credit-expiration-date-card-expiration-year');
