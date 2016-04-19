@@ -171,6 +171,26 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->seeInMessages('The configuration options have been saved.');
     }
 
+    public function generateSecurePrepopulateToken() {
+      $I = $this;
+      $I->amOnPage('admin/config/system/secure-prepopulate/token_generator');
+      $I->click("Secure Pre-populate Token");
+      $I->fillField('#edit-first-name', 'Allen');
+      $I->fillField('#edit-last-name', 'Freeman');
+      $I->fillField('#edit-email', 'allen.freeman@example.com');
+      $I->fillField('#edit-address', '12345 Test Dr');
+      $I->fillField('#edit-address-line-2', 'Apt 2');
+      $I->fillField('#edit-city', 'Springfield');
+      $I->fillField('#edit-country', 'US');
+      $I->fillField('#edit-state', 'IL');
+      $I->fillField('#edit-zip', '55555');
+      $I->click('#edit-submit');
+      $afToken = $I->grabTextFrom('//*[@id="console"]/div[2]/ul/li[2]');
+      codecept_debug($afToken);
+
+      return $afToken;
+    }
+
     public function configureEncrypt() {
         $I = $this;
         $I->amOnPage('admin/config/system/encrypt');
