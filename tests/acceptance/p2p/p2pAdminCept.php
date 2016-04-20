@@ -137,13 +137,14 @@ $I->see('Category image field is required');
 $I->fillField($admin->title, 'My Category Title');
 $I->fillField($admin->body, 'This is a category description');
 // User can upload a donation form banner
-$I->click('Donation form');
+$I->click('Form banner');
 $I->attachFile($admin->banner, '1170x240.png');
 $I->click('Upload');
 
 // User can provide default content that can be used in campaigns and personal campaigns
 // User can set an organization introduction
 $I->click("Advanced");
+$I->wait(1);
 $I->see('Organization introduction', 'Label');
 $I->fillField($admin->orgIntro, 'My organization introduction');
 
@@ -168,7 +169,6 @@ $I->fillField($admin->video, 'http://www.youtube.com/watch?v=');
 // User can specify if the personal campaigner can override the video embed
 $I->checkOption($admin->videoEdit);
 $I->click("#edit-submit");
-
 // Peer to Peer Campaign Creation
 $I->amOnPage('springboard/add/p2p-campaign');
 $I->click('#edit-submit');
