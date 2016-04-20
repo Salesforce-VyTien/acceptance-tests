@@ -12,7 +12,6 @@ $I->configureEncrypt();
 $I->logout();
 
 $I->amOnPage(DonationFormPage::$URL);
-$I->wait(30);
 $I->makeADonation(array(), TRUE);
 
 $I->am('admin');

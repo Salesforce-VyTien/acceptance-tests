@@ -3,7 +3,7 @@ namespace AcceptanceTester;
 
 class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 {
-    public function makeADonation(array $details = array(), $recurs = FALSE, $dual_ask = FALSE) {
+    public function makeADonation(array $details = array(), $recurs = FALSE, $dual_ask = FALSE, $recurring_only = FALSE) {
         $defaults = array(
           'ask' => '10',
           'first' => 'John',
@@ -25,19 +25,22 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 
         $I = $this;
 
-        if (!$recurs || !$dual_ask) {
+        if (!$recurs || ($recurs && !$dual_ask)) {
             $I->selectOption(\DonationFormPage::$askAmountField, $settings['ask']);
         }
-        else {
+        elseif($recurs && $dual_ask) {
             $I->selectOption(\DonationFormPage::$recursAmountField, $settings['ask']);
         }
+
         $I->fillInMyName($settings['first'], $settings['last']);
         $I->fillField(\DonationFormPage::$emailField, $settings['email']);
         $I->fillInMyAddress($settings['address'], $settings['address2'], $settings['city'], $settings['state'], $settings['zip'], $settings['country']);
         $I->fillInMyCreditCard($settings['number'], $settings['year'], $settings['month'], $settings['cvv']);
-        if ($recurs && !$dual_ask) {
+
+        if ($recurs && !$dual_ask && !$recurring_only) {
             $I->selectOption(\DonationFormPage::$recursField, 'recurs');
         }
+
         $I->click(\DonationFormPage::$donateButton);
     }
 
