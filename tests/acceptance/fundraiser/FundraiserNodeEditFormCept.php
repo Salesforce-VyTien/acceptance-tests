@@ -66,6 +66,7 @@ $I->click('Import');
 $I->amOnPage('/node/2/edit');
 
 // Enable the paypal gateway.
+$I->click('Payment methods');
 $I->checkOption('#edit-gateways-paypal-status');
 
 // Fill out the paypal label.
@@ -95,6 +96,7 @@ $I->seeOptionIsSelected('input[name=submitted\[payment_information\]\[payment_me
 
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
+$I->click('Payment methods');
 
 // Confirm the payment gateway is set to test 1.
 $I->seeInField('gateways[credit][id]', 'commerce_payment_example|commerce_payment_commerce_payment_example_test_1');
@@ -113,6 +115,7 @@ $I->see('Credit card label change 2', '#webform-component-payment-information');
 
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
+$I->click('Payment methods');
 
 // Confirm the payment gateway is set to test 2.
 $I->seeInField('gateways[credit][id]', 'commerce_payment_example|commerce_payment_commerce_payment_example_test_2');
@@ -131,18 +134,21 @@ $I->see('Credit card label change 3', '#webform-component-payment-information');
 
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
+$I->click('Payment methods');
 
 // Confirm the payment gateway is set to test 3.
 $I->seeInField('gateways[credit][id]', 'commerce_payment_example|commerce_payment_commerce_payment_example_test_3');
 
 // Go to the edit form.
 $I->amOnPage('/node/2/edit');
+$I->click('Payment methods');
 
 // Change the label the paypal label.
 $I->fillField('gateways[paypal][label]', 'Paypal label change 2');
 
 // Select paypal as the default gateway.
 $I->selectOption('input[name=gateways\[_default\]]', 'paypal');
+$I->click('Fundraiser settings');
 
 // Fill the existing amount fields.
 $I->fillField('amount_wrapper[donation_amounts][0][amount]', 25);
@@ -156,21 +162,18 @@ $I->click('#edit-amount-wrapper-amount-more');
 // Wait for the additional elements to be added.
 $I->waitForElementVisible('#edit-amount-wrapper-donation-amounts-2-amount');
 
-// Screenshot.
-$I->makeScreenshot('post add more amount ajax');
-
 // Fill out the new fields.
 $I->fillField('amount_wrapper[donation_amounts][2][amount]', 55);
 $I->fillField('amount_wrapper[donation_amounts][2][label]', '$55');
 
 // Set the default amount.
 $I->click('body');
-$I->selectOption('//input[@value="35"]', '35');
+$I->checkOption('//td//input[@value="35"]/../../..//td//input[@type="checkbox"]');
 
 // Save.
 $I->click('Save');
 // Confirm the correct amount field is selected.
-$I->seeOptionIsSelected('//input[@value="35"]', '35');
+$I->seeOptionIsSelected('//input[@value="35"]', 35);
 
 // Confirm the label on the paypal option.
 $I->see('Paypal label change 2', '#webform-component-payment-information');
