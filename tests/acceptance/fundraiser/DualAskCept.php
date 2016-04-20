@@ -29,7 +29,7 @@ $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amount
 $I->click('Save');
 $I->executeJS("jQuery('input[value=\"recurs\"]').siblings('label').click()");
 $I->see('$11');
-$I->makeADonation(array('ask' => '11'), TRUE);
+$I->makeADonation(array('ask' => '11'), TRUE, TRUE);
 $I->see("Thank you John Tester for your donation of $11.00.");
 $I->amOnPage(DonationFormPage::route('/'));
 $I->executeJS("jQuery('input[value=\"onetime\"]').siblings('label').click()");

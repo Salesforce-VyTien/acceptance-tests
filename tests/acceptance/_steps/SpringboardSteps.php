@@ -3,7 +3,7 @@ namespace AcceptanceTester;
 
 class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 {
-    public function makeADonation(array $details = array(), $recurs = FALSE) {
+    public function makeADonation(array $details = array(), $recurs = FALSE, $dual_ask = FALSE) {
         $defaults = array(
           'ask' => '10',
           'first' => 'John',
@@ -25,7 +25,7 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 
         $I = $this;
 
-        if (!$recurs) {
+        if (!$recurs || !$dual_ask) {
             $I->selectOption(\DonationFormPage::$askAmountField, $settings['ask']);
         }
         else {
@@ -35,8 +35,9 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->fillField(\DonationFormPage::$emailField, $settings['email']);
         $I->fillInMyAddress($settings['address'], $settings['address2'], $settings['city'], $settings['state'], $settings['zip'], $settings['country']);
         $I->fillInMyCreditCard($settings['number'], $settings['year'], $settings['month'], $settings['cvv']);
-
-
+        if ($recurs && !$dual_ask) {
+            $I->selectOption(\DonationFormPage::$recursField, 'recurs');
+        }
         $I->click(\DonationFormPage::$donateButton);
     }
 
