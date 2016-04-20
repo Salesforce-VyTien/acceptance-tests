@@ -39,11 +39,11 @@ $headers = array(
 );
 
 foreach($headers as $header) {
-  $I->canSee($header, 'th');
+  $I->canSee($header, '#block-system-main table.views-table th.views-field');
 }
 
 for ($i = 0; $i <= 4; $i++) {
-  $I->canSee('Bob' . $i . '@Example.Com', 'a');
+  $I->canSee('Bob' . $i . '@Example.Com', '#block-system-main table.views-table td.views-field-mail a');
 }
 
 // Check the donation report.
@@ -63,10 +63,10 @@ $headers = array(
 );
 
 foreach($headers as $header) {
-  $I->canSee($header, 'th');
+  $I->canSee($header, '#block-system-main table.views-table th.views-field');
 }
 
 // The 5 donations made previously should be in the report.
 for ($i = 0; $i <= 4; $i++) {
-  $I->canSee('Bob' . $i . '@Example.Com', 'a');
+  $I->canSee('Bob' . $i . '@Example.Com', '#block-system-main table.views-table td.views-field-mail a');
 }
