@@ -27,10 +27,10 @@ $I->seeInField(DonationFormPage::$countryField, 'US');
 $I->seeInField(DonationFormPage::$stateField, 'IL');
 $I->seeInField(DonationFormPage::$zipField, '55555');
 
+$I->selectOption(\DonationFormPage::$askAmountField, 10);
 $I->fillInMyCreditCard();
 
 $I->click(DonationFormPage::$donateButton);
-
 $I->see('Allen Freeman');
 $I->see('allen.freeman@example.com');
 $I->see('12345 Test Dr');
@@ -55,6 +55,8 @@ $I->fillInMyName('Overwrite Euro', 'Overwrite Guy');
 $I->fillField(DonationFormPage::$emailField, 'euro.guy@example.com');
 $I->fillInMyAddress('123 Main St', '', 'Washington', 'DC', '12345', 'United States');
 $I->fillInMyCreditCard();
+$I->selectOption(\DonationFormPage::$askAmountField, 10);
+
 
 $I->click(DonationFormPage::$donateButton);
 
@@ -82,6 +84,7 @@ $I->fillField(DonationFormPage::$lastNameField, 'Nobody');
 $I->fillField(DonationFormPage::$emailField, 'overwritegary@example.com');
 $I->fillInMyAddress('123 Main St', '', 'Washington', 'DC', '11111', 'United States');
 $I->fillInMyCreditCard();
+$I->selectOption(\DonationFormPage::$askAmountField, 10);
 
 $I->click(DonationFormPage::$donateButton);
 
