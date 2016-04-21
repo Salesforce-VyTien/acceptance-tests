@@ -7,10 +7,10 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WebDriver
         - Db
         - REST:
            depends: PhpBrowser
+        - WebDriver
     config:
         WebDriver:
             url: 'http://localhost/'

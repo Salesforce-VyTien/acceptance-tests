@@ -43,11 +43,13 @@ $I->click('Donate now');
 $I->wait(4);
 //$I->makeADonation();
 $I->seeInCurrentURl('p2p_pcid=' . $camp_id);
-
+$I->executeJS("jQuery('input[value=\"10\"]').siblings('label').click()");
 $I->fillInMyName();
 $I->fillField(\DonationFormPage::$emailField, 'bob@example.com');
 $I->fillInMyAddress();
 $I->fillInMyCreditCard();
+$I->executeJS("jQuery('input[value=\"recurs\"]').siblings('label').click()");$I->executeJS("jQuery('input[value=\"recurs\"]').siblings('label').click()");$I->executeJS("jQuery('input[value=\"recurs\"]').siblings('label').click()");$I->executeJS("jQuery('input[value=\"recurs\"]').siblings('label').click()");
+
 $I->click(\DonationFormPage::$donateButton);
 $I->wait(4);
 $I->amOnPage('node/' . $camp_id);
@@ -99,7 +101,7 @@ $I->seeElement('//div[contains(@class, "pane-org-intro")]//a[contains(@href, "p2
 $I->amOnPage('node/' . $camp_id);
 $I->click('Donate now');
 $I->wait(3);
-
+$I->executeJS("jQuery('input[value=\"10\"]').siblings('label').click()");
 $I->fillInMyName();
 $I->fillField(\DonationFormPage::$emailField, 'bob@example.com');
 $I->fillInMyAddress();
