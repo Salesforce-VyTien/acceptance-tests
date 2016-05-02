@@ -203,17 +203,35 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         $I->see('Key found and in secure place.');
     }
 
-    public function generateSustainerUpgradeToken($amount, $uid, $did, $rollback = FALSE) {
+    public function generateSustainerUpgradeToken($anon, $amount, $uid, $did, $form_id = NULL, $rollback = FALSE) {
         $I = $this;
+        $I->amOnPage('user/login');
+        $uri = $I->grabFromCurrentUrl();
+        if ($uri == '/user/login') {
+            $I->login();
+        }
+
         $I->amOnPage('admin/config/system/fundraiser/token_generator');
         $I->fillField('#edit-uid', $uid);
         $I->fillField('#edit-amount', $amount);
         $I->fillField('#edit-did', $did);
+        if ($form_id != NULL) {
+            $I->fillField('#edit-nid', $form_id);
+        }
+        else {
+            $I->fillField('#edit-nid', '');
+        }
         if ($rollback == TRUE) {
-            $I->selectOption('#edit-rollback', 1);
+            $I->checkOption('#edit-rollback', 1);
+        }
+        else {
+            $I->unCheckOption('#edit-rollback', 1);
         }
         $I->click('#edit-submit');
         $afToken = $I->grabValueFrom('//div[@id="console"]//textarea');
+        if ($anon == TRUE) {
+            $I->logout();
+        }
 
         return $afToken;
     }
