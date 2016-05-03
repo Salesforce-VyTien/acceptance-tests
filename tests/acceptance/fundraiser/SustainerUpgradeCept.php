@@ -13,10 +13,16 @@ $I->configureEncrypt();
 $I->configureSecurePrepopulate('rSJ22SIRITmX9L7ikkLMVwqD90g9SSQg', 'OCb34r2i3tfMvPZD');
 $I->enableModule('Fundraiser Sustainer Upgrade');
 
+$I->logOut();
+
 // Make donation.
 $I->amOnPage('node/2');
 $I->makeADonation(array('ask' => '10'), TRUE);
 $I->see("Thank you John Tester for your donation of $10.00.");
+
+$I->am('admin');
+$I->logIn();
+
 $I->amOnPage('springboard/donations/1/payment');
 // Grab donation date.
 $date = $I->grabTextFrom('td.views-field-created');
@@ -24,13 +30,13 @@ $date = $I->grabTextFrom('td.views-field-created');
 // Test as logged in user
 doSustainerSteps($I, $date);
 
-//Test as  anon.
+// Test as  anon.
 doSustainerSteps($I, $date, TRUE);
 
 function doSustainerSteps($I, $date, $anon = FALSE) {
 
   // Generate a token.
-  $url = $I->generateSustainerUpgradeToken($anon, "1001", 1, 1);
+  $url = $I->generateSustainerUpgradeToken($anon, "1001", 2, 1);
 
 // Go to the upgrade form.
   $I->amOnUrl($url);
@@ -49,7 +55,7 @@ function doSustainerSteps($I, $date, $anon = FALSE) {
   $I->see("Thank you John Tester for upgrading your sustaining donation to $10.01.");
 
 // Generate a token.
-  $url = $I->generateSustainerUpgradeToken($anon, "1002", 1, 1);
+  $url = $I->generateSustainerUpgradeToken($anon, "1002", 2, 1);
 
 // Go to the upgrade form.
   $I->amOnUrl($url);
@@ -61,30 +67,56 @@ function doSustainerSteps($I, $date, $anon = FALSE) {
 // Go to the upgrade form with expired token.
   $I->amOnUrl($url);
   $I->see('An error occurred and we could not complete the operation.');
+  if (!$anon) {
+    $I->see("Authentication token has already been used.");
+  }
 
 // Use an invalid User ID.
   $url = $I->generateSustainerUpgradeToken($anon, "1002", 6, 1);
   $I->amOnUrl($url);
   $I->see('An error occurred and we could not complete the operation.');
+  if (!$anon) {
+    $I->see("Invalid User ID.");
+  }
+
 
 // Use an invalid donation ID.
-  $url = $I->generateSustainerUpgradeToken($anon, "1002", 1, 0);
+  $url = $I->generateSustainerUpgradeToken($anon, "1002", 2, 0);
   $I->amOnUrl($url);
   $I->see('Donation upgrade can not be completed.');
+  if (!$anon) {
+    $I->see("Donation ID not found in session.");
+  }
+
+  // Use an invalid sustainers ID.
+  $url = $I->generateSustainerUpgradeToken($anon, "1002", 2, 3);
+  $I->amOnUrl($url);
+  $I->see('Donation upgrade can not be completed.');
+  if (!$anon) {
+    $I->see("Donation ID is not a master ID.");
+  }
+
+
+  // Use an invalid doantion amount.
+  $url = $I->generateSustainerUpgradeToken($anon, "555", 2, 1);
+  $I->amOnUrl($url);
+  $I->see('Donation upgrade can not be completed.');
+  if (!$anon) {
+    $I->see("The upgrade amount is lower than or equal to the current donation. Donation amount must be greater than $10.00.");
+  }
 
 // Use an invalid form id ID.
-  $url = $I->generateSustainerUpgradeToken($anon, "1002", 1, 1, 77);
+  $url = $I->generateSustainerUpgradeToken($anon, "1002", 2, 1, 77);
   $I->amOnUrl($url);
-
   $I->see("Thank you John Tester. (Not John? Click here.) To upgrade your monthly donation to $10.02, click Confirm below.");
 
 // Use a valid form id ID.
-  $url = $I->generateSustainerUpgradeToken($anon, "1002", 1, 1, 4);
+  $url = $I->generateSustainerUpgradeToken($anon, "1002", 2, 1, 4);
   $I->amOnUrl($url);
   $I->see("Thank you John Tester. (Not John? Click here.) To upgrade your monthly donation to $10.02, click Confirm below.");
 
   // Do a rollback.
-  $url = $I->generateSustainerUpgradeToken($anon, "1000", 1, 1, NULL, TRUE);
+  $url = $I->generateSustainerUpgradeToken($anon, "1000", 2, 1, NULL, TRUE);
   $I->amOnUrl($url);
   $I->see("Hello John Tester. (Not John? Click here.) To rollback your sustaining donation to $10.00, click Confirm below.");
 // Submit.
