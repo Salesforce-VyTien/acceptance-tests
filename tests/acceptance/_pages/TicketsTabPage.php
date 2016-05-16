@@ -24,8 +24,13 @@ class TicketsTabPage
     // generic variables
     public static $waitList = '//select[@name="fr_tickets_waitlist_form[und]"]';
     public static $closed = '//input[@name="fr_tickets_closed_is_closed[und]"]';
-
-
+    public static $closedDate = '//input[@name="fr_tickets_closed_close_date[und][0][value][date]"]';
+    public static $closedOptions = '//input[@name="fr_tickets_closed_options[und]"]';
+    public static $closedMessage = '//textarea[@name="fr_tickets_closed_message[und][0][value]"]';
+    public static $closedRedirect = '//input[@name="fr_tickets_closed_redirect[und][0][value]"]';
+    public static $soldOutOptions = '//input[@name="fr_tickets_sold_out_options[und]"]';
+    public static $soldOutMessage = '//textarea[@name="fr_tickets_sold_out_message[und][0][value]"]';
+    public static $soldOutRedirect = '//input[@name="fr_tickets_sold_out_redirect[und][0][value]"]';
     /**
      * @var AcceptanceTester;
      */

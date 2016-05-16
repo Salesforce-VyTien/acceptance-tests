@@ -10,14 +10,14 @@ class ContentTypePage
      * You can append any additional parameter to URL
      * and use it in tests like: EditPage::route('/123-post');
      */
-     public static function addRoute($param)
+     public static function addRoute()
      {
-         return static::$URL.$param;
+         return static::$addURL;
      }
 
     public static function manageRoute($param)
     {
-        return static::$URL.$param;
+        return static::$manageURL.$param;
     }
 
 
