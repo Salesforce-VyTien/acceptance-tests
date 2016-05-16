@@ -1,5 +1,12 @@
 <?php
 
+$config = \Codeception\Configuration::config();
+$settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+
+if (empty($settings['advocacy']) && empty(getenv('springboard_advocacy_server_url'))) {
+  $scenario->skip("Advocacy settings are not configured.");
+}
+
 $scenario->group('no_populate');
 $scenario->group('advocacy');
 
