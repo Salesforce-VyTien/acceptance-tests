@@ -28,17 +28,22 @@ class TicketsTabPage
     public static $closedOptions = '//input[@name="fr_tickets_closed_options[und]"]';
     public static $closedMessage = '//textarea[@name="fr_tickets_closed_message[und][0][value]"]';
     public static $closedRedirect = '//input[@name="fr_tickets_closed_redirect[und][0][value]"]';
-    public static $soldOutOptions = '//input[@name="fr_tickets_sold_out_options[und]"]';
-    public static $soldOutMessage = '//textarea[@name="fr_tickets_sold_out_message[und][0][value]"]';
+    public static $soldOutOptions = '//input[@name="fr_tickets_soldout_options[und]"]';
+    public static $soldOutMessage = '//textarea[@name="fr_tickets_soldout_message[und][0][value]"]';
     public static $soldOutRedirect = '//input[@name="fr_tickets_sold_out_redirect[und][0][value]"]';
+    public static $ticketOneQuant = "#product-1-ticket-quant";
+    public static $ticketTwoQuant = "#product-2-ticket-quant";
+
     /**
      * @var AcceptanceTester;
      */
     protected $acceptanceTester;
+    protected $test;
 
-    public function __construct(AcceptanceTester $I)
+    public function __construct(AcceptanceTester $I, ticketsCest $test)
     {
         $this->acceptanceTester = $I;
+        $this->test = $test;
     }
 
     /**
@@ -47,5 +52,17 @@ class TicketsTabPage
     public static function of(AcceptanceTester $I)
     {
         return new static($I);
+    }
+
+    function configureTickets() {
+        $I = $this->acceptanceTester;
+        $I->am('admin');
+        $I->login();
+        $I->configureEncrypt();
+        $I->enableModule('Fundraiser Tickets');
+        $this->test->_createContentType($I);
+        $this->test->_createWaitListForm($I);
+        $this->test->_createTicketNode($I);
+        $this->test->_createTickets($I);
     }
 }
