@@ -28,21 +28,22 @@ class ticketsCest {
   /**
    * @param \AcceptanceTester\SpringboardSteps $I
    */
-  public function testClosedEvents(AcceptanceTester\SpringboardSteps $I) {
-    $I = $this->_closedEvents($I);
-    $this->_expiredEvents($I);
-  }
-
-  /**
-   * @param \AcceptanceTester\SpringboardSteps $I
-   */
-  public function testSoldOutEvents(AcceptanceTester\SpringboardSteps $I) {
-    $this->_soldOutEvents($I);
-  }
+//  public function testClosedEvents(AcceptanceTester\SpringboardSteps $I) {
+//    $I = $this->_closedEvents($I);
+//    $this->_expiredEvents($I);
+//  }
+//
+//  /**
+//   * @param \AcceptanceTester\SpringboardSteps $I
+//   */
+//  public function testSoldOutEvents(AcceptanceTester\SpringboardSteps $I) {
+//    $this->_soldOutEvents($I);
+//  }
 
   public function testDonorFormWidget(AcceptanceTester\SpringboardSteps $I) {
     $this->_enableAddOn($I);
     $this->_donorFormWidget($I);
+    $this->_testAddOn($I);
   }
 
   /**
@@ -252,6 +253,18 @@ class ticketsCest {
     $I->seeElement(\TicketsTabPage::$addOnAmt);
     $I->fillField(\TicketsTabPage::$addOnAmt, 50);
     $I->see('$90.00', '#fundraiser-tickets-total-cost');
+  }
+
+  /**
+   * @param \AcceptanceTester\SpringboardSteps $I
+   */
+  public function _testAddOn(AcceptanceTester\SpringboardSteps $I) {
+    $I->fillInMyName();
+    $I->fillInMyCreditCard();
+    $I->fillInMyAddress();
+    $I->fillField(\DonationFormPage::$emailField, 'admin@example.com');
+    $I->click('Submit');
+    $I->see('Donation was successfully processed');
   }
 
 }
