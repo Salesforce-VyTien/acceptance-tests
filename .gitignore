@@ -6,5 +6,6 @@ vendor
 tests/_output
 codeception.yml
 acceptance.suite.yml
+codeception.yml.console
 .DS_store
 tests/_support/_generated/

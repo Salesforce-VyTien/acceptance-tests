@@ -34,6 +34,11 @@ class TicketsTabPage
     public static $ticketOneQuant = "#product-1-ticket-quant";
     public static $ticketTwoQuant = "#product-2-ticket-quant";
 
+    public static $addOnBox = '//input[@name="fr_tickets_donation_donation[und]"]';
+    public static $addOnAuto = '//input[@name="fr_tickets_donation_addon_form[und][0][target_id]"]';
+    public static $addOnSf = '//input[@name="fr_tickets_donation_salesforce_field"]';
+    public static $addOnAmt = '//input[@name="submitted[tickets][ticket_box][fundraiser-tickets-extra-donation]"]';
+
     /**
      * @var AcceptanceTester;
      */

@@ -40,6 +40,10 @@ class ticketsCest {
     $this->_soldOutEvents($I);
   }
 
+  public function testDonorFormWidget(AcceptanceTester\SpringboardSteps $I) {
+    $this->_enableAddOn($I);
+    $this->_donorFormWidget($I);
+  }
 
   /**
    * @param \AcceptanceTester\SpringboardSteps $I
@@ -210,6 +214,44 @@ class ticketsCest {
     $I->click('Submit');
     $I->amOnPage('node/' . $this->nid);
     $I->see('My sold out message');
+  }
+
+
+  /**
+   * @param \AcceptanceTester\SpringboardSteps $I
+   */
+  public function _enableAddOn(AcceptanceTester\SpringboardSteps $I) {
+
+    $I->amOnPage(\TicketsTabPage::route($this->nid));
+    $I->checkOption(\TicketsTabPage::$addOnBox);
+    $I->seeElement(\TicketsTabPage::$addOnAuto);
+    $I->see('You may type either the form\'s Title or Internal Name when searching.');
+    $I->see('Target donation forms must have an "other amount" field and must have the same currency as this form. Any required fields on target donation forms must also be required on this form.');
+//    $I->see("Salesforce field to relate add-on to original donation");
+//    $I->seeElement(\TicketsTabPage::$addOnSf);
+    $I->fillField(\TicketsTabPage::$addOnAuto, 'Test Donation Form');
+    $I->waitForElement('#autocomplete', 15);
+    $I->wait('5');
+    $I->click('#autocomplete ul:first-child li');
+    $I->wait('5');
+    $I->click('Save');
+  }
+
+  /**
+   * @param \AcceptanceTester\SpringboardSteps $I
+   */
+  public function _donorFormWidget(AcceptanceTester\SpringboardSteps $I) {
+    $I->amOnPage('node/' . $this->nid);
+    $I->selectOption(\TicketsTabPage::$ticketOneQuant, 2);
+    $I->see('$20.00', '.fundraiser-ticket-type-total');
+    $I->see('$20.00', '#fundraiser-tickets-total-cost');
+    $I->see('2', '#fundraiser-tickets-total-quant');
+    $I->selectOption(\TicketsTabPage::$ticketTwoQuant, 2);
+    $I->see('$40.00', '#fundraiser-tickets-total-cost');
+    $I->see('4', '#fundraiser-tickets-total-quant');
+    $I->seeElement(\TicketsTabPage::$addOnAmt);
+    $I->fillField(\TicketsTabPage::$addOnAmt, 50);
+    $I->see('$90.00', '#fundraiser-tickets-total-cost');
   }
 
 }
