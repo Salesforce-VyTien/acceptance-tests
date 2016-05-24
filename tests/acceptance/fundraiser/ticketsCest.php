@@ -28,17 +28,17 @@ class ticketsCest {
   /**
    * @param \AcceptanceTester\SpringboardSteps $I
    */
-//  public function testClosedEvents(AcceptanceTester\SpringboardSteps $I) {
-//    $I = $this->_closedEvents($I);
-//    $this->_expiredEvents($I);
-//  }
-//
-//  /**
-//   * @param \AcceptanceTester\SpringboardSteps $I
-//   */
-//  public function testSoldOutEvents(AcceptanceTester\SpringboardSteps $I) {
-//    $this->_soldOutEvents($I);
-//  }
+  public function testClosedEvents(AcceptanceTester\SpringboardSteps $I) {
+    $I = $this->_closedEvents($I);
+    $this->_expiredEvents($I);
+  }
+
+  /**
+   * @param \AcceptanceTester\SpringboardSteps $I
+   */
+  public function testSoldOutEvents(AcceptanceTester\SpringboardSteps $I) {
+    $this->_soldOutEvents($I);
+  }
 
   public function testDonorFormWidget(AcceptanceTester\SpringboardSteps $I) {
     $this->_enableAddOn($I);
@@ -265,6 +265,9 @@ class ticketsCest {
     $I->fillField(\DonationFormPage::$emailField, 'admin@example.com');
     $I->click('Submit');
     $I->see('Donation was successfully processed');
+    $I->amOnPage('springboard/donations/');
+    $I->see('$40.00', 'tr.views-row-first');
+    $I->see('$50.00', 'tr.views-row-last');
   }
 
 }
