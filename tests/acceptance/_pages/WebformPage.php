@@ -26,6 +26,9 @@ class WebformPage
 
     public static $saveEmailSettingsButton = '#edit-actions-submit';
 
+    public static $confirmationMessage= '#edit-confirmation-value';
+    public  static  $saveConfirm = '#edit-submit';
+
     /**
      * Basic route example for your current URL
      * You can append any additional parameter to URL
