@@ -1,6 +1,5 @@
 <?php
 $scenario->group('fundraiser');
-git add .
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test fundraiser offline');
 
