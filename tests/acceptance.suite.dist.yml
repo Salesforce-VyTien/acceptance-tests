@@ -55,6 +55,10 @@ modules:
 #  paypal_payer: ''
 #  paypal_payer_pass: ''
 
+Sustainers:
+  sustainers_key_path: '/tmp'
+
+
 # These values can be accessed during a test:
 
 # $config = \Codeception\Configuration::config();

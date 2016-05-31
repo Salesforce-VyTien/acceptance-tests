@@ -196,9 +196,23 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
     }
 
     public function configureEncrypt() {
+
+        $settings = array();
+        if (empty(getenv('sustainers_key_path'))) {
+            $config = \Codeception\Configuration::config();
+            $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+        }
+        else {
+            // Scrutinizer env vars.
+            $settings['Sustainers'] = array(
+              'sustainers_key_path' => getenv('sustainers_key_path'),
+            );
+        }
+
+
         $I = $this;
         $I->amOnPage('admin/config/system/encrypt');
-        $I->fillField('Secure Key Path', '/tmp');
+        $I->fillField('Secure Key Path', $settings['Sustainers']['sustainers_key_path']);
         $I->click("Save configuration");
         $I->see('Key found and in secure place.');
     }
