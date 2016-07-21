@@ -85,6 +85,7 @@ class ticketsCest {
     $I->click(\NodeAddPage::$save);
     $this->nid = $I->grabFromCurrentUrl('~.*/node/(\d+)/.*~');
     $I->click('View');
+    $I->wait(3);
     $I->see('The form will not work properly until tickets have been created. To add tickets, click here.');
     $I->see('Tickets', '.fieldset-legend');
     $I->amOnPage(\TicketsTabPage::route($this->nid));
@@ -124,6 +125,7 @@ class ticketsCest {
     $I->fillField(ProductsUIPage::$quantity, 2);
     $I->click('Save product');
     $I->amOnPage('node/' .  $this->nid);
+    $I->wait(30);
     $I->see('Ticket 1 description.');
     $I->see('Ticket 1 ($10.00)');
     return $I;
