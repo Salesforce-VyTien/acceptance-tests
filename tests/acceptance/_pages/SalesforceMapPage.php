@@ -58,8 +58,13 @@ class SalesforceMapPage
       $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
       $I = $this->acceptanceTester;
 
-      foreach ($settings['Salesforce'] as $key => $value) {
-        $I->haveInDatabase('variable', array('name' => $key, 'value' => $value));
+      if (!empty($settings['Salesforce'])) {
+        foreach ($settings['Salesforce'] as $key => $value) {
+          $I->haveInDatabase('variable', array(
+            'name' => $key,
+            'value' => $value
+          ));
+        }
       }
     }
 }

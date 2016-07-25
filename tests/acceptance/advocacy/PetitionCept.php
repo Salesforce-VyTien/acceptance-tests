@@ -23,6 +23,8 @@ $I->enableModule('Springboard Advocacy Quick Sign');
 $I->wait(5);
 $I->amOnPage(NodeAddPage::route('springboard-petition'));
 $I->fillField(NodeAddPage::$title, "Test Petition");
+$I->fillField(NodeAddPage::$internalTitle, "Test Petition");
+
 $I->click(\NodeAddPage::$save);
 
 $I->see('User profile fields have been mapped to webform components');
