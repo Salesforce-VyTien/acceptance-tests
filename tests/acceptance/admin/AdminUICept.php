@@ -107,14 +107,14 @@ $I->see('Templates', '.page-title');
 $I->see('Page Wrapper', '#block-system-main .types-wrapper h2');
 $I->see('Create Page Wrapper', '#block-system-main div.buttons-wrapper a');
 $I->see('View all Page Wrappers', '#block-system-main  a');
-$I->see('Email Wrapper', '#block-system-main .types-wrapper h2');
-$I->see('Create Email Wrapper', '#block-system-main div.buttons-wrapper a');
-$I->see('View all Email Wrappers', '#block-system-main a');
+$I->see('Email Template', '#block-system-main .types-wrapper h2');
+$I->see('Create Email Template', '#block-system-main div.buttons-wrapper a');
+$I->see('View all Email Templates', '#block-system-main a');
 
 $I->moveMouseOver('#menu-wrapper li.assetlibrary');
 $I->click('Email Templates');
 $I->seeInCurrentUrl('/springboard/asset-library/email_wrapper');
-$I->see('Email Wrappers', '.page-title');
+$I->see('Email Templates', '.page-title');
 $I->see('Title', '#block-system-main table.views-table th');
 $I->see('Status', '#block-system-main table.views-table th');
 $I->see('Date Created', '#block-system-main table.views-table th');
@@ -123,15 +123,15 @@ $I->see('View', '#block-system-main table.views-table td a');
 $I->see('Edit', '#block-system-main table.views-table td a');
 $I->see('Clone', '#block-system-main table.views-table td a');
 $I->see('Delete', '#block-system-main table.views-table td a');
-$I->click('Create email wrapper');
+$I->click('Create Email Template');
 $I->seeInCurrentUrl('/springboard/add/email-wrapper');
-$I->see('Create Email Wrapper', '.page-title');
+$I->see('Create Email Template', '.page-title');
 
 $I->moveMouseOver('#menu-wrapper li.assetlibrary');
 $I->click('Page Wrappers');
 $I->seeInCurrentUrl('/springboard/asset-library/page_wrapper');
 $I->see('Page Wrappers', '.page-title');
-$I->click('Create page wrapper');
+$I->click('Create Page Wrapper');
 $I->seeInCurrentUrl('/springboard/add/page-wrapper');
 $I->see('Create Page Wrapper', '.page-title');
 
