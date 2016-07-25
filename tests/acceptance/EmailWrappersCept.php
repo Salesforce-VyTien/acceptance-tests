@@ -9,7 +9,7 @@ $I->wantTo('configure Email wrappers and add a template.');
 // @todo Test BCC
 
 // We need a unique title so we can pick it from the template list.
-$title = 'email wrappers test ' . time();
+$title = 'email templates test ' . time();
 $subject = 'this is my subject';
 $html_template = 'this is my html template. here comes the html message token: %html_message did you see it?';
 $html_message = 'this is the default html message';
@@ -41,8 +41,7 @@ $I->fillField(EmailWrapperPage::$textTemplateField, $text_template);
 $I->fillField(EmailWrapperPage::$textMessageField, $text_message);
 
 $I->click(EmailWrapperPage::$saveButton);
-
-$I->see('Email Wrapper ' . $title . ' has been created.');
+$I->see('Email Template ' . $title . ' has been created.');
 
 $I->cloneADonationForm();
 $I->click('Save');
@@ -52,8 +51,7 @@ $I->click('Confirmation emails', 'ul.secondary');
 
 $I->click(WebformPage::$addEmailButton);
 
-$I->selectOption('Template', $title);
-
+$I->selectOption('Email Template', $title);
 $I->waitForJS('return jQuery.active == 0;', 10);
 
 $I->seeCheckboxIsChecked(WebformPage::$emailSubjectField, 'Custom');
