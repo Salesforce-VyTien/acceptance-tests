@@ -125,7 +125,6 @@ class ticketsCest {
     $I->fillField(ProductsUIPage::$quantity, 2);
     $I->click('Save product');
     $I->amOnPage('node/' .  $this->nid);
-    $I->wait(30);
     $I->see('Ticket 1 description.');
     $I->see('Ticket 1 ($10.00)');
     return $I;
