@@ -53,7 +53,8 @@ function doSustainerSteps($I, $date, $anon = FALSE) {
   $I->see("Thank you John Tester. (Not John? Click here.) To upgrade your monthly donation to $10.01, click Confirm below.");
   $I->see("Your original donation for $10.00, was made on");
   $I->see($date);
-  $I->see("with your card ending in 1111. You have 8 charges remaining in this series, which will be upgraded to $10.01");
+  $I->see("with your card ending in 1111.");
+  $I->see("charges remaining in this series, which will be upgraded to $10.01");
 
   // Submit.
   $I->click("#edit-submit");
