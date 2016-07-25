@@ -1,6 +1,8 @@
 <?php
 //@group fundraiser;
 
+$scenario->skip('Requires sensitive configuration');
+
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test enhanced gateway options.');
 
@@ -74,6 +76,7 @@ $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
 $I->fillField('#login_email', $settings['PayPal']['paypal_payer']);
 $I->fillField('#login_password', $settings['PayPal']['paypal_payer_pass']);
 $I->click('#submitLogin');
+$I->wait(30);
 
 // Cancel the donation
 $I->waitForElement("#cancel_return", 20);
