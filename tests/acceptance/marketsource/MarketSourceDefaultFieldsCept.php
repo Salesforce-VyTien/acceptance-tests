@@ -1,5 +1,5 @@
 <?php
-$scenario->group('marketsource');
+//@group marketsource
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('test that Market Source default fields are created.');

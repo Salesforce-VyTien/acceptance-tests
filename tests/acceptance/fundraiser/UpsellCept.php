@@ -1,6 +1,6 @@
 <?php
 
-$scenario->group('fundraiser');
+//@group fundraiser;
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 

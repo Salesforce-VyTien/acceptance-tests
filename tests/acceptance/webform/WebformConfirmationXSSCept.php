@@ -1,6 +1,6 @@
 <?php
 
-$scenario->group('webform');
+//@group webform
 
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);

@@ -7,11 +7,11 @@ if (empty($settings['advocacy']) && empty(getenv('springboard_advocacy_server_ur
   $scenario->skip("Advocacy settings are not configured.");
 }
 
-$scenario->group('no_populate');
-$scenario->group('advocacy');
+//@group no_populate
+//@group advocacy
 // Acceptance tests for admin UI and menus.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('Configure Message Actions');
+$I->wantTo('Test Message Action precedence settings');
 
 $I->am('admin');
 $I->login();

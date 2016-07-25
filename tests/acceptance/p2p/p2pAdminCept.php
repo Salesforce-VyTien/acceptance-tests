@@ -1,9 +1,9 @@
 <?php
 
-$scenario->group('p2p');
+//@group p2p
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('Configure and test p2p settings.');
+$I->wantTo('Configure and test p2p administration.');
 
 $I->am('admin');
 $I->login();

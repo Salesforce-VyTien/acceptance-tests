@@ -1,6 +1,6 @@
 <?php
 
-$scenario->group('misc');
+//@group misc
 
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);

@@ -1,8 +1,8 @@
 <?php
 
 
-$scenario->group('no_populate');
-$scenario->group('advocacy');
+//@group no_populate
+//@group advocacy
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Enable and test petition functions');

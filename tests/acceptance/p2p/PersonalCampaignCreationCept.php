@@ -1,6 +1,6 @@
 <?php
 
-$scenario->group('p2p');
+//@group p2p
 
 // Personal Campaign Creation
 

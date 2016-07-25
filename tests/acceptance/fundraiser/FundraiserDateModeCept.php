@@ -1,5 +1,5 @@
 <?php
-$scenario->group('fundraiser');
+//@group fundraiser;
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test fundraiser date mode');
 
@@ -29,22 +29,27 @@ $I->selectOption('#edit-fundraiser-date-mode-set-dates', $today);
 $I->fillField('#edit-fundraiser-date-mode-batch-record-count', 500);
 $I->checkOption('#edit-fundraiser-date-mode-skip-on-cron');
 $I->selectOption('#edit-fundraiser-date-mode-set-seconds', 22);
-$I->wait('4');
 $I->click('Save configuration');
+$I->waitForElement('#edit-fundraiser-date-mode-set-seconds', 10); //time for ajax process
 
 // Check if date mode updated existing series correctly.
 $I->amOnPage('springboard/donations/1/recurring');
 $new_date = '/' . $today . '/' . date('y');
+
 $I->see($new_date);
 
 // Set date mode to a different date.
 $I->amOnPage('admin/config/system/fundraiser/date-mode');
 $I->selectOption('#edit-fundraiser-date-mode-set-dates', $today + 1);
+
 $I->click('Save configuration');
+$I->waitForElement('#edit-fundraiser-date-mode-set-seconds', 10); //time for ajax process
+
 
 // Check if date mode updated existing series correctly.
 $I->amOnPage('springboard/donations/1/recurring');
 $new_date = '/' . ($today + 1) . '/' . date('y');
+
 $I->see($new_date);
 
 // Unset date mode
@@ -53,6 +58,8 @@ $I->amOnPage('admin/config/system/fundraiser/date-mode');
 $I->unCheckOption('#edit-fundraiser-date-mode-set-date-mode');
 $I->wait('4');
 $I->click('Save configuration');
+$I->waitForElement('#edit-fundraiser-date-mode-set-seconds', 10); //time for ajax process
+
 
 $I->amOnPage('springboard/donations/1/recurring');
 $original_date = '/' . ($today) . '/' . date('y');

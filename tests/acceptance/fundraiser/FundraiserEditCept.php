@@ -1,5 +1,5 @@
 <?php
-$scenario->group('fundraiser');
+//@group fundraiser;
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test fundraiser edit page payment options.');
 $title = 'fundraiser node edit test ' . time();

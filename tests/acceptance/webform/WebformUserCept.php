@@ -1,5 +1,5 @@
 <?php
-$scenario->group('webform');
+//@group webform
 
 // Acceptance tests for webform saleforce integration.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);

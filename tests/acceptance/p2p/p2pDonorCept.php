@@ -1,10 +1,10 @@
 <?php
 
-$scenario->group('p2p');
+//@group p2p
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 //$scenario->incomplete();
-$I->wantTo('Configure and test p2p settings.');
+$I->wantTo('Configure and test p2p donor functions.');
 
 $I->am('admin');
 $I->login();

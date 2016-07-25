@@ -1,9 +1,9 @@
 <?php
-$scenario->group('fundraiser');
+//@group fundraiser;
 
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('Test fundraiser dual ask amount functions.');
+$I->wantTo('Test fundraiser multi-currency.');
 
 $title = 'fundraiser dual ask test ' . time();
 

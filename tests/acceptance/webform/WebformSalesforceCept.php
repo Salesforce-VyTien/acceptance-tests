@@ -1,8 +1,8 @@
 <?php
 $scenario->skip();
-$scenario->group('webform');
+//@group webform
 
-$scenario->group('no_populate');
+//@group no_populate
 
 // Acceptance tests for webform saleforce integration.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
