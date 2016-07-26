@@ -75,15 +75,11 @@ $I->seeElement('//table[@id="edit-field-p2p-campaign-images-und-table"]//img[con
 $string = time();
 $I->fillField('//input[@name="field_p2p_personal_campaign_url[und][0][value]"]', $string);
 $I->wait(4);
-
 $I->fillField('//input[@name="field_p2p_personal_campaign_goal[und][0][value]"]', '123');
-//force javascript validation on url field
-$I->click('body');
 $I->wait(2);
-
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->click('#edit-submit');
 $I->wait(2);
-
 $I->seeElement('.pane-campaign-header img');
 $I->seeElement('iframe');
 // Edit new personal campaign node, confirm all settings saved.
@@ -175,6 +171,7 @@ $I->fillField($admin->body, 'A private campaign description.');
 $I->checkOption($admin->campP2pDonation);
 $I->fillField($admin->campP2pDonationGoal, '123');
 //takes two  clicks
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
@@ -249,7 +246,7 @@ $string = time();
 $I->fillField('//input[@name="field_p2p_personal_campaign_url[und][0][value]"]', $string);
 $I->wait(4);
 $I->fillField('//input[@name="field_p2p_personal_campaign_goal[und][0][value]"]', '123');
-$I->click('body');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->wait(2);
 $I->click('#edit-submit');
 $I->wait(4);
@@ -317,6 +314,7 @@ $I->login();
 //// confirm no error messages on save & settings save successfully.
 
 $I->amOnPage('node/' . $camp_id . '/edit/');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
 $I->checkOption('//input[@name="field_p2p_ask_amount_edit[und]"]');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_personal_intro"]');
@@ -333,7 +331,7 @@ $I->see('Upload a Campaign Image');
 $I->seeElement('//input[@name="field_p2p_video_embed[und][0][video_url]"]');
 $I->see('Suggested Donation Amount');
 $I->fillField('//input[@name="field_p2p_personal_campaign_goal[und][0][value]"]', '123');
-$I->click('body');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->wait(2);
 $I->click('#edit-submit');
 
@@ -367,10 +365,12 @@ $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_images"]');
 $I->attachFile($admin->slider, '1170x360.png');
 $I->attachFile($admin->banner, '1170x360.png');
 $I->attachFile($admin->campThumb, '400x240.png');
-$I->click('//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
-$I->click('//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
+$I->click('//ul//li//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
+$I->click('//ul//li//a[@href="#node_p2p_campaign_form_group_p2p_campaign_defaults"]');
 
 $I->fillField($admin->campExpire, 'A private campaign expiration message');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_personal_intro"]');
 $I->click('//a[@href="#node_p2p_campaign_form_group_p2p_personal_intro"]');
 $I->checkOption('//input[@name="field_p2p_personal_intro_edit[und]"]');
@@ -381,7 +381,8 @@ $I->logout();
 $I->wait(4);
 $I->login('Campaigner', 'Campaigner');
 $I->amOnPage('node/add/p2p-personal-campaign?p2p_cid=' . $node_id);
-$I->SeeElement('//textarea[@name="body[und][0][value]"]');
+$I->wait(1);
+$I->seeElement('//textarea[@name="body[und][0][value]"]');
 $I->cantSeeElement('//input[@name="field_p2p_video_embed[und][0][video_url]"]');
 $I->cantSee('Upload a Campaign Image');
 $I->cantSee('Suggested Donation Amount');
