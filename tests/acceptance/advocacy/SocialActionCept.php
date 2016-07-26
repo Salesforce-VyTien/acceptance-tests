@@ -3,7 +3,7 @@
 $config = \Codeception\Configuration::config();
 $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
 
-if (empty($settings['advocacy']) && empty(getenv('springboard_advocacy_server_url'))) {
+if (empty($settings['Advocacy']) && empty(getenv('springboard_advocacy_server_url'))) {
   $scenario->skip("Advocacy settings are not configured.");
 }
 
@@ -41,11 +41,12 @@ $I->click('.sba-add-button');
 $I->fillField('#edit-name', "Test Message");
 $I->fillField('#edit-field-sba-twitter-message-und-0-value', "Test Tweet");
 $I->click('#edit-field-sba-twitter-message-und-add-more');
-$I->wait(3);
+$I->waitForElement('.ajax-new-content textarea', 15);
 $I->fillField('.ajax-new-content textarea', "Test Tweet 2");
 $I->see('You have used 10 characters in your message. You currently have a maximum of 140 characters for this message.');
 $I->checkOption('#edit-field-sba-prepend-target-name-und');
 $I->see('You have used 10 characters in your message. You currently have a maximum of 139 characters for this message.');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->checkOption('#edit-field-sba-show-additional-und-website','website');
 $I->checkOption('#edit-field-sba-show-additional-und-youtube','youtube');
 $I->checkOption('#edit-field-sba-show-additional-und-facebook','facebook');
@@ -64,6 +65,7 @@ $I->fillField('#edit-field-sba-twitter-message-und-0-value', "Test Tweet Two");
 $I->see('You have used 14 characters in your message. You currently have a maximum of 140 characters for this message.');
 $I->checkOption('#edit-field-sba-prepend-target-name-und');
 $I->see('You have used 14 characters in your message. You currently have a maximum of 139 characters for this message.');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->checkOption('#edit-field-sba-show-additional-und-website','website');
 $I->checkOption('#edit-field-sba-show-additional-und-youtube','youtube');
 $I->checkOption('#edit-field-sba-show-additional-und-facebook','facebook');
