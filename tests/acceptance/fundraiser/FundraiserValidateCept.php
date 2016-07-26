@@ -29,7 +29,7 @@ $I->fillField(DonationFormPage::$CVVField, '123');
 //click on neutral space to remove focus from the last filled element
 $I->click('#webform-client-form-2');
 
-$I->wait(2);
+$I->waitForElementVisible('#edit-submitted-donation-other-amount',20);
 
 // check for validation classes
 $I->seeElement('#edit-submitted-donation-other-amount.valid');
@@ -49,6 +49,7 @@ $I->fillField(DonationFormPage::$otherAmountField, '0');
 $I->see('The amount entered is less than the minimum donation amount.');
 $I->fillField(DonationFormPage::$firstNameField, '');
 $I->click('#webform-client-form-2');
+$I->wait(5);
 $I->see('This field is required');
 $I->fillField(DonationFormPage::$lastNameField, '');
 $I->see('This field is required');
