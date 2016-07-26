@@ -1,5 +1,5 @@
 <?php
-$scenario->group('admin');
+//@group admin'admin');
 
 
 // Acceptance tests for admin UI and menus.
