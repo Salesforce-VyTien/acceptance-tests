@@ -113,6 +113,7 @@ $I->see('Personal campaigns', 'H2');
 $rid = $I->getRid('Springboard administrator');
 $I->amOnPage('admin/people/permissions/' . $rid);
 $I->executeJS('jQuery("#springboard-admin-home-link").remove()');
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->checkOption('#edit-' . $rid . '-create-p2p-category-content');
 $I->checkOption('#edit-' . $rid . '-create-p2p-campaign-content');
 $I->checkOption('#edit-' . $rid . '-create-p2p-campaign-landing-content');
