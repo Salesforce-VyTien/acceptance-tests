@@ -135,7 +135,7 @@ $I->amOnPage('springboard/springboard-tags/list/administrative_title/edit');
 $I->click('User Visibility');
 $I->unCheckOption('#edit-visibility-user-roles-1');
 $I->click('Path Visibility');
-$I->waitForElement('#edit-visibility-path-pages', 10);
+$I->waitForElementVisible('#edit-visibility-path-pages', 10);
 $I->fillField('#edit-visibility-path-pages', 'node/*/edit');
 $I->click('Save');
 $I->amOnPage('node/2/edit');
