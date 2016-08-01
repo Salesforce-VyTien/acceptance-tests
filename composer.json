@@ -1,7 +1,9 @@
 {
     "require": {
+        "jakoch/phantomjs-installer": "2.1.1",
         "codeception/codeception": "2.2.3",
-        "jonnyw/php-phantomjs": "3.*"
+        "jonnyw/php-phantomjs": "4.*",
+        "site5/phantoman": "^1.1"
           },
           "scripts": {
               "post-install-cmd": [

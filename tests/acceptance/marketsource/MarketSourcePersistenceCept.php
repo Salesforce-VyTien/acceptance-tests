@@ -8,7 +8,7 @@ $I->am('admin');
 $I->login();
 
 $I->click('Marketing & Analytics', 'header');
-$I->click('Source Codes');
+$I->click('Source Codes', '.aggregate-links');
 
 $I->click('#edit-market-source-global-fields-custom-fields-wrapper-0-persistence-on');
 $I->fillField('#edit-market-source-global-fields-custom-fields-wrapper-0-name', 'On field');
@@ -129,18 +129,21 @@ $I->click('Form components', 'ul.primary');
 
 $js = "jQuery('a', jQuery('td:contains(\"On field\")').siblings(':contains(\"Edit\")'))[0].click();";
 $I->executeJS($js);
+$I->waitForElement('#edit-value', 10);
 $I->fillField('#edit-value', 'on_field_default');
 $I->click('Save component', '.form-actions');
 $I->seeInMessages('Component On field updated.');
 
 $js = "jQuery('a', jQuery('td:contains(\"Off field\")').siblings(':contains(\"Edit\")'))[0].click();";
 $I->executeJS($js);
+$I->waitForElement('#edit-value', 10);
 $I->fillField('#edit-value', 'off_field_default');
 $I->click('Save component', '.form-actions');
 $I->seeInMessages('Component Off field updated.');
 
 $js = "jQuery('a', jQuery('td:contains(\"Direct field\")').siblings(':contains(\"Edit\")'))[0].click();";
 $I->executeJS($js);
+$I->waitForElement('#edit-value', 10);
 $I->fillField('#edit-value', 'direct_field_default');
 $I->click('Save component', '.form-actions');
 $I->seeInMessages('Component Direct field updated.');

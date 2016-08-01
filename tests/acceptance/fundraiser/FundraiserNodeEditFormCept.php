@@ -168,7 +168,8 @@ $I->fillField('amount_wrapper[donation_amounts][2][label]', '$55');
 
 // Set the default amount.
 $I->click('body');
-$I->wait(1);
+$I->wait(2);
+$I->executeJS('jQuery("table.sticky-header thead").remove()');
 $I->checkOption('//td//input[@value="35"]/../../..//td//input[@type="checkbox"]');
 
 // Save.

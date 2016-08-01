@@ -15,6 +15,7 @@ $I->configureEncrypt();
 $I->amOnPage(MultiCurrencyPage::$URL);
 $I->selectOption(MultiCurrencyPage::$select, MultiCurrencyPage::$eur);
 $I->click(MultiCurrencyPage::$adminFieldset);
+$I->waitForElementVisible('#uniform-edit-commerce-default-currency', 10);
 $I->checkOption(MultiCurrencyPage::$eur);
 $I->click(MultiCurrencyPage::$configSave);
 
