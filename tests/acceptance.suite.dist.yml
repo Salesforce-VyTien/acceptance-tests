@@ -16,7 +16,7 @@ modules:
             url: 'http://localhost/'
             browser: phantomjs
             host: 127.0.0.1
-            port: 4444
+            port: 4445
             restart: false
             clear_cookies: true
 

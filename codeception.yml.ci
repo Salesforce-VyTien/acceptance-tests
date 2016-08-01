@@ -12,7 +12,7 @@ extensions:
         - Codeception\Extension\Phantoman
     config:
         Codeception\Extension\Phantoman:
-            port: 4444
+            port: 4445
             path: 'vendor/bin/phantomjs'
             ignoreSslErrors: true
             sslProtocol: any
