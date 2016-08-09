@@ -3,3 +3,4 @@ modules:
       WebDriver:
           browser: 'firefox'
           port: 4444 #use selenium
+          window_size: 1280x1200
