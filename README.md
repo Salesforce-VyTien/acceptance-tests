@@ -12,7 +12,7 @@ You'll need Composer.  If you don't have it, install it globally from https://ge
 
 Clone this repo.  Run `composer install` to download the dependencies into the vendor directory.
 
-Get the Selenium server jar from here http://docs.seleniumhq.org/download/.  Save anywhere you want, but I put mine in the current directory.  Start Selenium server with `java -jar selenium-server-standalone-x.x.x.jar`.
+Get the Selenium server jar from here http://docs.seleniumhq.org/download/.  Save anywhere you want, but I put mine in the current directory. Selenium and Firefox have a mutual dependency. If you have the latest Firefox, odds are you'll need the latest Selenium.
 
 Copy `codeception.yml.local` to `codeception.yml` and modify it to suite your environment. Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
 
