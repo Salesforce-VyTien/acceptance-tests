@@ -1,5 +1,7 @@
 <?php
 
+// @env selenium_only
+
 $config = \Codeception\Configuration::config();
 $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
 
