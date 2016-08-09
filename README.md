@@ -8,7 +8,7 @@
 
 ## Installation
 
-You'll need composer.  If you don't have it, install it globally from https://getcomposer.org/download/.
+You'll need Composer.  If you don't have it, install it globally from https://getcomposer.org/download/.
 
 Clone this repo.  Run `composer install` to download the dependencies into the vendor directory.
 
@@ -34,9 +34,10 @@ To test with Selenium, you must start the Selenium server prior to running the t
 
 You should be able to run Selenium and Firefox browser tests with `codecept run --env=selenium_firefox`.
 
-Tests that need Selenium features lacking in phantomJS can be run:
-`codecept run --env=selenium_only`.
-You can specify that a test only execute in this environment by adding `// @env selenium_only` at the top of the test
+All tests will run in all environments, unless you specify an environment in the test:
+put, for example, `// @env firefox_selenium` at the top of the test
+
+Environment configurations can be added in the tests/_envs directory.
 
 Add the `--html` switch to get a pretty report file.  Output ends up in `tests/_output`, which would include screenshots if a test fails.
 

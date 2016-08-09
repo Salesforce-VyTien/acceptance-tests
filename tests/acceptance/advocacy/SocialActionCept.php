@@ -1,6 +1,6 @@
 <?php
 
-// @env selenium_only
+// @env firefox_selenium
 
 $config = \Codeception\Configuration::config();
 $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
