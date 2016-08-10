@@ -3,4 +3,11 @@ modules:
       WebDriver:
           browser: 'firefox'
           port: 4444 #use selenium
-          window_size: 1280x1200
+          url: 'http://springboard.dev/'
+#          capabilities:
+#              acceptSslCerts: true
+#              marionette: true
+#              browserName: firefox
+#              ignoreSslErrors: true
+#              slProtocol: any
+#              webSecurity: false

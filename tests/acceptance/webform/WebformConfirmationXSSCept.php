@@ -9,7 +9,7 @@ $I->wantTo('make sure I cannot inject html or js tags into the webform confirmat
 $I->am('a malicious donor');
 $I->amOnPage('/node/2');
 $data = array(
-    'first' => '<div class="badstuff-first">injected html in first name</div>',
+    'first_name' => '<div class="badstuff-first">injected html in first name</div>',
     'address' => '<div class="badstuff-address">injected html in address</div>',
 );
 

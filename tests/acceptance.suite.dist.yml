@@ -19,5 +19,3 @@ modules:
             port: 4445
             restart: true
             clear_cookies: true
-            window_size: 1280x1200
-
