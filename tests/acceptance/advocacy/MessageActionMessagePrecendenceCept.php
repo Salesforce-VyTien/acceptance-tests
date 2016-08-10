@@ -22,7 +22,7 @@ $I->enableModule('form#system-modules input#edit-modules-springboard-advocacy-sb
 $I->amOnPage(\AdvocacyPage::$settingsPage);
 // Submit to get an access token.
 $I->click('#edit-submit');
-
+$I->wait(3);
 $I->amOnPage(NodeAddPage::route('sba-message-action'));
 $I->fillField(\NodeAddPage::$title, "Test action title");
 $I->fillField(\NodeAddPage::$internalTitle, "Test Action");
