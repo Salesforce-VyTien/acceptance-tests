@@ -17,3 +17,4 @@ extensions:
             ignoreSslErrors: true
             sslProtocol: any
             webSecurity: false
+            suites: ['acceptance', 'acceptance (phantom)']
