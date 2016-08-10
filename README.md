@@ -6,21 +6,36 @@
  - Selenium Server
  - Firefox
 
+
 ## Installation
 
+###Install Composer
 You'll need Composer.  If you don't have it, install it globally from https://getcomposer.org/download/.
 
+###Install Codeception
 Clone this repo.  Run `composer install` to download the dependencies into the vendor directory.
+
+The `codecept` binary is located in `vendor/codeception/codeception/codecept`.  You're going to want to either alias this or fiddle with your paths:
+````
+alias codecept=/the_path_to/acceptance-tests/vendor/codeception/codeception/codecept
+````
+Copy `codeception.yml.local` to `codeception.yml` and modify it to suite your environment. Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
+
+###Optionally Install Selenium Server Standalone and Selenium Browser Plugins
 
 Get the Selenium server jar from here http://docs.seleniumhq.org/download/.  Save anywhere you want, but I put mine in the current directory. Selenium and Firefox have a mutual dependency. If you have the latest Firefox, odds are you'll need the latest Selenium.
 
-Copy `codeception.yml.local` to `codeception.yml` and modify it to suite your environment. Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
+In order to test with Firefox or Chrome, you will need to download geckodriver or chromedriver, put them somewhere in your path and make them executable.
+If you have homebrew installed: `brew install geckodriver`
 
-The `codecept` binary is located in `vendor/codeception/codeception/codecept`.  You're going to want to either alias this or fiddle with your paths.
+You would then start the Selenium server like so:
 
-````
-alias codecept=vendor/codeception/codeception/codecept
-````
+For Firefox:
+java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.gecko.driver="/path_to/geckodriver"
+
+For Chrome:
+java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.chrome.driver="/path_to/chromedriver"'
+
 
 ## Running tests
 
@@ -29,26 +44,16 @@ By default, tests will run using PhantomJS and a headless browser rather than Se
 You should be able to run the tests with `codecept run`.
 You should be able to run an individual test with `codecept run tests/acceptance/path_to_test/testName.php`.
 
-In order to test with Firefox or Chrome, you will need to download geckodriver or chromedriver, put them somewhere in your path and make them executable.
-If you have homebrew installed: `brew install geckodriver`
-
-You would then start the selenuim server like so:
-
-For Firefox:
-java -jar /path_to/selenium-server-standalone-2.53.1.jar -Dwebdriver.gecko.driver="/path_to/geckodriver"
-
-For Chrome:
-java -jar /path_to/selenium-server-standalone-2.53.1.jar -Dwebdriver.chrome.driver="/path_to/chromedriver"'
-
 You should be able to run Selenium and Firefox browser tests with `codecept run --env=selenium_firefox`.
 You should be able to run Selenium and Chrome browser tests with `codecept run --env=selenium_chrome`.
 
 All tests will run in all environments, unless you specify an environment in the test:
-put, for example, `// @env firefox_selenium` at the top of the test
+put, for example, `// @env firefox_selenium` at the top of the test to have the tet only run in that environment.
 
 Environment configurations can be added in the tests/_envs directory.
 
 Add the `--html` switch to get a pretty report file.  Output ends up in `tests/_output`, which would include screenshots if a test fails.
+
 
 ## Create a new test
 
