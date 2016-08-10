@@ -3,9 +3,6 @@
 ## Requirements
 
  - Composer
- - Selenium Server
- - Firefox
-
 
 ## Installation
 
@@ -13,13 +10,13 @@
 You'll need Composer.  If you don't have it, install it globally from https://getcomposer.org/download/.
 
 ###Install Codeception
-Clone this repo.  Run `composer install` to download the dependencies into the vendor directory.
+Clone this repo.  From within the acceptance-tests directory run `composer install` to download the dependencies into the vendor directory.
 
 The `codecept` binary is located in `vendor/codeception/codeception/codecept`.  You're going to want to either alias this or fiddle with your paths:
 ````
 alias codecept=/the_path_to/acceptance-tests/vendor/codeception/codeception/codecept
 ````
-Copy `codeception.yml.local` to `codeception.yml` and modify it to suite your environment. Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
+Copy `codeception.yml.local` to `codeception.yml` and modify it to suit your environment. Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
 
 ###Optionally Install Selenium Server Standalone and Selenium Browser Plugins
 
@@ -39,7 +36,9 @@ java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.chrome.drive
 
 ## Running tests
 
-By default, tests will run using PhantomJS and a headless browser rather than Selenium and Firefox. PhantomJS will start automatically.
+By default, tests will run using PhantomJS server and a headless browser rather than Selenium server and Firefox. PhantomJS will start automatically.
+
+Headless tests run 2x as fast as browser tests.
 
 You should be able to run the tests with `codecept run`.
 You should be able to run an individual test with `codecept run tests/acceptance/path_to_test/testName.php`.
@@ -52,8 +51,25 @@ put, for example, `// @env firefox_selenium` at the top of the test to have the 
 
 Environment configurations can be added in the tests/_envs directory.
 
-Add the `--html` switch to get a pretty report file.  Output ends up in `tests/_output`, which would include screenshots if a test fails.
+Add the `--html` switch to get a pretty report file.
 
+###Debugging tests
+Output ends up in `tests/_output`, which would include screenshots if a test fails.
+
+To print test steps `codecept run -vv test_name`
+
+To receive detailed output, tests can be executed with the --debug option or
+`codecept run -vvv test_name`
+
+You may print any information inside a test to the console using the codecept_debug() function.
+
+You can pause execution within a test using the $I->pauseExecution(). The test will stop the scenario in that place and wait for Enter to be pressed. The pauseExecution works only in debug mode  (-vv or -vvv or --debug).
+
+Pausing is most helpful during browser tests.
+
+To get a screenshot during a particular step of a test (especially good for headless browser:
+$I->makeScreenshot('name_of_my_screenshot');
+// saved to: tests/_output/debug/name_of_my_screenshot.png
 
 ## Create a new test
 
