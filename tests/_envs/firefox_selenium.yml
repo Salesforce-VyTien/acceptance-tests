@@ -3,7 +3,6 @@ modules:
       WebDriver:
           browser: 'firefox'
           port: 4444 #use selenium
-          url: 'http://springboard.dev/'
 #          capabilities:
 #              acceptSslCerts: true
 #              marionette: true

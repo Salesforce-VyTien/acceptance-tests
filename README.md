@@ -29,10 +29,19 @@ By default, tests will run using PhantomJS and a headless browser rather than Se
 You should be able to run the tests with `codecept run`.
 You should be able to run an individual test with `codecept run tests/acceptance/path_to_test/testName.php`.
 
-To test with Selenium, you must start the Selenium server prior to running the test.
-`java -jar /path_to/selenium-server-standalone-2.x.x.jar`
+In order to test with Firefox or Chrome, you will need to download geckodriver or chromedriver, put them somewhere in your path and make them executable.
+If you have homebrew installed: `brew install geckodriver`
+
+You would then start the selenuim server like so:
+
+For Firefox:
+java -jar /path_to/selenium-server-standalone-2.53.1.jar -Dwebdriver.gecko.driver="/path_to/geckodriver"
+
+For Chrome:
+java -jar /path_to/selenium-server-standalone-2.53.1.jar -Dwebdriver.chrome.driver="/path_to/chromedriver"'
 
 You should be able to run Selenium and Firefox browser tests with `codecept run --env=selenium_firefox`.
+You should be able to run Selenium and Chrome browser tests with `codecept run --env=selenium_chrome`.
 
 All tests will run in all environments, unless you specify an environment in the test:
 put, for example, `// @env firefox_selenium` at the top of the test
