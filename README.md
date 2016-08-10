@@ -47,7 +47,7 @@ You should be able to run Selenium and Firefox browser tests with `codecept run 
 You should be able to run Selenium and Chrome browser tests with `codecept run --env=selenium_chrome`.
 
 All tests will run in all environments, unless you specify an environment in the test:
-put, for example, `// @env firefox_selenium` at the top of the test to have the tet only run in that environment.
+put, for example, `// @env firefox_selenium` at the top of the test to have the test only run in that environment.
 
 Environment configurations can be added in the tests/_envs directory.
 
@@ -67,7 +67,7 @@ You can pause execution within a test using the $I->pauseExecution(). The test w
 
 Pausing is most helpful during browser tests.
 
-To get a screenshot during a particular step of a test (especially good for headless browser:
+To get a screenshot during a particular step of a test (especially good for headless browser):
 $I->makeScreenshot('name_of_my_screenshot');
 // saved to: tests/_output/debug/name_of_my_screenshot.png
 
