@@ -2,8 +2,8 @@ modules:
     config:
         WebDriver:
             url: 'http://local.dev/'
-            browser: phantomjs
+            browser: firefox
             host: 127.0.0.1
-            port: 4445
+            port: 4444
             restart: false
             clear_cookies: true
