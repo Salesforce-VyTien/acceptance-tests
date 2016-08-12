@@ -20,10 +20,20 @@ Copy `codeception.yml.local` to `codeception.yml` and modify it to suit your env
 
 ###Optionally Install Selenium Server Standalone and Selenium Browser Plugins
 
-Get the Selenium server jar from here http://docs.seleniumhq.org/download/.  Save anywhere you want, but I put mine in the current directory. Selenium and Firefox have a mutual dependency. If you have the latest Firefox, odds are you'll need the latest Selenium.
+In order to test with Firefox or Chrome and other browsers, you will need to download Selenium Standalone Server, GeckoDriver (aka Marionette) or ChromeDriver, put them somewhere in your path and make them executable.
 
-In order to test with Firefox or Chrome, you will need to download geckodriver or chromedriver, put them somewhere in your path and make them executable.
-If you have homebrew installed: `brew install geckodriver`
+You'll want versions compatible with Selenioum 2.53.1. Selenium 3 is not stable. Firefox 48+ no longer works natively with Selenium, you must use GeckoDriver. ChromeDriver is more stable at the moment. Use ChromeDriver
+
+If you have homebrew installed: `brew install geckodriver` `brew install chromedriver` or:
+
+https://github.com/mozilla/geckodriver/releases
+https://sites.google.com/a/chromium.org/chromedriver/
+
+Get the Selenium Standalone Server jar file version 2.53.1 from here:
+
+http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+
+Save anywhere you want.
 
 You would then start the Selenium server like so:
 
