@@ -36,12 +36,12 @@ ChromeDriver is more stable at the moment. Use ChromeDriver
 
 If you have homebrew installed: `brew install geckodriver` or `brew install chromedriver` or download manually:
 
-*https://github.com/mozilla/geckodriver/releases (v0.9.0).
-*https://sites.google.com/a/chromium.org/chromedriver/ (2.23+)
+* https://github.com/mozilla/geckodriver/releases (v0.9.0).
+* https://sites.google.com/a/chromium.org/chromedriver/ (2.23+)
 
 Get the Selenium Standalone Server jar file version 2.53.1 from here:
 
-*http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+* http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 
 Save anywhere you want.
 
