@@ -20,6 +20,8 @@ Copy `codeception.yml.local` to `codeception.yml` and modify it to suit your env
 
 ###Optionally Install Selenium Server Standalone and Selenium Browser Plugins
 
+The tests run by default with the built-in PhantomJs server and headless browser, so you don't need to do this step unless you want to watch the tests in a real browser (to observe php notices and other issues that don't force an error).
+
 In order to test with Firefox or Chrome and other browsers, you will need to download Selenium Standalone Server, GeckoDriver (aka Marionette) or ChromeDriver, put them somewhere in your path and make them executable.
 
 You'll want versions compatible with Selenioum 2.53.1. Selenium 3 is not stable. Firefox 48+ no longer works natively with Selenium, you must use GeckoDriver. ChromeDriver is more stable at the moment. Use ChromeDriver
