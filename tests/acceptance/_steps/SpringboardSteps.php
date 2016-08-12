@@ -351,4 +351,11 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         return $form_data;
     }
 
+    public function rebuildSpringboardAdminMenu() {
+        $I = $this;
+        $I->amOnPage('springboard/rebuild-sb-menu');
+        $I->click('Rebuild');
+        $I->seeInMessages('The Springboard Admin Menu has been rebuilt.');
+    }
+
 }
