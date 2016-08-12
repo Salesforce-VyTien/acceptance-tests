@@ -65,7 +65,7 @@ $webformId = $I->createWebform();
 $I->logout();
 
 $I->amOnPage('node/' . $I->nid);
-$I->makeADonation(array('first_name' => 'John', 'last_name' => 'Tester', 'mail' => 'bob@example.com'));
+$I->makeADonation(array('amount' => 10, 'first_name' => 'John', 'last_name' => 'Tester', 'mail' => 'bob@example.com'));
 $I->see('Hello, World!', 'h1.page-title');
 $I->see('10', '#donation-amount');
 $I->see('John', '#donation-first_name');

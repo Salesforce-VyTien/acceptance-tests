@@ -170,6 +170,7 @@ $I->fillField('amount_wrapper[donation_amounts][2][label]', '$55');
 $I->click('body');
 $I->wait(2);
 $I->executeJS('jQuery("table.sticky-header thead").remove()');
+$I->wait(2);
 $I->checkOption('//td//input[@value="35"]/../../..//td//input[@type="checkbox"]');
 
 // Save.
