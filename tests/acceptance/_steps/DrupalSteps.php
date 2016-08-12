@@ -143,4 +143,12 @@ class DrupalSteps extends \AcceptanceTester
       }
     }
 
+    public function setAUsersPassword($uid) {
+      $I = $this;
+      $I->amOnPage('springboard/user/' . $uid . '/edit');
+      $I->fillField('#edit-pass-pass1', 'password');
+      $I->fillField('#edit-pass-pass2', 'password');
+      $I->click('Save');
+    }
+
 }

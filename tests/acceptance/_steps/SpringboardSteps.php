@@ -32,16 +32,41 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
             $I->selectOption(\DonationFormPage::$recursAmountField, $settings['ask']);
         }
 
-        $I->fillInMyName($settings['first'], $settings['last']);
-        $I->fillField(\DonationFormPage::$emailField, $settings['email']);
-        $I->fillInMyAddress($settings['address'], $settings['address2'], $settings['city'], $settings['state'], $settings['zip'], $settings['country']);
-        $I->fillInMyCreditCard($settings['number'], $settings['year'], $settings['month'], $settings['cvv']);
+        $I->fillOutDonationForm($settings);
+
+        // Account for additonal fields passed in from caller.
+        foreach ($settings as $field_key => $field) {
+          if (!array_key_exists($field_key, $defaults)) {
+            switch ($field['type']) {
+              case 'checkbox':
+                $I->checkOption($field_key);
+                break;
+
+              case 'select':
+              case 'radio':
+
+                break;
+
+              case 'textifield':
+                $I->fillField($field_key, $field_value);
+                break;
+            }
+          }
+        }
 
         if ($recurs && !$dual_ask && !$recurring_only) {
             $I->selectOption(\DonationFormPage::$recursField, 'recurs');
         }
 
         $I->click(\DonationFormPage::$donateButton);
+    }
+
+    public function fillOutDonationForm($field_values) {
+      $I = $this;
+      $I->fillInMyName($field_values['first'], $field_values['last']);
+      $I->fillField(\DonationFormPage::$emailField, $field_values['email']);
+      $I->fillInMyAddress($field_values['address'], $field_values['address2'], $field_values['city'], $field_values['state'], $field_values['zip'], $field_values['country']);
+      $I->fillInMyCreditCard($field_values['number'], $field_values['year'], $field_values['month'], $field_values['cvv']);
     }
 
     public function fillInMyName($first = 'John', $last = 'Tester') {
@@ -193,6 +218,20 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
       codecept_debug($afToken);
 
       return $afToken;
+    }
+
+    public function configureAuthnetCreditGateway() {
+      $I = $this;
+      $I->amOnPage('admin/commerce/config/payment-methods/manage/1/enable?destination=admin/commerce/config/payment-methods');
+      $I->click('Confirm');
+      $I->amOnPage('admin/commerce/config/payment-methods/manage/1');
+      $I->click('edit');
+      $I->fillField('#edit-parameter-payment-method-settings-payment-method-settings-login', '6y9H6HPm8Fz2');
+      $I->fillField('#edit-parameter-payment-method-settings-payment-method-settings-tran-key', '996JbN9y9D876CcJ');
+      $I->checkOption('#edit-parameter-payment-method-settings-payment-method-settings-txn-mode-developer', 'developer');
+      $I->checkOption('#edit-parameter-payment-method-settings-payment-method-settings-cardonfile', 1);  
+      $I->click('Save');
+      $I->acceptPopup();
     }
 
     public function configureEncrypt() {
