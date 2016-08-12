@@ -10,52 +10,62 @@
 You'll need Composer.  If you don't have it, install it globally from https://getcomposer.org/download/.
 
 ###Install Codeception
-Clone this repo.  From within the acceptance-tests directory run `composer install` to download the dependencies into the vendor directory.
+Clone this repo.  From within the acceptance-tests directory run `composer install`
+to download the dependencies into the vendor directory.
 
-The `codecept` binary is located in `vendor/codeception/codeception/codecept`.  You're going to want to either alias this or fiddle with your paths:
+The `codecept` binary is located in `vendor/codeception/codeception/codecept`.
+You're going to want to either alias this or fiddle with your paths:
 ````
 alias codecept=/the_path_to/acceptance-tests/vendor/codeception/codeception/codecept
 ````
-Copy `codeception.yml.local` to `codeception.yml` and modify it to suit your environment. Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
+Copy `codeception.yml.local` to `codeception.yml` and modify it to suit your environment.
+Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
 
 ###Optionally Install Selenium Server Standalone and Selenium Browser Plugins
 
-The tests run by default with the built-in PhantomJs server and headless browser, so you don't need to do this step unless you want to watch the tests in a real browser (to observe php notices and other issues that don't force an error).
+The tests run by default with the built-in PhantomJs server and headless browser, so you don't need
+to do this step unless you want to watch the tests in a real browser (to observe php notices and
+other issues that don't force an error).
 
-In order to test with Firefox or Chrome and other browsers, you will need to download Selenium Standalone Server, GeckoDriver (aka Marionette) or ChromeDriver, put them somewhere in your path and make them executable.
+In order to test with Firefox or Chrome and other browsers, you will need to download Selenium Standalone Server,
+GeckoDriver (aka Marionette) or ChromeDriver, put them somewhere in your path and make them executable.
 
-You'll want versions compatible with Selenioum 2.53.1. Selenium 3 is not stable. Firefox 48+ no longer works natively with Selenium, you must use GeckoDriver. ChromeDriver is more stable at the moment. Use ChromeDriver
+You'll want versions compatible with Selenium 2.53.1. Selenium 3 is not stable.
+Firefox 48+ no longer works natively with Selenium, you must use GeckoDriver.
+ChromeDriver is more stable at the moment. Use ChromeDriver
 
-If you have homebrew installed: `brew install geckodriver` `brew install chromedriver` or:
+If you have homebrew installed: `brew install geckodriver` or `brew install chromedriver` or download manually:
 
-https://github.com/mozilla/geckodriver/releases
-https://sites.google.com/a/chromium.org/chromedriver/
+*https://github.com/mozilla/geckodriver/releases (v0.9.0).
+*https://sites.google.com/a/chromium.org/chromedriver/ (2.23+)
 
 Get the Selenium Standalone Server jar file version 2.53.1 from here:
 
-http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+*http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 
 Save anywhere you want.
 
 You would then start the Selenium server like so:
 
 For Firefox:
-java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.gecko.driver="/path_to/geckodriver"
+`java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.gecko.driver="/path_to/geckodriver"`
 
 For Chrome:
-java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.chrome.driver="/path_to/chromedriver"'
+`java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.chrome.driver="/path_to/chromedriver"`
 
 
 ## Running tests
 
-By default, tests will run using PhantomJS server and a headless browser rather than Selenium server and Firefox. PhantomJS will start automatically.
+By default, tests will run using PhantomJS server and a headless browser. PhantomJS will start automatically.
 
 Headless tests run 2x as fast as browser tests.
 
 You should be able to run the tests with `codecept run`.
 You should be able to run an individual test with `codecept run tests/acceptance/path_to_test/testName.php`.
 
+### Running tests in environments
 You should be able to run Selenium and Firefox browser tests with `codecept run --env=selenium_firefox`.
+
 You should be able to run Selenium and Chrome browser tests with `codecept run --env=selenium_chrome`.
 
 All tests will run in all environments, unless you specify an environment in the test:
@@ -63,19 +73,29 @@ put, for example, `// @env firefox_selenium` at the top of the test to have the 
 
 Environment configurations can be added in the tests/_envs directory.
 
-Add the `--html` switch to get a pretty report file.
+### Running tests in groups
+You can creates groups by putting a comment with a group name at the top of each test in the group:
+
+//@group group_name
+
+`codecept run -g group_name`
+
 
 ###Debugging tests
 Output ends up in `tests/_output`, which would include screenshots if a test fails.
 
-To print test steps `codecept run -vv test_name`
+Add the `--html` switch to get a pretty report file.
+
+To print test steps to console: `codecept run -vv test_name`
 
 To receive detailed output, tests can be executed with the --debug option or
 `codecept run -vvv test_name`
 
 You may print any information inside a test to the console using the codecept_debug() function.
 
-You can pause execution within a test using the $I->pauseExecution(). The test will stop the scenario in that place and wait for Enter to be pressed. The pauseExecution works only in debug mode  (-vv or -vvv or --debug).
+You can pause execution within a test using the $I->pauseExecution().
+The test will stop the scenario in that place and wait for Enter to be pressed.
+The pauseExecution works only in debug mode  (-vv or -vvv or --debug).
 
 Pausing is most helpful during browser tests.
 
@@ -89,7 +109,9 @@ $I->makeScreenshot('name_of_my_screenshot');
 codecept generate:cept acceptance testName
 ````
 
-And you'll end up with a test file in `tests/acceptance/testNameCept.php`. You should change the AcceptanceTester class to one of the _steps classes we have created depending on waht features you need.
+And you'll end up with a test file in `tests/acceptance/testNameCept.php`.
+You should change the AcceptanceTester class to one of the _steps classes
+we have created depending on what features you need.
 
 ## Basic acceptance testing
 
