@@ -1,7 +1,7 @@
 modules:
     config:
         WebDriver:
-            url: 'https://local.dev/'
+            url: 'http://local.dev/'
             browser: firefox
             host: 127.0.0.1
             port: 4444
