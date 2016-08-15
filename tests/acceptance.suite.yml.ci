@@ -7,3 +7,5 @@ modules:
             port: 4444
             restart: false
             clear_cookies: true
+Sustainers:
+    sustainers_key_path: '/tmp'
