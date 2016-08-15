@@ -20,4 +20,5 @@ modules:
             restart: true
             clear_cookies: true
             window_size: 1024x768
-sustainers_key_path: '/tmp'
+Sustainers:
+    sustainers_key_path: '/tmp'
