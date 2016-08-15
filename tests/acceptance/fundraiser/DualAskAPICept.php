@@ -43,14 +43,28 @@ $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amount
 $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][2][label]"]', '$33');
 $I->fillField('//input[@name="recurring_amount_wrapper[recurring_donation_amounts][3][label]"]', '$44');
 $I->click('Save');
-
 $donation65 = array_merge($I->donationData(), array('amount' => 'other', 'other_amount' => 50));
 $I->makeApiDonation($api_key, 2, $donation65);
 
+$I->amOnPage(DonationFormPage::route('/edit'));
+$I->checkOption('#edit-amount-wrapper-donation-amounts-2-default-amount');
+$I->checkOption('#edit-recurring-amount-wrapper-recurring-donation-amounts-2-default-amount');
+$I->click('Save');
+$donation66 = array_merge($I->donationData(), array('amount' => 'other', 'other_amount' => 50));
+$I->makeApiDonation($api_key, 2, $donation66);
 
-//$donation66 = array_merge($I->donationData(), array('amount' => 'other', 'other_amount' => 50));
-//$I->makeApiDonation($api_key, 66, $donation66);
-//$donation67 = array_merge($I->donationData(), array('amount' => 'other', 'other_amount' => 50));
-//$I->makeApiDonation($api_key, 67, $donation67);
-//$donation68 = array_merge($I->donationData(), array('amount' => 'other', 'other_amount' => 50));
-//$I->makeApiDonation($api_key, 68, $donation68);
+
+$I->amOnPage(DonationFormPage::route('/edit'));
+$I->selectOption("#edit-recurring-setting", "Recurring only");
+$I->checkOption('#edit-amount-wrapper-donation-amounts-2-default-amount');
+$I->click('Save');
+$donation67 = array_merge($I->donationData(), array('amount' => 'other', 'other_amount' => 50));
+$I->makeApiDonation($api_key, 2, $donation67);
+
+
+$I->amOnPage(DonationFormPage::route('/edit'));
+$I->selectOption("#edit-recurring-setting", "One-time only");
+$I->checkOption('#edit-amount-wrapper-donation-amounts-2-default-amount');
+$I->click('Save');
+$donation67 = array_merge($I->donationData(), array('amount' => 'other', 'other_amount' => 50));
+$I->makeApiDonation($api_key, 2, $donation67);
