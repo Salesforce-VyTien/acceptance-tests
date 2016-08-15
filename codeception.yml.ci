@@ -7,3 +7,7 @@ modules:
             dump: ../dump.sql
             populate: true
             cleanup: true
+extensions:
+    config:
+        Codeception\Extension\Phantoman:
+           suites: ['acceptance (phantom)']

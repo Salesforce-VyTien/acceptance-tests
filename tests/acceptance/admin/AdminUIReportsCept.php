@@ -8,7 +8,7 @@ $I->wantTo('use the Springboard Admin UI to view reports');
 // Make 5 donations to fill the report.
 for ($i = 0; $i <= 4; $i++) {
   $defaults = array(
-    'email' => 'bob' . $i . '@example.com',
+    'mail' => 'bob' . $i . '@example.com',
   );
   $I->amOnPage(DonationFormPage::$URL);
   $I->makeADonation($defaults);

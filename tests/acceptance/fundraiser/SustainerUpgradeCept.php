@@ -16,7 +16,7 @@ $I->logOut();
 
 // Make donation.
 $I->amOnPage('node/2');
-$I->makeADonation(array('ask' => '10'), TRUE);
+$I->makeADonation(array('first_name' => 'John', 'last_name' => 'Tester', 'amount' => '10'), TRUE);
 $I->see("Thank you John Tester for your donation of $10.00.");
 
 $I->am('admin');

@@ -15,6 +15,8 @@ $I->configureEncrypt();
 $I->amOnPage(MultiCurrencyPage::$URL);
 $I->selectOption(MultiCurrencyPage::$select, MultiCurrencyPage::$eur);
 $I->click(MultiCurrencyPage::$adminFieldset);
+$I->waitForElementVisible('#uniform-edit-commerce-default-currency', 10);
+$I->wait(3);
 $I->checkOption(MultiCurrencyPage::$eur);
 $I->click(MultiCurrencyPage::$configSave);
 
@@ -36,7 +38,7 @@ $I->seeInPageSource('<div class="field-prefix">€</div>');
 $I->logout();
 
 // Make a doantion and check the confirmation.
-$I->makeADonation();
+$I->makeADonation(array('amount' => 10, 'mail' => 'bob@example.com'));
 $I->see('Euro, EUR, €');
 
 // Check the currency symbols in the commerce UI.
@@ -52,7 +54,7 @@ $I->see('10,00 €', 'td.last');
 $I->logout();
 
 // Make a recurring doantion
-$I->makeADonation(array(), TRUE);
+$I->makeADonation(array('amount' => 10, 'mail' => 'bob@example.com'), TRUE);
 
 // Check the currency symbols in the recurring UI.
 $I->am('admin');

@@ -2,3 +2,10 @@ modules:
     config:
         WebDriver:
             url: 'http://local.dev/'
+            browser: firefox
+            host: 127.0.0.1
+            port: 4444
+            restart: false
+            clear_cookies: true
+Sustainers:
+    sustainers_key_path: '/tmp'

@@ -1,9 +1,14 @@
 # Copy this file to codeception.yml and edit with your DB details.
 
+settings:
+    memory_limit: 2048M #adjust as needed.
+
 modules:
     config:
         Db:
             dsn: 'mysql:host=localhost;dbname=springboard'
             user: 'drupal'
             password: 'drupal'
-            dump: tests/_data/sb-4.5.sql
+            dump: tests/_data/dump.sql #only change if you want to use a different database dump
+            populate: true #reload the database prior to the test suite start.
+            cleanup: true #reload the database after each individual test completes.

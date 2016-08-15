@@ -3,39 +3,26 @@ namespace AcceptanceTester;
 
 class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 {
-    public function makeADonation(array $details = array(), $recurs = FALSE, $dual_ask = FALSE, $recurring_only = FALSE) {
-        $defaults = array(
-          'ask' => '10',
-          'first' => 'John',
-          'last' => 'Tester',
-          'email' => 'bob@example.com',
-          'address' => '1234 Main St.',
-          'address2' => '',
-          'city' => 'Washington',
-          'state' => 'DC',
-          'zip' => '20036',
-          'country' => 'United States',
-          'number' => '4111111111111111',
-          'year' => date('Y', strtotime('+ 1 year')),
-          'month' => 'January',
-          'cvv' => '666',
-        );
+    public function makeADonation(array $details = array(), $recurs = FALSE, $dual_ask = FALSE, $recurring_only = FALSE)
+    {
+        $I = $this;
 
+        $defaults = $I->donationData();
         $settings = array_merge($defaults, $details);
 
         $I = $this;
 
         if (!$recurs || ($recurs && !$dual_ask)) {
-            $I->selectOption(\DonationFormPage::$askAmountField, $settings['ask']);
+            $I->selectOption(\DonationFormPage::$askAmountField, $settings['amount']);
         }
         elseif($recurs && $dual_ask) {
-            $I->selectOption(\DonationFormPage::$recursAmountField, $settings['ask']);
+            $I->selectOption(\DonationFormPage::$recursAmountField, $settings['amount']);
         }
 
-        $I->fillInMyName($settings['first'], $settings['last']);
-        $I->fillField(\DonationFormPage::$emailField, $settings['email']);
-        $I->fillInMyAddress($settings['address'], $settings['address2'], $settings['city'], $settings['state'], $settings['zip'], $settings['country']);
-        $I->fillInMyCreditCard($settings['number'], $settings['year'], $settings['month'], $settings['cvv']);
+        $I->fillInMyName($settings['first_name'], $settings['last_name']);
+        $I->fillField(\DonationFormPage::$emailField, $settings['mail']);
+        $I->fillInMyAddress($settings['address'], $settings['address2'], $settings['city'], $settings['state'], $settings['zip'], $settings['country_name']);
+        $I->fillInMyCreditCard($settings['card_number'], $settings['card_expiration_year'], $settings['card_expiration_month_name'], $settings['card_cvv']);
 
         if ($recurs && !$dual_ask && !$recurring_only) {
             $I->selectOption(\DonationFormPage::$recursField, 'recurs');
@@ -43,6 +30,44 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 
         $I->click(\DonationFormPage::$donateButton);
     }
+
+    /**
+     * Submits a Fundraiser donation via the Springboard API.
+     * Tests a valid submission, a submission with invalid data, and a
+     * submission with failing payment method.
+     *
+     * @param $api_key
+     *   The api key necessary for authentication to the API.
+     * @param $form_id
+     *   The ID of the fundraiser form to be tested.
+     * @param array $form_data
+     *   An array of form data keyed by the fundraiser field name.
+     *
+     */
+    public function makeApiDonation($api_key, $form_id, $form_data = array()) {
+        $I = $this;
+        // find the configured site URL for testing
+        $config = \Codeception\Configuration::config();
+        $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+        $url = $settings['modules']['config']['WebDriver']['url'];
+        // Set headers for submitting form data
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Accept','application/json');
+        // test a successful submission response
+        $I->sendPost($url . '/springboard-api/springboard-forms/submit?form_id=' . $form_id . '&api_key=' . $api_key, json_encode($form_data));
+        $I->seeResponseCodeIs(200);
+        // test validation error response
+        $form_data['mail'] = 'notanemail';
+        $I->sendPost($url . '/springboard-api/springboard-forms/submit?form_id=' . $form_id . '&api_key=' . $api_key, json_encode($form_data));
+        //$I->seeResponseCodeIs(406);
+        $I->seeResponseContains('Please enter a valid email address');
+        // test payment rejection response
+        $form_data['card_number'] = '4111111111111114';
+        $I->sendPost($url . '/springboard-api/springboard-forms/submit?form_id=' . $form_id . '&api_key=' . $api_key, json_encode($form_data));
+        //$I->seeResponseCodeIs(406);
+        $I->seeResponseContains('You have entered an invalid credit card number.');
+    }
+
 
     public function fillInMyName($first = 'John', $last = 'Tester') {
         $I = $this;
@@ -130,35 +155,12 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
     public function makeMultipleDonations($path, $numberOfDonations = 10) {
         $I = $this;
         // Used in combination with an iterator number to create a unique email address on each donation.
-        $request_time = strtotime('now');
 
         $I->am('a donor');
         $I->wantTo('donate.');
 
-        $asks = array('10', '20', '50', '100');
-        $firsts = array('Alice', 'Tom', 'TJ', 'Phillip', 'David', 'Shaun', 'Ben', 'Jennie', 'Sheena', 'Danny', 'Allen', 'Katie', 'Jeremy', 'Julia', 'Kate', 'Misty', 'Pat', 'Jenn', 'Joel', 'Katie', 'Matt', 'Meli', 'Jess');
-        $lasts = array('Hendricks', 'Williamson', 'Griffen', 'Cave', 'Barbarisi', 'Brown', 'Clark', 'Corman', 'Donnelly', 'Englander', 'Freeman', 'Grills', 'Isett', 'Kulla-Mader', 'McKenney', 'McLaughlin', 'O\'Brien', 'Olivia', 'Rothschild', 'Shaw', 'Thomas', 'Trumbo', 'Walls');
-        $numbers = array('4111111111111111');
-        $months = cal_info(0)['months'];
-
         for ($iterator = 0; $iterator < $numberOfDonations; $iterator++) {
-            $defaults = array(
-                'ask' => $asks[array_rand($asks)],
-                'first' => $firsts[array_rand($firsts)],
-                'last' => $lasts[array_rand($lasts)],
-                'email' => 'test_' . $iterator . '_' . $request_time . '@example.com',
-                'address' => '1234 Main St',
-                'address2' => '',
-                'city' => 'Washington',
-                'state' => 'DC',
-                'zip' => '20036',
-                'country' => 'United States',
-                'number' => $numbers[array_rand($numbers)],
-                'year' => date('Y', strtotime('+ ' . ($i + 1) % 14 . ' years')),
-                'month' => $months[array_rand($months)],
-                'cvv' => rand(100, 999),
-            );
-
+            $defaults = $I->donationData();
             $recurring = ($iterator % 2) ? TRUE : FALSE;
             $I->amOnPage($path);
             $I->makeADonation($defaults, $recurring);
@@ -249,4 +251,111 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
 
         return $afToken;
     }
+
+    /**
+     * Initial configuration of Springboard API for testing. Returns the
+     * API key necessary for authentication.
+     * @return string $api_key
+     *
+     */
+    public function configureSpringboardAPI() {
+        $I = $this;
+        // Enable API-related modules.
+        $I->amOnPage('admin/modules');
+        $I->checkOption('#edit-modules-jackson-river-springboard-extras-springboard-api-enable');
+        $I->checkOption('#edit-modules-services-services-enable');
+        $I->checkOption('#edit-modules-services-servers-rest-server-enable');
+        $I->click("Save configuration");
+        //$I->see('The configuration options have been saved.');
+        // Create a REST server endpoint for Springboard API.
+        $I->amOnPage('admin/structure/services/import');
+        $endpoint_config = '$endpoint = new stdClass();
+            $endpoint->disabled = FALSE; /* Edit this to true to make a default endpoint disabled initially */
+            $endpoint->api_version = 3;
+            $endpoint->name = "acceptance_tests";
+            $endpoint->server = "rest_server";
+            $endpoint->path = "springboard-api";
+            $endpoint->authentication = array();
+            $endpoint->server_settings = array();
+            $endpoint->resources = array(
+              "springboard-forms" => array(
+                "operations" => array(
+                  "retrieve" => array(
+                    "enabled" => "1",
+                  ),
+                  "index" => array(
+                    "enabled" => "1",
+                  ),
+                ),
+                "actions" => array(
+                  "submit" => array(
+                    "enabled" => "1",
+                  ),
+                ),
+              ),
+            );';
+        $I->fillField('#edit-import', $endpoint_config);
+        //$I->checkOption('#edit-overwrite');
+
+        $I->click('Continue');
+        $I->see('You have unsaved changes');
+
+        $I->click('Save');
+
+        // Configure the API Key.
+        $I->amOnPage('admin/config/services/springboard_api');
+        $I->selectOption('#edit-springboard-api-management-service', 'basic');
+        $I->fillField('#edit-add-basic-app-name', 'acceptance_tests');
+        $I->click('Add');
+        $I->see("The configuration options have been saved");
+        $key = $I->grabTextFrom('//td[text()="acceptance_tests"]/following-sibling::td');
+        // Enable the new API key.
+        $I->checkOption('#edit-api-key-list-' . $key);
+        $I->click('Save configuration');
+        $I->see("The configuration options have been saved.");
+        return $key;
+    }
+
+    /**
+     * Generate a variable array of valid donation form data.
+     *
+     * @return array $form_data
+     *   An array of form data keyed by Fundraiser field names.
+     */
+    public function donationData() {
+        $amounts = array('10', '20', '50', '100');
+        $firsts = array('Alice', 'Tom', 'TJ', 'Phillip', 'David', 'Shaun', 'Ben', 'Jennie', 'Sheena', 'Danny', 'Allen', 'Katie', 'Jeremy', 'Julia', 'Kate', 'Misty', 'Pat', 'Jenn', 'Joel', 'Katie', 'Matt', 'Meli', 'Jess');
+        $lasts = array('Hendricks', 'Williamson', 'Griffen', 'Cave', 'Barbarisi', 'Brown', 'Clark', 'Corman', 'Donnelly', 'Englander', 'Freeman', 'Grills', 'Isett', 'Kulla-Mader', 'McKenney', 'McLaughlin', 'O\'Brien', 'Olivia', 'Rothschild', 'Shaw', 'Thomas', 'Trumbo', 'Walls');
+        $numbers = array('4111111111111111');
+        $months = cal_info(0)['months'];
+        $month_nums = array_keys($months);
+        $request_time = strtotime('now');
+        $form_data = array(
+          'amount' => $amounts[array_rand($amounts)],
+          'first_name' => $firsts[array_rand($firsts)],
+          'last_name' => $lasts[array_rand($lasts)],
+          'mail' => 'test_' . $request_time . '@example.com',
+          'address' => '1234 Main St',
+          'address2' => '',
+          'city' => 'Washington',
+          'state' => 'DC',
+          'zip' => '20036',
+          'country' => 'US',
+          'country_name' => 'United States',
+          'card_number' => $numbers[array_rand($numbers)],
+          'card_expiration_year' => date('Y', strtotime('+1 years')),
+          'card_expiration_month_name' => $months[array_rand($months)],
+          'card_expiration_month' => $month_nums[array_rand($month_nums)],
+          'card_cvv' => rand(100, 999),
+        );
+        return $form_data;
+    }
+
+    public function rebuildSpringboardAdminMenu() {
+        $I = $this;
+        $I->amOnPage('springboard/rebuild-sb-menu');
+        $I->click('Rebuild');
+        $I->seeInMessages('The Springboard Admin Menu has been rebuilt.');
+    }
+
 }

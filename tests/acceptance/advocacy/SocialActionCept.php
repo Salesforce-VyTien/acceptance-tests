@@ -1,5 +1,7 @@
 <?php
 
+// @env firefox_selenium
+
 $config = \Codeception\Configuration::config();
 $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
 
@@ -41,7 +43,7 @@ $I->click('.sba-add-button');
 $I->fillField('#edit-name', "Test Message");
 $I->fillField('#edit-field-sba-twitter-message-und-0-value', "Test Tweet");
 $I->click('#edit-field-sba-twitter-message-und-add-more');
-$I->waitForElement('.ajax-new-content textarea', 15);
+$I->waitForElementVisible('.ajax-new-content textarea', 15);
 $I->fillField('.ajax-new-content textarea', "Test Tweet 2");
 $I->see('You have used 10 characters in your message. You currently have a maximum of 140 characters for this message.');
 $I->checkOption('#edit-field-sba-prepend-target-name-und');
@@ -106,11 +108,13 @@ $I->seeNumberOfElements('.uneditable-message-preview', 3);
 
 // Open the twitter popup and login.
 $I->click('#edit-twitter-sign-in');
-$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
-  $handles=$webdriver->getWindowHandles();
-  $last_window = end($handles);
-  $webdriver->switchTo()->window($last_window);
-});
+$I->switchToWindow('ConnectWithOAuth');
+
+//$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
+//  $handles=$webdriver->getWindowHandles();
+//  $last_window = end($handles);
+//  $webdriver->switchTo()->window($last_window);
+//});
 $I->see("Springboard Social");
 $advocacy->twitterLogin();
 
