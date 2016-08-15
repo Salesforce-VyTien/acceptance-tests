@@ -121,7 +121,14 @@ http://codeception.com/docs/04-AcceptanceTests
 Most of these methods are available for both Selenium and PhantomJs tests.
 http://codeception.com/docs/modules/WebDriver
 
-## Springboard Test tips.
+## Springboard Testing Tips.
+
+### Configure Advocacy, Salesforce, PayPal, and the Sustainers Key Location
+
+Instructions and yaml templates are in acceptance.suite.yml.local.
+
+### Some problems you might encounter
+
 PhantomJS test run quickly. Often you will need to use webdriver's waitForElementVisible() method in order to click on a new or previously hidden element.
 
 Clicking on a vertical or horizontal tab, or non-submit form item may require two clicks to register.

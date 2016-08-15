@@ -9,6 +9,7 @@ modules:
 # Copy the salesforce block below to acceptance.suite.yaml
 # Absolutely do not put any values here
 # As they will end up in the git repo
+
 # For salesforce use the serialized values from an existing DB, not the values themselves
 # For the other configs, use the actual values.
 
