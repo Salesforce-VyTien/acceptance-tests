@@ -89,11 +89,13 @@ $I->click('Edit');
 $I->see("This option is disabled because you have multiple messages configured for this action, and at least one of them is user-editable. Make them non-editable to enable this option.");
 $I->click('Messages');
 $I->click('#draggableviews-table-sba_messages_node-block_1  tr.views-row-first td.views-field-edit-sba-message a.last');
+
 $I->click('Delete');
 $I->click('#draggableviews-table-sba_messages_node-block_1  tr.views-row-first td.views-field-edit-sba-message a.first');
 
-$I->seeElement('//select[@name="search_district_name"][@disabled=""]');
-
+if ($scenario->current('browser') == 'phantomjs' || $scenario->current('browser') == 'firefox') {
+  $I->seeElement('//select[@name="search_district_name"][@disabled=""]');
+}
 $I->selectOption('//select[@name="search_state"]', "Alabama");
 $I->waitForElement('//option[@value="Alabama District 1"]');
 $I->selectOption('//select[@name="search_district_name"]', "Alabama District 1");

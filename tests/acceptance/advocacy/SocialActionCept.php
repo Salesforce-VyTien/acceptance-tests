@@ -1,6 +1,6 @@
 <?php
-
 // @env firefox_selenium
+// @env chrome_selenium
 
 $config = \Codeception\Configuration::config();
 $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
@@ -110,11 +110,11 @@ $I->seeNumberOfElements('.uneditable-message-preview', 3);
 $I->click('#edit-twitter-sign-in');
 $I->switchToWindow('ConnectWithOAuth');
 
-//$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
-//  $handles=$webdriver->getWindowHandles();
-//  $last_window = end($handles);
-//  $webdriver->switchTo()->window($last_window);
-//});
+$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
+  $handles=$webdriver->getWindowHandles();
+  $last_window = end($handles);
+  $webdriver->switchTo()->window($last_window);
+});
 $I->see("Springboard Social");
 $advocacy->twitterLogin();
 
@@ -143,6 +143,7 @@ $I->click(\NodeAddPage::$save);
 $I->wait(3);
 $I->click('#edit-submit');
 $I->dontSeeElement("#edit-twitter-sign-in");
+
 $I->see('Step two intro');
 $I->see('Test Tweet Two');
 $I->see('If you prefer, please contact');
