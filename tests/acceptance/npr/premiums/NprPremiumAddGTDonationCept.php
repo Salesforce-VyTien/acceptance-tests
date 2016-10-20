@@ -1,5 +1,6 @@
 <?php
 // @group npr
+// Testpad 0002.
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Add a donation to my cart and select a gift with a lower value.');
 $I->amOnPage('/');
