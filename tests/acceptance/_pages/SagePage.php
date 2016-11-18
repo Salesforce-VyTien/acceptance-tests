@@ -27,8 +27,9 @@ class SagePage {
    * @param array $options
    *   Override any of the $default_options.
    */
-  function configureSage($options = array()) {
+  function configureSageCC($options = array()) {
     $default_options = array(
+      'new' => FALSE,
       'transaction_type' => 'authorize',
       'cardonfile' => FALSE,
       'verbose_gateway' => FALSE,
@@ -39,11 +40,13 @@ class SagePage {
     );
     // Merge defaults with those passed.
     $options = array_merge($default_options, $options);
-    // Selectors.
+    // Selectors and names.
     $id_prefix = '#edit-parameter-payment-method-settings-payment-method-settings-';
     $id_payments_settings = 'commerce-sage-payments-settings-';
     $transaction_type_field = 'form input[name="parameter[payment_method][settings][payment_method][settings][transaction_type]"]';
     $id_base = $id_prefix . $id_payments_settings;
+    $name_base = 'NPR Sage CC - ';
+    $name = $name_base . $options['transaction_type'];
 
     // Settings from .yml files.
     $config = \Codeception\Configuration::config();
@@ -51,8 +54,19 @@ class SagePage {
 
     // The actions.
     $I = $this->acceptanceTester;
-    $I->amOnPage('/admin/commerce/config/payment-methods');
-    $I->click('Sage Payment - Credit Card');
+    if ($options['new']) {
+      $I->amOnPage('/admin/commerce/config/payment-methods/add');
+      $I->selectOption('#edit-method-id', 'Sage Payment - Credit Card');
+      $I->fillField('#edit-settings-label', $name);
+      $I->waitForText('npr_sage_cc_' . $options['transaction_type']);
+      $I->fillField('#edit-settings-tags', 'NPR');
+      $I->click('Save');
+    }
+    else {
+      $I->amOnPage('/admin/commerce/config/payment-methods');
+      $I->click($name);
+    }
+
     $I->click('Enable payment method: Sage Payment - Credit Card');
     $I->fillField($id_base . 'merchant-id', $settings['Sage']['merchant_id']);
     $I->fillField($id_base . 'merchant-key', $settings['Sage']['merchant_key']);
