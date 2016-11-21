@@ -52,14 +52,30 @@ class PayflowPage {
     $transaction_type_field = 'form input[name="parameter[payment_method][settings][payment_method][settings][trxtype]"]';
     $recurring_billing_field = 'form input[name="parameter[payment_method][settings][payment_method][settings][recurring-billing]"]';
     $name = 'NPR Payflow CC - ';
-    $suffix = '';
     switch ($options['transaction_type']) {
       case 'A':
         $suffix = 'Authorization';
+        $machine_suffix = '_authorization';
         break;
 
       case 'S':
         $suffix = 'Sale';
+        $machine_suffix = '_sale';
+        break;
+
+      default:
+        $suffix = '';
+        $machine_suffix = '';
+    }
+    switch ($options['recurring_billing_type']) {
+      case 'pnref-token':
+        $suffix .= ', PNREF Token';
+        $machine_suffix .= '_pnref_token';
+        break;
+
+      case 'recurring-billing-profile':
+        $suffix .= ', Recurring Billing Profile';
+        $machine_suffix .= '_recurring_billing_profile';
         break;
     }
     $name = $name . $suffix;
@@ -74,7 +90,7 @@ class PayflowPage {
       $I->amOnPage('/admin/commerce/config/payment-methods/add');
       $I->selectOption('#edit-method-id', 'Fundraiser Payflow Credit Card');
       $I->fillField('#edit-settings-label', $name);
-      $I->waitForText('npr_payflow_cc_' . strtolower($suffix));
+      $I->waitForText('npr_payflow_cc' . strtolower($machine_suffix));
       $I->fillField('#edit-settings-tags', 'NPR');
       $I->click('Save');
     }
