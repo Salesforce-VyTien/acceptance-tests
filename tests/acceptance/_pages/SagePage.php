@@ -21,9 +21,6 @@ class SagePage {
   /**
    * Configure Sage gateway.
    *
-   * The main idea is that we will reconfigure the default sage gateway for each
-   * test, rather than adding new instances.
-   *
    * @param array $options
    *   Override any of the $default_options.
    */
