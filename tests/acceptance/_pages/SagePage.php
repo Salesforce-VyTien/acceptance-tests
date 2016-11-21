@@ -24,7 +24,7 @@ class SagePage {
    * @param array $options
    *   Override any of the $default_options.
    */
-  function configureSageCC($options = array()) {
+  function configureCC($options = array()) {
     $default_options = array(
       'new' => FALSE,
       'transaction_type' => 'authorize',

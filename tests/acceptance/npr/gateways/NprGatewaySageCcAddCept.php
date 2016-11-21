@@ -9,7 +9,7 @@ $I->login();
 $sage = new SagePage($I);
 
 // Configure auth & capture.
-$sage->configureSageCC(array(
+$sage->configureCC(array(
   'new' => TRUE,
   'verbose_gateway' => TRUE,
   'transaction_type' => 'auth_capture',
@@ -18,7 +18,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Sage CC - auth_capture');
 
 // Configure auth-only.
-$sage->configureSageCC(array(
+$sage->configureCC(array(
   'new' => TRUE,
   'verbose_gateway' => TRUE,
   'transaction_type' => 'authorize',
