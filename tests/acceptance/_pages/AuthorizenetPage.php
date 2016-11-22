@@ -32,9 +32,9 @@ class AuthorizenetPage {
       'cardonfile' => FALSE,
     );
     $transaction_modes = array(
-      'developer' => 'Live transactions in a live account',
+      'live' => 'Live transactions in a live account',
       'live_test' => 'Test transactions in a live account',
-      'live' => 'Developer test account transactions',
+      'developer' => 'Developer test account transactions',
     );
     $transaction_types = array(
       'auth_capture' => 'Authorization and capture',
