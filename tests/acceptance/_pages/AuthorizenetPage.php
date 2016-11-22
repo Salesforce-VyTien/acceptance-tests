@@ -50,6 +50,11 @@ class AuthorizenetPage {
     $id_base = $id_prefix . $id_payments_settings;
     $name_base = 'NPR Authorize.net CC - ';
     $name = $name_base . $options['transaction_type'];
+    $machine_name = 'npr_authorize_net_cc_' . $options['transaction_type'];
+    if ($options['cardonfile']) {
+      $name .= ', cardonfile';
+      $machine_name .= '_cardonfile';
+    }
 
     // Settings from .yml files.
     $config = \Codeception\Configuration::config();
@@ -61,7 +66,7 @@ class AuthorizenetPage {
       $I->amOnPage('/admin/commerce/config/payment-methods/add');
       $I->selectOption('#edit-method-id', 'Authorize.Net AIM - Credit Card');
       $I->fillField('#edit-settings-label', $name);
-      $I->waitForText('npr_authorize_net_cc_' . $options['transaction_type']);
+      $I->waitForText($machine_name);
       $I->fillField('#edit-settings-tags', 'NPR');
       $I->click('Save');
     }
