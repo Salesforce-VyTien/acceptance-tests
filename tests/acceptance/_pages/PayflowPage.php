@@ -119,4 +119,77 @@ class PayflowPage {
     $I->acceptPopup();
     $I->waitForText('Your changes have been saved.');
   }
+
+  /**
+   * Configure Payflow EFT gateway.
+   *
+   * @param array $options
+   *   Override any of the $default_options.
+   */
+  function configureEFT($options = array()) {
+    $default_options = array(
+      'new' => FALSE,
+      'transaction_mode' => 'test',
+      'recurring_billing' => FALSE,
+      'verbose_gateway' => FALSE,
+    );
+    $transaction_modes = array(
+      'test' => 'Test - process test transactions to an account in test mode',
+      'live' => 'Live - process real transactions to a live account',
+    );
+    // Merge defaults with those passed.
+    $options = array_merge($default_options, $options);
+    // Selectors and names.
+    $id_prefix = '#edit-parameter-payment-method-settings-payment-method-settings-';
+    $transaction_mode_field = 'form input[name="parameter[payment_method][settings][payment_method][settings][mode]"]';
+    $name = 'NPR Payflow EFT';
+    $machine_name = 'npr_payflow_eft';
+    if ($options['recurring_billing']) {
+      $name .= ', recurring';
+      $machine_name .= '_recurring';
+    }
+
+    // Settings from .yml files.
+    $config = \Codeception\Configuration::config();
+    $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+
+    // The actions.
+    $I = $this->acceptanceTester;
+    if ($options['new']) {
+      $I->amOnPage('/admin/commerce/config/payment-methods/add');
+      $I->selectOption('#edit-method-id', 'Fundraiser Payflow EFT');
+      $I->fillField('#edit-settings-label', $name);
+      $I->waitForText($machine_name);
+      $I->fillField('#edit-settings-tags', 'NPR');
+      $I->click('Save');
+    }
+    else {
+      $I->amOnPage('/admin/commerce/config/payment-methods');
+      $I->click($name);
+    }
+
+    $I->click('Enable payment method: Fundraiser Payflow EFT');
+    $I->fillField($id_prefix . 'partner', $settings['Payflow']['partner']);
+    $I->fillField($id_prefix . 'vendor', $settings['Payflow']['merchant_login']);
+    $I->fillField($id_prefix . 'user', $settings['Payflow']['user']);
+    $I->fillField($id_prefix . 'password', $settings['Payflow']['password']);
+    $I->selectOption($transaction_mode_field, $transaction_modes[$options['transaction_mode']]);
+    if ($options['recurring_billing']) {
+      $I->checkOption($id_prefix . 'recurring-billing');
+    }
+    else {
+      $I->uncheckOption($id_prefix . 'recurring-billing');
+    }
+    if ($options['verbose_gateway']) {
+      $I->checkOption($id_prefix . 'verbose-errors');
+    }
+    else {
+      $I->uncheckOption($id_prefix . 'verbose-errors');
+    }
+    $I->checkOption($id_prefix . 'log-request');
+    $I->checkOption($id_prefix . 'log-response');
+    $I->click('Save');
+    $I->acceptPopup();
+    $I->waitForText('Your changes have been saved.');
+  }
 }
