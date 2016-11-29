@@ -2,7 +2,7 @@
 // @env chrome_selenium
 // @group npr
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('Add Sage payment gatewayss.');
+$I->wantTo('Add Sage payment gateways.');
 $I->am('admin');
 $I->login();
 

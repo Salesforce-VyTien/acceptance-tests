@@ -19,7 +19,7 @@ class SagePage {
   }
 
   /**
-   * Configure Sage gateway.
+   * Configure Sage CC gateway.
    *
    * @param array $options
    *   Override any of the $default_options.
@@ -74,6 +74,73 @@ class SagePage {
     $I->fillField($id_base . 'merchant-key', $settings['Sage']['merchant_key']);
     $I->fillField($id_base . 'application-id', $settings['Sage']['application_id']);
     $I->selectOption($transaction_type_field, $transaction_types[$options['transaction_type']]);
+    if ($options['cardonfile']) {
+      $I->checkOption($id_prefix . 'cardonfile');
+    }
+    else {
+      $I->uncheckOption($id_prefix . 'cardonfile');
+    }
+    if ($options['verbose_gateway']) {
+      $I->checkOption($id_prefix . 'verbose-gateway');
+    }
+    else {
+      $I->uncheckOption($id_prefix . 'verbose-gateway');
+    }
+    $I->checkOption($id_prefix . 'log-request');
+    $I->checkOption($id_prefix . 'log-response');
+    $I->click('Save');
+    $I->acceptPopup();
+    $I->waitForText('Your changes have been saved.');
+  }
+
+  /**
+   * Configure Sage EFT gateway.
+   *
+   * @param array $options
+   *   Override any of the $default_options.
+   */
+  function configureEFT($options = array()) {
+    $default_options = array(
+      'new' => FALSE,
+      'cardonfile' => FALSE,
+      'verbose_gateway' => FALSE,
+    );
+    // Merge defaults with those passed.
+    $options = array_merge($default_options, $options);
+    // Selectors and names.
+    $id_prefix = '#edit-parameter-payment-method-settings-payment-method-settings-';
+    $id_payments_settings = 'commerce-sage-payments-settings-';
+    $id_base = $id_prefix . $id_payments_settings;
+    $name = 'NPR Sage EFT';
+    $machine_name = 'npr_sage_eft';
+    if ($options['cardonfile']) {
+      $name .= ', cardonfile';
+      $machine_name .= '_cardonfile';
+    }
+
+    // Settings from .yml files.
+    $config = \Codeception\Configuration::config();
+    $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+
+    // The actions.
+    $I = $this->acceptanceTester;
+    if ($options['new']) {
+      $I->amOnPage('/admin/commerce/config/payment-methods/add');
+      $I->selectOption('#edit-method-id', 'Sage Payment - ETF (ACH)');
+      $I->fillField('#edit-settings-label', $name);
+      $I->waitForText($machine_name);
+      $I->fillField('#edit-settings-tags', 'NPR');
+      $I->click('Save');
+    }
+    else {
+      $I->amOnPage('/admin/commerce/config/payment-methods');
+      $I->click($name);
+    }
+
+    $I->click('Enable payment method: Sage Payment - ETF (ACH)');
+    $I->fillField($id_base . 'merchant-id', $settings['Sage']['merchant_id']);
+    $I->fillField($id_base . 'merchant-key', $settings['Sage']['merchant_key']);
+    $I->fillField($id_base . 'application-id', $settings['Sage']['application_id']);
     if ($options['cardonfile']) {
       $I->checkOption($id_prefix . 'cardonfile');
     }
