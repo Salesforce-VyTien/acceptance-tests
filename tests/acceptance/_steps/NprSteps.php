@@ -37,6 +37,12 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
     return FALSE;
   }
 
+  /**
+   * Configure a donation form.
+   *
+   * @param $nid
+   *   The nid of the donation form to configure.
+   */
   public function configureDonationForm($nid) {
     $I = $this;
     $I->amOnPage("springboard/node/$nid/edit");
@@ -51,5 +57,14 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
     $I->click('.vertical-tab-button:nth-child(2) a');
     $I->seeOptionIsSelected('#edit-gateways-credit-id', 'Test Gateway');
     $I->seeOptionIsSelected('#edit-gateways-bank-account-id', 'NPR Sage EFT');
+
+    // Remove confirmation emails.
+    $I->amOnPage("springboard/node/$nid/form-components/confirmation-emails");
+    while ($delete_url = $I->executeJS('return jQuery("td>a:contains(\'Delete\'):first").attr("href")')) {
+      $I->amOnPage($delete_url);
+      $I->click('Delete');
+      $I->seeInCurrentUrl('form-components/confirmation-emails');
+      $I->dontSeeInCurrentUrl('delete');
+    }
   }
 }
