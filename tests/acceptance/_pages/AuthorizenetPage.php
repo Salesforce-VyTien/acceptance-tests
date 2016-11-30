@@ -44,10 +44,8 @@ class AuthorizenetPage {
     $options = array_merge($default_options, $options);
     // Selectors and names.
     $id_prefix = '#edit-parameter-payment-method-settings-payment-method-settings-';
-    $id_payments_settings = 'commerce-sage-payments-settings-';
     $transaction_mode_field = 'form input[name="parameter[payment_method][settings][payment_method][settings][txn_mode]"]';
     $transaction_type_field = 'form input[name="parameter[payment_method][settings][payment_method][settings][txn_type]"]';
-    $id_base = $id_prefix . $id_payments_settings;
     $name_base = 'NPR Authorize.net CC - ';
     $name = $name_base . $options['transaction_type'];
     $machine_name = 'npr_authorize_net_cc_' . $options['transaction_type'];
