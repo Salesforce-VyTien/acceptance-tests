@@ -6,10 +6,10 @@ $I->wantTo('Add Sage EFT payment gateways.');
 $I->am('admin');
 $I->login();
 
-$sage = new SagePage($I);
+$page = new SagePage($I);
 
 // Configure regular.
-$sage->configureEFT(array(
+$page->configureEFT(array(
   'new' => TRUE,
   'verbose_gateway' => TRUE,
 ));
@@ -17,7 +17,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Sage EFT');
 
 // Configure with cardonfile.
-$sage->configureEFT(array(
+$page->configureEFT(array(
   'new' => TRUE,
   'verbose_gateway' => TRUE,
   'cardonfile' => TRUE,

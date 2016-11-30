@@ -2,14 +2,14 @@
 // @env chrome_selenium
 // @group npr
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('Add Authorize.net payment gateways.');
+$I->wantTo('Add Authorize.net CC payment gateways.');
 $I->am('admin');
 $I->login();
 
-$sage = new AuthorizenetPage($I);
+$page = new AuthorizenetPage($I);
 
 // Configure auth & capture.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'developer',
   'transaction_type' => 'auth_capture',
@@ -18,7 +18,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Authorize.net CC - auth_capture');
 
 // Configure auth & capture, cardonfile.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'developer',
   'transaction_type' => 'auth_capture',
@@ -28,7 +28,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Authorize.net CC - auth_capture, cardonfile');
 
 // Configure auth-only.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'developer',
   'transaction_type' => 'authorize',
@@ -37,7 +37,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Authorize.net CC - authorize');
 
 // Configure auth-only, cardonfile.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'developer',
   'transaction_type' => 'authorize',

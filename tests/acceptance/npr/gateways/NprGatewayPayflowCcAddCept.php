@@ -2,14 +2,14 @@
 // @env chrome_selenium
 // @group npr
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('Add Payflow payment gateways.');
+$I->wantTo('Add Payflow CC payment gateways.');
 $I->am('admin');
 $I->login();
 
-$sage = new PayflowPage($I);
+$page = new PayflowPage($I);
 
 // Configure auth & capture.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'test',
   'transaction_type' => 'S',
@@ -20,7 +20,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Payflow CC - Sale, PNREF Token');
 
 // Configure auth & capture.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'test',
   'transaction_type' => 'S',
@@ -31,7 +31,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Payflow CC - Sale, Recurring Billing Profile');
 
 // Configure auth-only.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'test',
   'transaction_type' => 'A',
@@ -42,7 +42,7 @@ $I->amOnPage('/admin/commerce/config/payment-methods');
 $I->see('NPR Payflow CC - Authorization, PNREF Token');
 
 // Configure auth-only with recurring profile.
-$sage->configureCC(array(
+$page->configureCC(array(
   'new' => TRUE,
   'transaction_mode' => 'test',
   'transaction_type' => 'A',

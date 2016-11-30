@@ -2,7 +2,7 @@
 // @env chrome_selenium
 // @group npr
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
-$I->wantTo('Add Payflow payment gateways.');
+$I->wantTo('Add Payflow EFT payment gateways.');
 $I->am('admin');
 $I->login();
 
