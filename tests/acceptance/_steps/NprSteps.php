@@ -51,6 +51,7 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
     $I->selectOption('#edit-gateways-credit-id', 'Test Gateway');
     $I->selectOption('#edit-gateways-bank-account-id', 'NPR Sage EFT');
     $I->click('Save');
+    $I->canSee('has been updated', '.alert-success');
 
     // Confirm things saved.
     $I->amOnPage("springboard/node/$nid/edit");
