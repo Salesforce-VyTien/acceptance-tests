@@ -97,7 +97,10 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         // @todo Address 2
         $I->fillField(\DonationFormPage::$cityField, $city);
         $I->selectOption(\DonationFormPage::$countryField, $country);
-        $I->selectOption(\DonationFormPage::$stateField, $state);
+        // @todo Figure out why NPR's field has a different ID, and resolve this
+        // a different way.
+        $I->selectOption('#edit-submitted-donor-information-state', $state);
+        //$I->selectOption(\DonationFormPage::$stateField, $state);
         $I->fillField(\DonationFormPage::$zipField, $zip);
     }
 

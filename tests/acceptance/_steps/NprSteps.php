@@ -76,4 +76,73 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
       $I->dontSeeInCurrentUrl('delete');
     }
   }
+
+  /**
+   * Make a donation, NPR style.
+   *
+   * @param array $details
+   *
+   * @see \AcceptanceTester\SpringboardSteps::makeADonation().
+   */
+  public function makeNprDonation(array $details = array()) {
+    $I = $this;
+
+    $defaults = $I->donationData();
+    $settings = array_merge($defaults, $details);
+
+    $I->fillInMyName($settings['first_name'], $settings['last_name']);
+    $I->fillField(\DonationFormPage::$emailField, $settings['mail']);
+    $I->fillInMyAddress($settings['address'], $settings['address2'], $settings['city'], $settings['state'], $settings['zip'], $settings['country_name']);
+    $I->checkOption('#edit-submitted-use-billing-address-1');
+
+    switch ($details['payment_method']) {
+      case 'bill_me_later':
+        $I->click('//*/label[contains(text(),"Bill Me Later")]');
+        break;
+
+      case 'credit':
+        $I->click('//*/label[contains(text(),"Credit Card")]');
+        // @todo Enter CC details.
+        break;
+
+      case 'bank account':
+        $I->click('//*/label[contains(text(),"Pay By Check")]');
+        // @todo Enter bank account details.
+        break;
+    }
+
+    $I->click('Submit');
+  }
+
+  /**
+   * Just like parent, but with less randomization.
+   *
+   * @inheritdoc
+   */
+  public function donationData() {
+    $months = cal_info(0)['months'];
+    $month_nums = array_keys($months);
+    $request_time = strtotime('now');
+    $form_data = array(
+      'amount' => '10',
+      'first_name' => 'Firstname',
+      'last_name' => 'Lastname',
+      'mail' => 'test_' . $request_time . '@example.com',
+      'address' => '1234 Main St',
+      'address2' => '',
+      'city' => 'Washington',
+      'state' => 'DC',
+      'zip' => '20036',
+      'country' => 'US',
+      'country_name' => 'United States',
+      'card_number' => '4111111111111111',
+      'card_expiration_year' => date('Y', strtotime('+1 years')),
+      'card_expiration_month_name' => $months[array_rand($months)],
+      'card_expiration_month' => $month_nums[array_rand($month_nums)],
+      'card_cvv' => rand(100, 999),
+      // 'credit', 'bill_me_later', or 'bank account'.
+      'payment_method' => 'credit',
+    );
+    return $form_data;
+  }
 }
