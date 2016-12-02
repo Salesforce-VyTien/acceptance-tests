@@ -59,9 +59,17 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
     $I->seeOptionIsSelected('#edit-gateways-credit-id', 'Test Gateway');
     $I->seeOptionIsSelected('#edit-gateways-bank-account-id', 'NPR Sage EFT');
 
+    // Settings from .yml files.
+    $config = \Codeception\Configuration::config();
+    $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
+    $subdirectory = isset ($settings['General']['subdirectory']) ? $settings['General']['subdirectory'] : '';
+
     // Remove confirmation emails.
     $I->amOnPage("springboard/node/$nid/form-components/confirmation-emails");
     while ($delete_url = $I->executeJS('return jQuery("td>a:contains(\'Delete\'):first").attr("href")')) {
+      if (strpos($delete_url, $subdirectory) === 0) {
+        $delete_url = substr($delete_url, strlen($subdirectory));
+      }
       $I->amOnPage($delete_url);
       $I->click('Delete');
       $I->seeInCurrentUrl('form-components/confirmation-emails');
