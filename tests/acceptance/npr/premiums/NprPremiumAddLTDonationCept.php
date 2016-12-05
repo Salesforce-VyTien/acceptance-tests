@@ -19,8 +19,11 @@ $I->am('admin');
 $I->login();
 $I->amOnPage('springboard/node/24/edit');
 // @todo make this more tolerant. Add 360 only if no 360 is present.
-$I->fillField('#edit-amount-wrapper-donation-amounts-5-amount', '360');
-$I->click('Save');
+$set = $I->executeJS('return jQuery("#fundraiser-ask-amounts-table input[value=\'360\']")');
+if (empty($set)) {
+  $I->fillField('#edit-amount-wrapper-donation-amounts-5-amount', '360');
+  $I->click('Save');
+}
 
 // Continue as anonymous.
 $I->logout();

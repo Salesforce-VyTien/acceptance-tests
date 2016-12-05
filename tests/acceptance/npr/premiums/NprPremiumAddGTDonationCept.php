@@ -24,7 +24,7 @@ $I->click("$premium_selector_world_cafe_cd a.expand-premium");
 $I->waitForElementVisible("$premium_selector_world_cafe_cd input[id^='edit-submit']");
 $I->click("$premium_selector_world_cafe_cd input[id^='edit-submit']");
 $I->waitForText('ADDED', NULL, $premium_selector_world_cafe_cd);
-// The main assertion. That the amount didn't change.
+// The main assertion. That the amount changed.
 $I->dontSee($donation_amount, $summary_selector);
 $I->see($premium_amount_world_cafe_cd, $summary_selector);
 $I->see("We've increased your donation");
