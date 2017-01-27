@@ -115,7 +115,7 @@ we have created depending on what features you need.
 
 ## Basic acceptance testing
 
-http://codeception.com/docs/04-AcceptanceTests
+http://codeception.com/docs/03-AcceptanceTests
 
 ## Webdriver command reference
 Most of these methods are available for both Selenium and PhantomJs tests.
