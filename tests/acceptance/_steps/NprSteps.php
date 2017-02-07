@@ -121,6 +121,25 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
   }
 
   /**
+   * Find all offsite (to http*) redirects and delete them.
+   *
+   * This avoids issues with getting redirected to a whole different site when
+   * you expect to remain on the tested site.
+   */
+  public function deleteOffsiteRedirects() {
+    $I = $this;
+    $I->amOnPage('/admin/config/search/redirect/list/http');
+    // Check for presence of any offsite redirects.
+    $empty = ($I->executeJS('return jQuery("td.empty").text()'));
+    if (!$empty) {
+      $I->checkOption('table.redirect-list-tableselect th.select-all input[type=checkbox]');
+      $I->click('input[type=submit][name=op][value=Update]');
+      $I->click('input[type=submit][name=op][value=Delete]');
+      $I->canSee('Deleted', '.status');
+    }
+  }
+
+  /**
    * Just like parent, but with less randomization.
    *
    * @inheritdoc
