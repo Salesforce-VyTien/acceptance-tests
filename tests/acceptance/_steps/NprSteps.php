@@ -46,6 +46,12 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
   public function configureDonationForm($nid) {
     $I = $this;
     $I->amOnPage("springboard/node/$nid/edit");
+
+    // Make sure the minimum amount is numeric.
+    $amount = $I->grabValueFrom('#edit-amount-wrapper-minimum-donation-amount');
+    $amount = trim(str_replace(',', '', $amount));
+    $I->fillField('#edit-amount-wrapper-minimum-donation-amount', $amount);
+
     // Payment Methods is the 2nd vertical tab.
     $I->click('.vertical-tab-button:nth-child(2) a');
     $I->selectOption('#edit-gateways-credit-id', 'Test Gateway');
