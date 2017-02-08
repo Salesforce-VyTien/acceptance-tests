@@ -14,9 +14,10 @@ Manually delete all tables. (The codeception refresh function does not delete ex
 
 In codeception.yml, set populate: false.
 
-## Set up donation forms
+## Set up donation forms and disable a rule.
 
 `codecept run tests/acceptance/npr/0_setup_2_donationforms`
+`codecept run tests/acceptance/npr/0_setup_2_misc`
 
 ## Remaining tests
 
