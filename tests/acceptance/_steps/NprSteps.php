@@ -84,6 +84,43 @@ class NprSteps extends \AcceptanceTester\SpringboardSteps {
   }
 
   /**
+   * Get list of active payment methods.
+   *
+   * @param array $skip
+   *   Names of payment methods to omit from the list.
+   *
+   * @return array
+   *   URLs of payment methods.
+   */
+  public function activePaymentMethods(array $skip = array()) {
+    $I = $this;
+    $I->amOnPage('admin/commerce/config/payment-methods');
+
+    // Build the selector that selects the rules we want to disable.
+    $selector = '.rules-overview-table:nth-child(3) .rules-element-label a';
+    // Turn $skip into a string to insert into a jQuery selector.
+    if ($skip) {
+      foreach ($skip as $key => $value) {
+        // @todo Use an exact match instead of :contains().
+        $skip[$key] = ':contains("' . $value . '")';
+      }
+      $skip = implode(', ', $skip);
+      $skip = ':not(' . $skip . ')';
+      $selector .= $skip;
+    }
+
+    $js = "var links = jQuery('$selector');
+      var urls_array = [];
+      jQuery.each(links, function(index, value) {
+        urls_array.push(jQuery(value).attr('href'));
+      });
+      return urls_array;";
+    $rule_urls = $I->executeJS($js);
+
+    return $rule_urls;
+  }
+
+  /**
    * Make a donation, NPR style.
    *
    * @param array $details
