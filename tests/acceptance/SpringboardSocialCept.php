@@ -4,6 +4,7 @@
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Enable Springboard Social on a donation form.');
+$scenario->incomplete();
 
 // @todo Test BCC
 
@@ -27,7 +28,7 @@ $shorten = new ShortenURLsAdminPage($I);
 $marketsource = new MarketSourceAdminPage($I);
 
 // Enable Springboard Social;
-$admin->enableModule();
+$admin->enableModule('Springboard Social');
 
 // Configure defaults
 $admin->setAdminDefaults();
