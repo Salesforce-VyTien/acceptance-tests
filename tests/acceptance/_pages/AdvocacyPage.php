@@ -53,8 +53,16 @@ class AdvocacyPage
     }
     $I = $this->acceptanceTester;
 
-    foreach ($settings['Advocacy'] as $key => $value) {
-      $I->haveInDatabase('variable', array('name' => $key, 'value' => serialize($value)));
+    if (!empty($settings['Advocacy'])) {
+      foreach ($settings['Advocacy'] as $key => $value) {
+        $I->haveInDatabase('variable', array(
+          'name' => $key,
+          'value' => serialize($value)
+        ));
+      }
+    }
+    else {
+      codecept_debug("Advocayc is not configured! Please check your yaml files.");
     }
   }
 

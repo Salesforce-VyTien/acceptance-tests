@@ -36,6 +36,7 @@ $I->amOnPage(DonationFormPage::$URL);
 $I->see('€10');
 $I->seeInPageSource('<div class="field-prefix">€</div>');
 $I->logout();
+$I->amOnPage(DonationFormPage::$URL);
 
 // Make a doantion and check the confirmation.
 $I->makeADonation(array('amount' => 10, 'mail' => 'bob@example.com'));
@@ -52,6 +53,7 @@ $I->amOnPage('springboard/donations/1/edit');
 $I->seeOptionIsSelected(MultiCurrencyPage::$paymentSelect, 'EUR');
 $I->see('10,00 €', 'td.last');
 $I->logout();
+$I->amOnPage(DonationFormPage::$URL);
 
 // Make a recurring doantion
 $I->makeADonation(array('amount' => 10, 'mail' => 'bob@example.com'), TRUE);
