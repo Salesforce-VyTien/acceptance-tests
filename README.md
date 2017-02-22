@@ -64,9 +64,9 @@ You should be able to run the tests with `codecept run`.
 You should be able to run an individual test with `codecept run tests/acceptance/path_to_test/testName.php`.
 
 ### Running tests in environments
-You should be able to run Selenium and Firefox browser tests with `codecept run --env=selenium_firefox`.
+You should be able to run Selenium and Firefox browser tests with `codecept run --env=firefox_selenium`.
 
-You should be able to run Selenium and Chrome browser tests with `codecept run --env=selenium_chrome`.
+You should be able to run Selenium and Chrome browser tests with `codecept run --env=chrome_selenium`.
 
 All tests will run in all environments, unless you specify an environment in the test:
 put, for example, `// @env firefox_selenium` at the top of the test to have the test only run in that environment.
