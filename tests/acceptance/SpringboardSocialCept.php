@@ -44,6 +44,7 @@ $shorten->setAdminDefaults();
 $I->amOnPage($marketsource->URL);
 // enable MS and CID global default fields
 $marketsource->showDefaultFieldSettings();
+$I->waitForElement('#edit-market-source-default-fields-default-fields-wrapper-market-source-share-enable', 10);
 $I->checkOption('#edit-market-source-default-fields-default-fields-wrapper-market-source-share-enabled');
 $I->checkOption('#edit-market-source-default-fields-default-fields-wrapper-campaign-share-enabled');
 
