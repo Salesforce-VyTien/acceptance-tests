@@ -1,8 +1,12 @@
 <?php
 //@group fundraiser;
 
-$scenario->skip('Requires sensitive configuration');
+$config = \Codeception\Configuration::config();
+$settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
 
+if (!empty($settings['Paypal'])) {
+  $scenario->skip('Requires sensitive configuration');
+}
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('Test enhanced gateway options.');
 
