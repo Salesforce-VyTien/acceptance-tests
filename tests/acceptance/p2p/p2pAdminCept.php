@@ -86,7 +86,7 @@ $I->seeElement('#edit-settings');
 $I->amOnPage(p2pAdminPage::$url);
 $I->see('Cross River Gorilla');
 // User has the ability to create a new peer to peer campaign
-$I->click('Create a new campaign');
+$I->click('Create a new landing page link');
 $I->see('Create Peer to Peer Campaign', 'H1');
 // User sees a list of configured peer to peer categories
 $I->amOnPage(p2pAdminPage::$url);

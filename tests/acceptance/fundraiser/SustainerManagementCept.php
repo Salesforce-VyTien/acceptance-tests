@@ -23,7 +23,7 @@ $I->amOnPage('springboard/donations');
 $I->click('.views-row-first li.commerce-order-view.first a');
 $I->click('Recurring donation set');
 $I->click('Edit donation set');
-$I->see('Recurring Payment Info', 'h2');
+$I->see('Recurring Donation Summary', 'h2');
 // Change the donation amount to $50.
 $amount = 50;
 $I->fillField(\SustainerManagementPage::$donationAmountField, $amount);
