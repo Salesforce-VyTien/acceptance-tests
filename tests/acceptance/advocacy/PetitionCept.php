@@ -118,72 +118,75 @@ if ($I->grabValueFrom('Last name') != '') {
   $I->fail();
 }
 
+$config = \Codeception\Configuration::config();
+$settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
 
+if (!empty($settings['Salesforce'])) {
 // // check for the salesforce mapping function
-//$I->login();
-//$I->amOnPage('node/' . $node_id . '/salesforce');
-//$I->see('Salesforce Object Mapping', 'span');
-//$I->seeOptionIsSelected(SalesforceMapPage::$objectType, 'Actions');
-//$I->seeOptionIsSelected(SalesforceMapPage::$recordType, 'Petition Submission');
-//// check actions object and petition record type
-//$I->see(SalesforceMapPage::$objTypeLabel, 'label');
-//// check to see if all the config sections are visible
-//$I->see(SalesforceMapPage::$fieldMap,'span');
-//$I->see(SalesforceMapPage::$component,'th');
-//$I->see(SalesforceMapPage::$nodeProp,'th');
-//$I->see(SalesforceMapPage::$subProp,'th');
-//$I->see(SalesforceMapPage::$syncOptions,'label');
-//$I->see('Contact Field','label');
-//
-//// check if fields are configured
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
-//
-//// unmap the node and check to see if fields are no longer selected
-//$I->click(SalesforceMapPage::$unmap);
-//$I->cantSee(SalesforceMapPage::$fieldMap,'span');
-//$I->cantSee(SalesforceMapPage::$component,'th');
-//$I->cantSee(SalesforceMapPage::$nodeProp,'th');
-//$I->cantSee(SalesforceMapPage::$subProp,'th');
-//$I->cantSee(SalesforceMapPage::$syncOptions,'label');
-//
-//// remap the actions object in preparation for webform submission by anonymous visitor
-//$I->selectOption(SalesforceMapPage::$objectType, 'Actions');
-//$I->wait(3);
-//$I->selectOption(SalesforceMapPage::$recordType, 'Petition Submission');
-//$I->wait(3);
-//$I->selectOption(SalesforceMapPage::$mapMs, 'Market_Source__c');
-//$I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
-//$I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
-//$I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
-//$I->click('#edit-submit');
-//$I->seeOptionIsSelected(SalesforceMapPage::$objectType, 'Actions');
-//$I->seeOptionIsSelected(SalesforceMapPage::$recordType, 'Petition Submission');
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
-//$I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
+  $I->login();
+  $I->amOnPage('node/' . $node_id . '/salesforce');
+  $I->see('Salesforce Object Mapping', 'span');
+  $I->seeOptionIsSelected(SalesforceMapPage::$objectType, 'Actions Taken');
+// check actions object and petition record type
+  $I->see(SalesforceMapPage::$objTypeLabel, 'label');
+// check to see if all the config sections are visible
+  $I->see(SalesforceMapPage::$fieldMap, 'span');
+  $I->see(SalesforceMapPage::$component, 'th');
+  $I->see(SalesforceMapPage::$nodeProp, 'th');
+  $I->see(SalesforceMapPage::$subProp, 'th');
+  $I->see(SalesforceMapPage::$syncOptions, 'label');
+  $I->see('Contact Field', 'label');
+
+// check if fields are configured
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
+
+// unmap the node and check to see if fields are no longer selected
+  $I->click(SalesforceMapPage::$unmap);
+  $I->cantSee(SalesforceMapPage::$fieldMap, 'span');
+  $I->cantSee(SalesforceMapPage::$component, 'th');
+  $I->cantSee(SalesforceMapPage::$nodeProp, 'th');
+  $I->cantSee(SalesforceMapPage::$subProp, 'th');
+  $I->cantSee(SalesforceMapPage::$syncOptions, 'label');
+
+// remap the actions object in preparation for webform submission by anonymous visitor
+  $I->selectOption(SalesforceMapPage::$objectType, 'Actions');
+  $I->wait(3);
+  $I->selectOption(SalesforceMapPage::$recordType, 'Petition Submission');
+  $I->wait(3);
+  $I->selectOption(SalesforceMapPage::$mapMs, 'Market_Source__c');
+  $I->selectOption(SalesforceMapPage::$mapNid, 'Drupal_Node_ID__c');
+  $I->selectOption(SalesforceMapPage::$mapSid, 'Submission_ID__c');
+  $I->selectOption(SalesforceMapPage::$mapContact, 'Contact__c');
+  $I->click('#edit-submit');
+  $I->seeOptionIsSelected(SalesforceMapPage::$objectType, 'Actions');
+  $I->seeOptionIsSelected(SalesforceMapPage::$recordType, 'Petition Submission');
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapMs, 'Market Source');
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapNid, 'Drupal Node ID');
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapSid, 'Submission ID');
+  $I->seeOptionIsSelected(SalesforceMapPage::$mapContact, 'Contact');
 
 
-//$I->amOnPage(SalesforceMapPage::$queuePage);
-//// there should be at least one row containing the submission
-//$I->seeElement('tr.views-row-first');
-//// run cron
-//$I->amOnPage(SalesforceMapPage::$cronPage);
-//// check to see if submission successfully processed
-//$I->amOnPage(SalesforceMapPage::$queuePage);
-//$I->cantSee('tr.views-row-first', '#views-form-sbv-sf-queue-page');
-//$I->amOnPage(SalesforceMapPage::$batchPage);
-//$I->canSeeInField('.views-row-first .views-field-failures', 0);
-//
-//// edit the submission and check to see that it is requeued.
-//$I->amOnPage('node/' . $node_id . '/salesforce');
-//$I->checkOption(SalesforceMapPage::$syncOptionsCheckbox);
-//$I->amOnPage('node/' . $node_id .'/results');
-//$I->click(['link' => 'Edit'], '.sticky-table');
-//$I->fillField('E-mail address', 'anothermail@example.com');
-//$I->click('#edit-submit');
-//$I->amOnPage(SalesforceMapPage::$queuePage);
-//$I->seeElement('tr.views-row-first');
+  $I->amOnPage(SalesforceMapPage::$queuePage);
+// there should be at least one row containing the submission
+  $I->seeElement('tr.views-row-first');
+// run cron
+  $I->amOnPage(SalesforceMapPage::$cronPage);
+// check to see if submission successfully processed
+  $I->amOnPage(SalesforceMapPage::$queuePage);
+  $I->cantSee('tr.views-row-first', '#views-form-sbv-sf-queue-page');
+  $I->amOnPage(SalesforceMapPage::$batchPage);
+  $I->canSeeInField('.views-row-first .views-field-failures', 0);
+
+// edit the submission and check to see that it is requeued.
+  $I->amOnPage('node/' . $node_id . '/salesforce');
+  $I->checkOption(SalesforceMapPage::$syncOptionsCheckbox);
+  $I->amOnPage('node/' . $node_id . '/results');
+  $I->click(['link' => 'Edit'], '.sticky-table');
+  $I->fillField('E-mail address', 'anothermail@example.com');
+  $I->click('#edit-submit');
+  $I->amOnPage(SalesforceMapPage::$queuePage);
+  $I->seeElement('tr.views-row-first');
+}

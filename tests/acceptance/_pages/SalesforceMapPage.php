@@ -22,7 +22,7 @@ class SalesforceMapPage
    //labels
   public static $syncOptions = 'Salesforce Sync Options';
   public static $fieldMap = 'Field Mapping';
-  public static $component = 'Webform Componant';
+  public static $component = 'Webform Component';
   public static $subProp = 'Submission Property';
   public static $nodeProp = 'Node property';
   public static $objTypeLabel = 'Object Record Type';
