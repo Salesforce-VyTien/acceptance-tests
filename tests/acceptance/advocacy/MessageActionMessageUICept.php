@@ -101,7 +101,7 @@ $I->waitForElement('//option[@value="Alabama District 1"]');
 $I->selectOption('//select[@name="search_district_name"]', "Alabama District 1");
 $I->wait(3);
 $I->click('//select[@name="search_district_name"]');
-$I->dontSeeElement('#quick-target');
+$I->seeElement('#quick-target');
 $I->seeElement('#edit-search-role-1-wrapper.disabled');
 $I->seeElement('#edit-search-gender-wrapper.disabled');
 $I->seeElement('#edit-search-social-wrapper.disabled');
