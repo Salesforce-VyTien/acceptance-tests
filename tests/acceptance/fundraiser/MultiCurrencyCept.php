@@ -34,7 +34,7 @@ $I->click(WebformPage::$saveConfirm);
 // Check the client form for the euro sumbol.
 $I->amOnPage(DonationFormPage::$URL);
 $I->see('€10');
-$I->seeInPageSource('<div class="field-prefix">€</div>');
+$I->seeInPageSource('<div class="field-suffix">&nbsp;€</div>');
 $I->logout();
 $I->amOnPage(DonationFormPage::$URL);
 
