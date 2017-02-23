@@ -4,7 +4,7 @@
 $config = \Codeception\Configuration::config();
 $settings = \Codeception\Configuration::suiteSettings('acceptance', $config);
 
-if (!empty($settings['Paypal'])) {
+if (empty($settings['Paypal'])) {
   $scenario->skip('Requires sensitive configuration');
 }
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
