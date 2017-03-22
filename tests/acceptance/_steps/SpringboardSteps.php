@@ -167,6 +167,15 @@ class SpringboardSteps extends \AcceptanceTester\DrupalSteps
         }
     }
 
+    public function configureExamplePaymentMethod() {
+      $I = $this;
+      $I->amOnPage('admin/commerce/config/payment-methods/manage/commerce_payment_commerce_payment_example/edit/3');
+      $I->checkOption('#edit-parameter-payment-method-settings-payment-method-settings-cardonfile');
+      $I->executeJS("window.confirm = function(msg){return true;};");
+      $I->click('#edit-submit');
+      $I->seeInMessages('Your changes have been saved.');
+    }
+
     public function configureSecurePrepopulate($key, $iv) {
         $I = $this;
 
