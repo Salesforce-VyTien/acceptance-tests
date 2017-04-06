@@ -1,0 +1,5 @@
+<testsuites bootstrap="tests/phpunit/bootstrap-mocking.php" colors="true">
+    <testsuite name="Fundraiser">
+        <file>tests/phpunit/sites/all/modules/springboard/fundraiser/FundraiserWIthMockingTest.php</file>
+    </testsuite>
+</testsuites>

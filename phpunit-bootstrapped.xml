@@ -1,0 +1,8 @@
+<testsuites bootstrap="tests/phpunit/bootstrap.php" colors="true">
+    <testsuite name="Example Test">
+        <file>tests/phpunit/ExampleTest.php</file>
+    </testsuite>
+    <testsuite name="Fundraiser">
+        <file>tests/phpunit/sites/all/modules/springboard/fundraiser/FundraiserSustainersGetDonationsForCancelingTest.php</file>
+    </testsuite>
+</testsuites>
