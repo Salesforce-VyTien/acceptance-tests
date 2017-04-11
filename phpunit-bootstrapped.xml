@@ -1,8 +1,8 @@
-<testsuites bootstrap="tests/phpunit/bootstrap.php" colors="true">
+<testsuites bootstrap="tests/phpunit-bootstrapped/bootstrap.php" colors="true">
     <testsuite name="Example Test">
-        <file>tests/phpunit/ExampleTest.php</file>
+        <file>tests/phpunit-bootstrapped/ExampleTest.php</file>
     </testsuite>
     <testsuite name="Fundraiser">
-        <file>tests/phpunit/sites/all/modules/springboard/fundraiser/FundraiserSustainersGetDonationsForCancelingTest.php</file>
+        <directory>tests/phpunit-bootstrapped/drupal/sites/all/modules/springboard/fundraiser/modules/fundraiser_sustainers</directory>
     </testsuite>
 </testsuites>

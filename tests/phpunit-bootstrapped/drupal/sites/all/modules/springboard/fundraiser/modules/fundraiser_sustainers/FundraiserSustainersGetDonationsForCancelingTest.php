@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @covers querying the database for canceling a donation series.
+ * @covers _fundraiser_sustainers_get_donations_for_canceling().
  */
 final class FundraiserSustainersGetDonationsForCancelingTest extends PHPUnit_Framework_TestCase {
   public function testFundraiserSustainersGetDonationsForCancelingCountActive() {
