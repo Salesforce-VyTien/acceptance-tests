@@ -4,4 +4,6 @@
 // installation.
 define('DRUPAL_ROOT', getcwd() . '/');
 define('SPRINGBOARD_MODULES_ROOT', DRUPAL_ROOT . 'sites/all/modules/springboard/');
-require_once DRUPAL_ROOT . '/acceptance-tests/tests/phpunit/function_mock/function_mock.php';
+
+// Include the function mocking library.
+require_once DRUPAL_ROOT . '/acceptance-tests/vendor/myplanetdigital/function_mock/function_mock.php';
