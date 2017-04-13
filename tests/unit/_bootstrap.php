@@ -33,3 +33,5 @@ if (!defined('SPRINGBOARD_MODULES_ROOT')) {
   // Directory to the root of the springboard modules.
   define('SPRINGBOARD_MODULES_ROOT', DRUPAL_ROOT . 'sites/all/modules/springboard/');
 }
+
+require_once CEPT_DIRECTORY . '/vendor/autoload.php';

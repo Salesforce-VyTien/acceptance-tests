@@ -3,7 +3,7 @@
 /**
  * @covers _fundraiser_sustainers_get_donations_for_canceling().
  */
-final class FundraiserSustainersGetDonationsForCancelingBootstrappedTest extends \Codeception\Test\Unit {
+final class FundraiserSustainersGetDonationsForCancelingBootstrappedTest extends UnitBootstrapBaseTest {
   public function testFundraiserSustainersGetDonationsForCancelingCompareActive() {
     // Run the expected db_select() and compare the results.
     $master_did = 159;

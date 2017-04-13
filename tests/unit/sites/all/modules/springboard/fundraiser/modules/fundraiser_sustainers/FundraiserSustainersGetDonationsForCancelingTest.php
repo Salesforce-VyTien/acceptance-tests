@@ -5,7 +5,7 @@ require_once SPRINGBOARD_MODULES_ROOT . 'fundraiser/modules/fundraiser_sustainer
 /**
  * @covers _fundraiser_sustainers_get_donations_for_canceling().
  */
-class FundraiserSustainersGetDonationsForCancelingTest extends \Codeception\Test\Unit {
+class FundraiserSustainersGetDonationsForCancelingTest extends UnitBaseTest {
   public function testFundraiserSustainersGetDonationsForCancelingEmptyResult() {
     // Stub the variable_get().
     FunctionMock::createMockFunctionDefinition('variable_get');
