@@ -11,8 +11,13 @@
  */
 
 // Get the directory of codeception and the current test directory.
-define('TEST_DIRECTORY', dirname(__FILE__));
-define('CEPT_DIRECTORY', getcwd());
+if (!defined('TEST_DIRECTORY')) {
+  define('TEST_DIRECTORY', dirname(__FILE__));
+}
+
+if (!defined('CEPT_DIRECTORY')) {
+  define('CEPT_DIRECTORY', getcwd());
+}
 
 // Load the local bootstrap file if it exists.
 if (file_exists(TEST_DIRECTORY. '/_bootstrap_dev.php')) {
