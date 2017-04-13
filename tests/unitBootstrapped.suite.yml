@@ -1,0 +1,4 @@
+class_name: UnitBootstrappedTester
+modules:
+    enabled:
+        - \Helper\UnitBootstrapped

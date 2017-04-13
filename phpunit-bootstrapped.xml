@@ -1,8 +1,0 @@
-<testsuites bootstrap="tests/phpunit-bootstrapped/bootstrap.php" colors="true">
-    <testsuite name="Example Test">
-        <file>tests/phpunit-bootstrapped/ExampleTest.php</file>
-    </testsuite>
-    <testsuite name="Fundraiser">
-        <directory>tests/phpunit-bootstrapped/drupal/sites/all/modules/springboard/fundraiser/modules/fundraiser_sustainers</directory>
-    </testsuite>
-</testsuites>
