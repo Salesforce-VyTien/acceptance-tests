@@ -11,17 +11,15 @@
  */
 
 // Get the directory of codeception and the current test directory.
-if (!defined('TEST_DIRECTORY')) {
-  define('TEST_DIRECTORY', dirname(__FILE__));
-}
+define('UNIT_BOOTSTRAPPED_TEST_DIRECTORY', dirname(__FILE__));
 
 if (!defined('CEPT_DIRECTORY')) {
   define('CEPT_DIRECTORY', getcwd());
 }
 
 // Load the local bootstrap file if it exists.
-if (file_exists(TEST_DIRECTORY. '/_bootstrap_dev.php')) {
-  require_once TEST_DIRECTORY . '/_bootstrap_dev.php';
+if (file_exists(UNIT_BOOTSTRAPPED_TEST_DIRECTORY. '/_bootstrap_dev.php')) {
+  require_once UNIT_BOOTSTRAPPED_TEST_DIRECTORY . '/_bootstrap_dev.php';
 }
 
 if (!defined('DRUPAL_ROOT')) {
