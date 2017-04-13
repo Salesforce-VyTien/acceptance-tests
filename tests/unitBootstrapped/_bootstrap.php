@@ -21,11 +21,15 @@ if (file_exists(TEST_DIRECTORY. '/_bootstrap_dev.php')) {
 
 if (!defined('DRUPAL_ROOT')) {
   define('DRUPAL_ROOT', rtrim(CEPT_DIRECTORY, 'acceptence-tests'));
+}
+
+// If Drupal has not been bootstrapped yet, do so.
+if (!defined('DRUPAL_BOOTSTRAP_FULL')) {
   // The, chdir(), constants and variables are needed for the bootstrap process.
   chdir(DRUPAL_ROOT);
   require_once DRUPAL_ROOT . '/includes/bootstrap.inc';
   $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-}
 
-// Bootstrap Drupal.
-drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+  // Bootstrap Drupal.
+  drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+}

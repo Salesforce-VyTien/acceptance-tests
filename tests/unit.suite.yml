@@ -1,4 +1,4 @@
-class_name: UnitBootstrappedTester
+class_name: UnitTester
 modules:
     enabled:
         - \Helper\Unit

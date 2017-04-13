@@ -54,8 +54,9 @@ class FundraiserSustainersGetDonationsForCancelingTest extends PHPUnit_Framework
   }
 
   public function __destruct() {
-    // Clean up the stubbed values.
+    // Clean up the stubbed values and mocked functions.
     FunctionMock::resetStubs();
+    FunctionMock::resetMocks();
   }
 }
 
