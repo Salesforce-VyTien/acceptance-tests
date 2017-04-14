@@ -8,19 +8,19 @@ require_once SPRINGBOARD_MODULES_ROOT . 'fundraiser/modules/fundraiser_sustainer
 class FundraiserSustainersGetDonationsForCancelingTest extends UnitBaseTest {
   public function testFundraiserSustainersGetDonationsForCancelingEmptyResult() {
     // Stub the variable_get().
-    FunctionMock::createMockFunctionDefinition('variable_get');
-    FunctionMock::stub('variable_get', 3);
+    $this::createMockFunctionDefinition('variable_get');
+    $this::stub('variable_get', 3);
 
     // Stub the database functions.
-    FunctionMock::createMockFunctionDefinition('db_select');
-    FunctionMock::createMockFunctionDefinition('db_or');
-    FunctionMock::createMockFunctionDefinition('db_and');
+    $this::createMockFunctionDefinition('db_select');
+    $this::createMockFunctionDefinition('db_or');
+    $this::createMockFunctionDefinition('db_and');
 
     // Pass an empty array to the db_select mock class.
     $db_mock = new FundraiserSustainersGetDonationsForCancelingDbMock(array());
-    FunctionMock::stub('db_select', $db_mock);
-    FunctionMock::stub('db_or', $db_mock);
-    FunctionMock::stub('db_and', $db_mock);
+    $this::stub('db_select', $db_mock);
+    $this::stub('db_or', $db_mock);
+    $this::stub('db_and', $db_mock);
 
     // Exercise the _fundraiser_sustainers_get_donations_for_canceling() method.
     $result = _fundraiser_sustainers_get_donations_for_canceling(123);
@@ -31,20 +31,20 @@ class FundraiserSustainersGetDonationsForCancelingTest extends UnitBaseTest {
 
   public function testFundraiserSustainersGetDonationsForCancelingResult() {
     // Stub the variable_get().
-    FunctionMock::createMockFunctionDefinition('variable_get');
-    FunctionMock::stub('variable_get', 3);
+    $this::createMockFunctionDefinition('variable_get');
+    $this::stub('variable_get', 3);
 
     // Stub the database functions.
-    FunctionMock::createMockFunctionDefinition('db_select');
-    FunctionMock::createMockFunctionDefinition('db_or');
-    FunctionMock::createMockFunctionDefinition('db_and');
+    $this::createMockFunctionDefinition('db_select');
+    $this::createMockFunctionDefinition('db_or');
+    $this::createMockFunctionDefinition('db_and');
 
     // Pass a populated array to the db_select mock class.
     $args = array(123 => array());
     $db_mock = new FundraiserSustainersGetDonationsForCancelingDbMock($args);
-    FunctionMock::stub('db_select', $db_mock);
-    FunctionMock::stub('db_or', $db_mock);
-    FunctionMock::stub('db_and', $db_mock);
+    $this::stub('db_select', $db_mock);
+    $this::stub('db_or', $db_mock);
+    $this::stub('db_and', $db_mock);
 
     // Exercise the _fundraiser_sustainers_get_donations_for_canceling() method.
     $result = _fundraiser_sustainers_get_donations_for_canceling(123);
@@ -55,8 +55,8 @@ class FundraiserSustainersGetDonationsForCancelingTest extends UnitBaseTest {
 
   public function __destruct() {
     // Clean up the stubbed values and mocked functions.
-    FunctionMock::resetStubs();
-    FunctionMock::resetMocks();
+    $this::resetStubs();
+    $this::resetMocks();
   }
 }
 
