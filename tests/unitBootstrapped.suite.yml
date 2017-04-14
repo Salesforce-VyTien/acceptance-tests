@@ -1,5 +1,0 @@
-class_name: UnitBootstrappedTester
-modules:
-    enabled:
-        - Asserts
-        - \Helper\UnitBootstrapped
