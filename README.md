@@ -1,4 +1,4 @@
-# Springboard Acceptance Tests
+# Springboard Tests
 
 ## Requirements
 
@@ -6,10 +6,10 @@
 
 ## Installation
 
-###Install Composer
+### Install Composer
 You'll need Composer.  If you don't have it, install it globally from https://getcomposer.org/download/.
 
-###Install Codeception
+### Install Codeception
 Clone this repo.  From within the acceptance-tests directory run `composer install`
 to download the dependencies into the vendor directory.
 
@@ -21,9 +21,12 @@ alias codecept=/the_path_to/acceptance-tests/vendor/codeception/codeception/code
 Copy `codeception.yml.local` to `codeception.yml` and modify it to suit your environment.
 Do the same for `tests/acceptance.suite.yml.local` to `tests/acceptance.suite.yml`.
 
-###Optionally Install Selenium Server Standalone and Selenium Browser Plugins
+Copy `tests/unit/_bootstrap.php` to `tests/unit/_bootstrap_dev.php` and modify the DRUPAL_ROOT constant
+to match your environment, if necessary.
 
-The tests run by default with the built-in PhantomJs server and headless browser, so you don't need
+### Optionally Install Selenium Server Standalone and Selenium Browser Plugins
+
+The acceptance tests run by default with the built-in PhantomJs server and headless browser, so you don't need
 to do this step unless you want to watch the tests in a real browser (to observe php notices and
 other issues that don't force an error).
 
@@ -54,16 +57,16 @@ For Chrome:
 `java -jar /path_to/selenium-server-standalone-2.x.x.jar -Dwebdriver.chrome.driver="/path_to/chromedriver"`
 
 
-## Running tests
+## Running acceptance tests
 
-By default, tests will run using PhantomJS server and a headless browser. PhantomJS will start automatically.
+By default, acceptance tests will run using PhantomJS server and a headless browser. PhantomJS will start automatically.
 
-Headless tests run 2x as fast as browser tests.
+Headless acceptance tests run 2x as fast as browser tests.
 
 You should be able to run the tests with `codecept run`.
 You should be able to run an individual test with `codecept run tests/acceptance/path_to_test/testName.php`.
 
-### Running tests in environments
+### Running acceptance tests in environments
 You should be able to run Selenium and Firefox browser tests with `codecept run --env=firefox_selenium`.
 
 You should be able to run Selenium and Chrome browser tests with `codecept run --env=chrome_selenium`.
@@ -73,7 +76,7 @@ put, for example, `// @env firefox_selenium` at the top of the test to have the 
 
 Environment configurations can be added in the tests/_envs directory.
 
-### Running tests in groups
+### Running accpetance tests in groups
 You can creates groups by putting a comment with a group name at the top of each test in the group:
 
 //@group group_name
@@ -81,7 +84,7 @@ You can creates groups by putting a comment with a group name at the top of each
 `codecept run -g group_name`
 
 
-###Debugging tests
+### Debugging acceptance tests
 Output ends up in `tests/_output`, which would include screenshots if a test fails.
 
 Add the `--html` switch to get a pretty report file.
@@ -103,7 +106,7 @@ To get a screenshot during a particular step of a test (especially good for head
 $I->makeScreenshot('name_of_my_screenshot');
 // saved to: tests/_output/debug/name_of_my_screenshot.png
 
-## Create a new test
+### Create a new acceptance test
 
 ````
 codecept generate:cept acceptance testName
@@ -113,13 +116,21 @@ And you'll end up with a test file in `tests/acceptance/testNameCept.php`.
 You should change the AcceptanceTester class to one of the _steps classes
 we have created depending on what features you need.
 
-## Basic acceptance testing
+### Basic acceptance testing
 
 http://codeception.com/docs/03-AcceptanceTests
 
-## Webdriver command reference
+### Webdriver command reference
 Most of these methods are available for both Selenium and PhantomJs tests.
 http://codeception.com/docs/modules/WebDriver
+
+## Running Unit Tests
+
+You should be able to run the tests with `codecept run unit`.
+
+### Basic unit testing
+
+http://codeception.com/docs/05-UnitTests
 
 ## Springboard Testing Tips.
 
