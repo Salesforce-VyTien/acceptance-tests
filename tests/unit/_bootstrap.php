@@ -23,8 +23,8 @@ if (file_exists(UNIT_TEST_DIRECTORY. '/_bootstrap_dev.php')) {
 }
 
 if (!defined('DRUPAL_ROOT')) {
-  // Directory to the drupal root.
-  define('DRUPAL_ROOT', rtrim(CEPT_DIRECTORY, 'acceptence-tests'));
+  // Go one level up for the Drupal root.
+  define('DRUPAL_ROOT', dirname(CEPT_DIRECTORY) . '/');
 }
 
 if (!defined('SPRINGBOARD_MODULES_ROOT')) {
