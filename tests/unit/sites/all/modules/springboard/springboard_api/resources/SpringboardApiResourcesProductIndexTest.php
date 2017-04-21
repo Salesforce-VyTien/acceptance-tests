@@ -51,8 +51,8 @@ class SpringboardApiResourcesProductIndexTest extends UnitBaseTest {
     // Exercise the springboard_api_products_index function.
     $result = springboard_api_products_index('type', 'apikey', 10, 0);
 
-    $expected = array($item + array('field_name' => array()));
-    // Verify it returned an empty array.
+    // Verify it returned the items array plus the field.
+    $expected = array($item + array('field_name' => 'field value'));
     $this->assertEquals($expected, $result);
   }
 
@@ -79,6 +79,6 @@ class SpringboardApiResourcesProductIndexWrapperMock {
  */
 class SpringboardApiResourcesProductIndexWrapperRawMock {
   public function raw() {
-    return array();
+    return 'field value';
   }
 }
