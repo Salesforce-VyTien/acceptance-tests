@@ -45,7 +45,7 @@ class FundraiserCommerceFundraiserDonationAfterProcessTest extends UnitBaseTest 
     $this::createMockFunctionDefinition('db_query');
   }
 
-  public function testFundraiserCommerceFundraiserDonationAfterProcessResult() {
+  public function testFundraiserCommerceFundraiserDonationAfterProcess() {
     // For stubbing the db_query we pass in the expected sql and array of arguments.
     $dbquerysql = 'SELECT DISTINCT(fs.master_did) FROM {fundraiser_sustainers} fs LEFT JOIN {fundraiser_donation} fd ON fd.did = fs.did WHERE fd.card_id = :card_id';
     $dbquery_args = array(':card_id' => 13);
