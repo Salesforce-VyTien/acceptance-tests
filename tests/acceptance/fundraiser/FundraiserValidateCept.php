@@ -4,6 +4,7 @@
 
 $I = new \AcceptanceTester\SpringboardSteps($scenario);
 $I->wantTo('test fundraiser validation.');
+/*
 $I->login();
 $I->configureEncrypt();
 $I->logout();
@@ -73,3 +74,8 @@ $I->fillField(DonationFormPage::$zipField, '123');
 $I->see('Enter a valid zipcode.');
 $I->fillField(DonationFormPage::$creditCardNumberField, '41111111');
 $I->see('Enter a valid credit card number.');
+*/
+DonationFormPage::$URL = '/node/4';
+$I->amOnPage(DonationFormPage::$URL);
+//$I->selectOption(DonationFormPage::$askAmountField, '50');
+$I->makeADonation(array('amount' => 50));
