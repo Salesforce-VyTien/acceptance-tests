@@ -48,7 +48,7 @@ class FundraiserCommerceFundraiserDonationAfterProcessTest extends UnitBaseTest 
 
   public function testFundraiserCommerceFundraiserDonationAfterProcess() {
     // For stubbing the db_query we pass in the expected sql and array of arguments.
-    $dbquerysql = 'SELECT DISTINCT(fs.master_did), fd.did FROM {fundraiser_sustainers} fs LEFT JOIN {fundraiser_donation} fd ON fd.did = fs.did WHERE fd.card_id = :card_id';
+    $dbquerysql = 'SELECT DISTINCT(fs.master_did) FROM {fundraiser_sustainers} fs LEFT JOIN {fundraiser_donation} fd ON fd.did = fs.did WHERE fd.card_id = :card_id';
     $dbquery_args = array(':card_id' => 13);
     // We pass in the test class to stub for setting the $fetchAllRan to true.
     $db_mock = new FundraiserCommerceFundraiserDonationAfterProcessDbMock($this);
@@ -86,7 +86,7 @@ class FundraiserCommerceFundraiserDonationAfterProcessDbMock {
     $this->test = func_get_args()[0];
   }
 
-  public function fetchAllAssoc() {
+  public function fetchAll() {
     $this->test->fetchAllRan = TRUE;
     return array();
   }
