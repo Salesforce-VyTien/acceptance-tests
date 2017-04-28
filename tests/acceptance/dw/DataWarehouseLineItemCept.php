@@ -33,8 +33,8 @@ $I->fillField(DonationFormPage::$creditCardNumberField, '4111111111111111');
 $I->selectOption(DonationFormPage::$creditCardExpirationMonthField, date('n'));
 $I->selectOption(DonationFormPage::$creditCardExpirationYearField, date('Y') + 1);
 $I->fillField(DonationFormPage::$CVVField, '123');
-$I->expect('the donation to process succesfully');
 $I->click('#edit-submit');
+$I->expect('the donation to process succesfully');
 $I->see('Thank you, your submission has been received.');
 
 $I->expect('7 items queued for the data warehouse');
