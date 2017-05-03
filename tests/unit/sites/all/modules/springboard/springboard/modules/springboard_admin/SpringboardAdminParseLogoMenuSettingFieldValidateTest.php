@@ -1,6 +1,6 @@
 <?php
 
-require_once SPRINGBOARD_MODULES_ROOT . 'springboard/modules/springboard/modules/springboard_admin/springboard_admin.module';
+require_once SPRINGBOARD_MODULES_ROOT . 'springboard/modules/springboard_admin/springboard_admin.module';
 
 /**
  * @covers The SB logo drop-down menu's setting field form validation function: _springboard_admin_logo_links_validate().
