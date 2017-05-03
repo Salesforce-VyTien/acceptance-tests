@@ -3,7 +3,8 @@
         "jakoch/phantomjs-installer": "2.1.1-p06",
         "codeception/codeception": "2.2.9",
         "jonnyw/php-phantomjs": "4.*",
-        "site5/phantoman": "^1.1"
+        "site5/phantoman": "^1.1",
+        "myplanetdigital/function_mock": "dev-master#b343bba6820254ce2d7e251b6923ab6fcc9231c9"
           },
           "scripts": {
               "post-install-cmd": [
@@ -12,5 +13,11 @@
               "post-update-cmd": [
                   "PhantomInstaller\\Installer::installPhantomJS"
               ]
-          }
-      }
+          },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/myplanetdigital/function_mock.git"
+        }
+    ]
+}
