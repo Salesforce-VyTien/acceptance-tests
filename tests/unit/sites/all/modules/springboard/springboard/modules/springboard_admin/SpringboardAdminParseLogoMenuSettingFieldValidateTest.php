@@ -28,7 +28,7 @@ class SpringboardAdminParseLogoMenuSettingFieldValidateTest extends UnitBaseTest
     $valid_values[] = 'Test|https://google.com?a=1&b=2'; // One-word link title, https protocol + multiple params
    
     $form = array('menu' => array('springboard_logo_links' => array(
-      '#parent' => array('springboard_logo_links'),
+      '#parents' => array('springboard_logo_links'),
     )));
  
     // Test each invalid row value by itself:
