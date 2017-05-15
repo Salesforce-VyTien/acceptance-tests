@@ -1,0 +1,8 @@
+class_name: FunctionalTester
+modules:
+    enabled:
+        - Asserts
+        - \Helper\Functional
+        - WebDriver:
+            url: https://qa-master.qa.jacksonriverdev.com/
+            browser: phantomjs
