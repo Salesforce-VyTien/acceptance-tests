@@ -2,7 +2,7 @@
 
 $I = new FunctionalTester($scenario);
 
-list($firstName, $lastName, $email) = $I->randomInfo();
+list($firstName, $lastName, $email) = $I->randomInfo('Authorize');
 
 $I->amOnPage('/secure/one-time--other-amount--authnet');
 $I->fillField('submitted[donation][other_amount]', '65');

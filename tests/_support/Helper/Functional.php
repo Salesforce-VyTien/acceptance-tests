@@ -10,10 +10,14 @@ class Functional extends \Codeception\Module
   /**
    * Generates a random name.
    *
+   * @param string $lastName
+   *   An optional last name to use. You'll usually want it so that it
+   *   identifies the payment gateway.
+   *
    * @return string
    *   A random name.
    */
-  public function randomInfo() {
+  public function randomInfo($lastName = 'Authorize') {
     $names = array(
       'Damian',
       'Ayana',
@@ -67,8 +71,11 @@ class Functional extends \Codeception\Module
       'Rodolfo',
     );
     $firstName = $names[rand(0, 49)];
-    $lastName = 'Authorize';
-    $email = strtolower($firstName) . '.authorize@mailinator.com';
+    $randomNumber = '';
+    while (strlen($randomNumber) < 5) {
+      $randomNumber .= rand(0, 9);
+    }
+    $email = strtolower($firstName) . '.' . strtolower($lastName) . $randomNumber . '@mailinator.com';
 
     return array($firstName, $lastName, $email);
   }
