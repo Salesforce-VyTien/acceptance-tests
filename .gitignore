@@ -10,3 +10,4 @@ codeception.yml.console
 .DS_store
 tests/_support/_generated/
 _bootstrap_dev.php
+functional.suite.yml
