@@ -1,11 +1,14 @@
 <?php
 
 $I = new FunctionalTester($scenario);
+
+list($firstName, $lastName, $email) = $I->randomInfo();
+
 $I->amOnPage('/secure/one-time--default-ask--authnet');
-$I->fillField('submitted[donation][other_amount]', '85');
-$I->fillField('submitted[donor_information][first_name]', 'Tester');
-$I->fillField('submitted[donor_information][last_name]', 'McTest');
-$I->fillField('submitted[donor_information][mail]', 'jr@jacksonriver.com');
+$I->selectOption('//input[@name="submitted[donation][amount]"]', '50');
+$I->fillField('submitted[donor_information][first_name]', $firstName);
+$I->fillField('submitted[donor_information][last_name]', $lastName);
+$I->fillField('submitted[donor_information][mail]', $email);
 $I->fillField('submitted[billing_information][address]', '123 Test St');
 $I->fillField('submitted[billing_information][city]', 'Durham');
 $I->selectOption('submitted[billing_information][state]', 'NC');
@@ -18,7 +21,7 @@ $I->fillField('submitted[payment_information][payment_fields][bank account][conf
 $I->fillField('submitted[payment_information][payment_fields][bank account][acct_name]', 'Tester McTest');
 $I->click('#edit-submit');
 $I->seeCurrentURLMatches('/\/secure\/one\-time\-\-default\-ask\-\-authnet\/thank\-you\?sid\=\d+/');
-$I->see('Amount: $85.00');
-$I->see('Tester McTest');
-$I->see('jr@jacksonriver.com');
+$I->see('Amount: $50.00');
+$I->see($firstName . ' ' . $lastName);
+$I->see($email);
 $I->see('123 Test St  Durham, NC 27517');
