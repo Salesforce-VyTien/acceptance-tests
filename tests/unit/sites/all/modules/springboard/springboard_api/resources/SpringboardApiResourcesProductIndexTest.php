@@ -7,12 +7,13 @@ require_once SPRINGBOARD_MODULES_ROOT . 'springboard_api/resources/springboard_a
  */
 class SpringboardApiResourcesProductIndexTest extends UnitBaseTest {
   function setUp() {
+    // Set this global value to work with the mock EntityFieldQuery class.
     global $currentUnitTest;
     $currentUnitTest = get_called_class();
   }
 
   /**
-   * Mock function of EntityFieldQuery class.
+   * Mock function used by mock EntityFieldQuery class.
    *
    * @return array
    */
