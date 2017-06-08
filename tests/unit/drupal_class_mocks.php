@@ -33,3 +33,16 @@ class EntityFieldQuery {
     }
   }
 }
+
+/**
+ * Class RulesDataUI
+ *
+ * For mocking Rules's RulesDataUI class in unit tests.
+ */
+class RulesDataUI {}
+
+/**
+ * Interface RulesDataDirectInputFormInterface
+ * For mocking Rules's RulesDataUI class in unit tests.
+ */
+interface RulesDataDirectInputFormInterface {}
