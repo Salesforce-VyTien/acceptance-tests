@@ -18,6 +18,11 @@ $I->see('Initial Referrer');
 $I->see('Search Engine');
 $I->see('Search String');
 $I->see('User Agent');
+$I->see('Device Type');
+$I->see('Device Name');
+$I->see('Device Browser');
+$I->see('Originating Node ID');
+$I->see('Originating Form Name');
 
 $I->click('View');
 $I->click('Submit');
