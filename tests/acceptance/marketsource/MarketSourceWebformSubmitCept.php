@@ -40,6 +40,15 @@ $I->nid = $I->cloneADonationForm();
 $I->internalName = $I->grabTextFrom('#edit-field-fundraiser-internal-name-und-0-value');
 
 // Save configuration.
+$I->click('Save');
+
+$I->click('Form components', 'ul.primary');
+$I->click('Confirmation page & settings', 'ul.secondary');
+
+// Save redirect field here.
+$I->checkOption('#edit-redirect-confirmation');
+
+// Save configuration.
 $I->click('Save configuration');
 
 $I->logout();
