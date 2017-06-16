@@ -50,4 +50,4 @@ $I->makeADonation(array('amount' => 10, 'first_name' => 'John', 'last_name' => '
 
 // Confirm that originating form nid and internal name are in the querystring.
 $I->dontSeeInCurrentUrl('origin_nid='. $I->nid);
-$I->dontSeeInCurrentUrl('origin_form_name='. $I->internalNam
+$I->dontSeeInCurrentUrl('origin_form_name='. $I->internalName);
