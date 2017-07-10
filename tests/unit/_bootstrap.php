@@ -35,3 +35,5 @@ if (!defined('SPRINGBOARD_MODULES_ROOT')) {
 require_once CEPT_DIRECTORY . '/vendor/autoload.php';
 
 require_once UNIT_TEST_DIRECTORY . '/drupal_class_mocks.php';
+
+require_once UNIT_TEST_DIRECTORY . '/drupal_constants.php';
